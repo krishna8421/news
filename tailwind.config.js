@@ -7,6 +7,9 @@ module.exports = {
         Inter: ["Inter", "serif"],
         Poppins: ["Poppins", "sans-serif"],
       },
+      colors: {
+        dashboard: "#F6F7FB",
+      },
     },
   },
   plugins: [],

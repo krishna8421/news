@@ -24,12 +24,13 @@ export default function FloatingSideBar() {
   };
   return (
     <div className="h-screen w-16 bg-white flex flex-col fixed">
-      <Link href={navRoutes.root} passHref>
-        <div
-          className="font-Cinzel text-4xl font-medium hover:cursor-pointer h-16 w-full flex justify-center items-center bg-indigo-600 text-slate-100">
-          N
-        </div>
-      </Link>
+      <div className="font-Cinzel text-4xl h-16 p-3 font-medium hover:cursor-pointer w-full flex justify-center items-center bg-indigo-600 text-slate-100">
+        <Link href={navRoutes.root} passHref>
+          <a>
+            N
+          </a>
+        </Link>
+      </div>
       <div className={`flex justify-between flex-col bg-slate-900 h-full`}>
         <div className="flex justify-between flex-col  h-full">
           <div>
