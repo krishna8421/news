@@ -26,19 +26,32 @@ export default function FloatingSideBar() {
     <div className="h-screen w-16 bg-white flex flex-col fixed z-50">
       <div className="font-Cinzel text-4xl h-16 p-3 font-medium hover:cursor-pointer w-full flex justify-center items-center bg-indigo-600 text-slate-100">
         <Link href={navRoutes.root} passHref>
-          <a>
-            N
-          </a>
+          <a>N</a>
         </Link>
       </div>
       <div className={`flex justify-between flex-col bg-slate-900 h-full`}>
         <div className="flex justify-between flex-col  h-full">
           <div>
-            <SideBarIcons route={navRoutes.home} icon={<AiFillHome />} isActive={isActive(navRoutes.home)} />
-            <SideBarIcons route={navRoutes.new} icon={<IoAddCircle />} isActive={isActive(navRoutes.new)} />
-            <SideBarIcons route={navRoutes.liked} icon={<AiTwotoneHeart />} isActive={isActive(navRoutes.liked)} />
-            <SideBarIcons route={navRoutes.settings} icon={<AiTwotoneSetting />}
-                          isActive={isActive(navRoutes.settings)} />
+            <SideBarIcons
+              route={navRoutes.home}
+              icon={<AiFillHome />}
+              isActive={isActive(navRoutes.home)}
+            />
+            <SideBarIcons
+              route={navRoutes.new}
+              icon={<IoAddCircle />}
+              isActive={isActive(navRoutes.new)}
+            />
+            <SideBarIcons
+              route={navRoutes.liked}
+              icon={<AiTwotoneHeart />}
+              isActive={isActive(navRoutes.liked)}
+            />
+            <SideBarIcons
+              route={navRoutes.settings}
+              icon={<AiTwotoneSetting />}
+              isActive={isActive(navRoutes.settings)}
+            />
           </div>
           <div>
             <div
@@ -49,9 +62,7 @@ export default function FloatingSideBar() {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );
-};
-
+}

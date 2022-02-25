@@ -4,7 +4,6 @@ import State from "@common/DashBoard/Home/Stats";
 import { useState, useEffect } from "react";
 import Posts from "@common/DashBoard/Home/Posts";
 
-
 const Home: NextPage = () => {
   const [greetings, setGreetings] = useState("");
   console.log(greetings);
@@ -24,8 +23,10 @@ const Home: NextPage = () => {
     name: "Krishna Kumar",
     shortHeading1: "This is the 1st post",
     shortHeading2: "This is the 2nd post",
-    shortDescription1: "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quaerat.",
-    shortDescription2: "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quaerat.",
+    shortDescription1:
+      "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quaerat.",
+    shortDescription2:
+      "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quaerat.",
   };
   return (
     <Dashboard>
@@ -38,10 +39,18 @@ const Home: NextPage = () => {
           <State title="Likes Given" value={5} />
         </div>
         {/*Only if Author*/}
-        <h3 className="font-Poppins font-semibold text-xl md:mt-12 mt-8 text-gray-600">Your Posts</h3>
+        <h3 className="font-Poppins font-semibold text-xl md:mt-12 mt-8 text-gray-600">
+          Your Posts
+        </h3>
         <div className="md:mt-12 mt-4 flex flex-wrap">
-          <Posts shortHeading={testData.shortHeading1} shortDescription={testData.shortDescription1} />
-          <Posts shortHeading={testData.shortHeading1} shortDescription={testData.shortDescription2} />
+          <Posts
+            shortHeading={testData.shortHeading1}
+            shortDescription={testData.shortDescription1}
+          />
+          <Posts
+            shortHeading={testData.shortHeading1}
+            shortDescription={testData.shortDescription2}
+          />
         </div>
       </div>
     </Dashboard>

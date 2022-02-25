@@ -1,4 +1,22 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn lint-staged
+echo "Running pre-commit hook..."
+
+yarn format
+echo "Prettier check completed successfully. ✅ "
+
+yarn lint || (
+  echo "Lint check failed. ❌ "
+  exit 1
+)
+echo "ESLint check completed successfully. ✅ "
+
+yarn build || (
+  echo "Build failed. ❌ "
+  exit 1
+)
+echo "Build completed successfully. ✅ "
+
+echo "Done. 🎉 "
+

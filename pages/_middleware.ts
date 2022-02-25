@@ -53,15 +53,13 @@ then access the cookie method on the instance, before returning the response.
     return NextResponse.rewrite(`/${isInBeta ? 'beta' : 'non-beta'}`)
  */
 
+// return new Response('Hello, world!')
+// const url = req.nextUrl.clone()
+// url.pathname = '/login'
+// return NextResponse.redirect(url)
 
-
-  // return new Response('Hello, world!')
-  // const url = req.nextUrl.clone()
-  // url.pathname = '/login'
-  // return NextResponse.redirect(url)
-
-  // import { NextResponse } from "next/server";
-  import type { NextRequest } from "next/server";
+// import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 export function middleware(_request: NextRequest) {
   // const url = request.nextUrl.clone();

@@ -25,19 +25,28 @@ const Settings: NextPage = () => {
             />
           ) : (
             <Avatar size="40" name={"krishna kumar"} round={true} />
-          )
-          }
+          )}
           <div className=" mt-16">
             <div className="flex mb-8 flex-wrap">
-              <h3 className="font-Poppins font-medium md:text-xl text-md text-gray-900 md:mr-8 mr-4">Name:</h3>
-              <h3 className="font-Poppins font-medium md:text-xl text-md text-gray-900">{testData.name}</h3>
-            </  div>
+              <h3 className="font-Poppins font-medium md:text-xl text-md text-gray-900 md:mr-8 mr-4">
+                Name:
+              </h3>
+              <h3 className="font-Poppins font-medium md:text-xl text-md text-gray-900">
+                {testData.name}
+              </h3>
+            </div>
             <div className="flex mb-8 flex-wrap">
-              <h3 className="font-Poppins font-medium md:text-xl text-md text-gray-900  md:mr-8 mr-4">Email:</h3>
-              <h3 className="font-Poppins font-medium md:text-xl text-md text-gray-900">{testData.email}</h3>
-            </  div>
+              <h3 className="font-Poppins font-medium md:text-xl text-md text-gray-900  md:mr-8 mr-4">
+                Email:
+              </h3>
+              <h3 className="font-Poppins font-medium md:text-xl text-md text-gray-900">
+                {testData.email}
+              </h3>
+            </div>
           </div>
-          <button className="bg-[#FA6364] px-7 py-3 rounded text-white mt-16 font-semibold">Log Out</button>
+          <button className="bg-[#FA6364] px-7 py-3 rounded text-white mt-16 font-semibold">
+            Log Out
+          </button>
         </div>
       </div>
     </Dashboard>
