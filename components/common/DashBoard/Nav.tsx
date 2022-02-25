@@ -9,10 +9,7 @@ export default function Nav() {
   }
 
   return (
-    <div className="h-16 bg-slate-900 flex justify-end px-3 bg-white items-center">
-      {/*<Link href="/" passHref>*/}
-      {/*  <div className="font-Cinzel text-3xl font-medium hover:cursor-pointer">News</div>*/}
-      {/*</Link>*/}
+    <div className="h-16 bg-slate-900 flex justify-end px-5 bg-white items-center w-[calc(100%-4rem)] fixed z-50">
       {testData.pic ? (
           <Image
             src={testData.picLink}

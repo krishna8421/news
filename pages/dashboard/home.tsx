@@ -29,7 +29,7 @@ const Home: NextPage = () => {
   };
   return (
     <Dashboard>
-      <div className="pt-16 pl-8 md:pl-32 md:pt-20 pb-10">
+      <div>
         <h1 className="font-Poppins font-light md:text-3xl text-xl">Good {greetings} ,</h1>
         <h1 className="font-Poppins font-light md:text-5xl text-3xl mt-4">{testData.name}</h1>
         <h3 className="font-Poppins font-semibold text-xl md:mt-20 mt-12 text-gray-600">Stats</h3>

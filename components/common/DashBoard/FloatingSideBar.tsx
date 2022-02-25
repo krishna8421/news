@@ -23,7 +23,7 @@ export default function FloatingSideBar() {
     await router.push(navRoutes.root);
   };
   return (
-    <div className="h-screen w-16 bg-white flex flex-col fixed">
+    <div className="h-screen w-16 bg-white flex flex-col fixed z-50">
       <div className="font-Cinzel text-4xl h-16 p-3 font-medium hover:cursor-pointer w-full flex justify-center items-center bg-indigo-600 text-slate-100">
         <Link href={navRoutes.root} passHref>
           <a>
