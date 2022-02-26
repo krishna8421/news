@@ -18,5 +18,7 @@ yarn build || (
 )
 echo "Build completed successfully. ✅ "
 
+git add .
+
 echo "Done. 🎉 "
 
