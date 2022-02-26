@@ -5,11 +5,11 @@ interface Props {
   children: ReactNode;
 }
 
-export default function Auth({ children }:Props) {
-  return(
+export default function Auth({ children }: Props) {
+  return (
     <div className="min-h-screen w-full">
-      <NavBar/>
+      <NavBar isAuth={false} />
       {children}
     </div>
-  )
+  );
 }

@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 interface Props {
-  name: string;
-  imgUrl: string;
+  name?: string;
+  imgUrl?: string;
   isAuth: boolean;
 }
 
@@ -25,12 +25,13 @@ export default function NavBar({ isAuth = false, name, imgUrl }: Props) {
     };
   }, []);
   return (
-    <div
-      className="h-16 flex justify-between px-5 items-center w-full sticky top-0 z-50 backdrop-blur bg-white/75 border-gray-100 border-b-2">
-      <div className="font-semibold font-Cinzel text-2xl cursor-pointer" onClick={async () => {
-        await router.push("/");
-      }}>
-
+    <div className="h-16 flex justify-between px-5 items-center w-full sticky top-0 z-50 backdrop-blur bg-white/75 border-gray-100 border-b-2">
+      <div
+        className="font-semibold font-Cinzel text-2xl cursor-pointer"
+        onClick={async () => {
+          await router.push("/");
+        }}
+      >
         NEWS
       </div>
       {isAuth ? (
@@ -40,30 +41,31 @@ export default function NavBar({ isAuth = false, name, imgUrl }: Props) {
             <h1 className="font-semibold">{name}</h1>
           </div>
           {imgUrl ? (
-            <Image
-              src={imgUrl}
-              width={40}
-              height={40}
-              alt="User Avatar"
-              className="rounded-full"
-            />
+            <Image src={imgUrl} width={40} height={40} alt="User Avatar" className="rounded-full" />
           ) : (
             <Avatar size="40" name={name} round={true} />
           )}
         </div>
       ) : (
         <div className="flex items-center">
-          <h3 className="mr-5 cursor-pointer" onClick={async () => {
-            await router.push("/auth/login");
-          }}>Login</h3>
-          <div className="cursor-pointer bg-black text-white rounded-full px-8 py-3" onClick={async () => {
-            await router.push("/auth/register");
-          }}>
+          <h3
+            className="mr-5 cursor-pointer"
+            onClick={async () => {
+              await router.push("/auth/login");
+            }}
+          >
+            Login
+          </h3>
+          <div
+            className="cursor-pointer bg-black text-white rounded-full px-8 py-3"
+            onClick={async () => {
+              await router.push("/auth/register");
+            }}
+          >
             Register
           </div>
         </div>
       )}
-
     </div>
   );
 }
