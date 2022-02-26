@@ -9,7 +9,7 @@ export default function Nav() {
   };
 
   return (
-    <div className="h-16 bg-slate-900 flex justify-end px-5 bg-white items-center w-[calc(100%-4rem)] fixed z-50">
+    <div className="h-16 flex justify-end px-5 items-center w-[calc(100%-4rem)] fixed z-50 backdrop-blur bg-white/75 border-gray-100 border-b-2">
       {testData.pic ? (
         <Image
           src={testData.picLink}

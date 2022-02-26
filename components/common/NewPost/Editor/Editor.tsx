@@ -58,7 +58,6 @@ export default function Editor() {
   return (
     <div>
       <Menu editor={editor} />
-      <div></div>
       <EditorContent editor={editor} />
     </div>
   );
