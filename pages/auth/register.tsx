@@ -1,12 +1,12 @@
 import { NextPage } from "next";
-import Auth from "@layouts/Auth";
+import HomeLayout from "@layouts/HomeLayout";
 
 const Register: NextPage = () => {
   return (
-    <Auth>
+    <HomeLayout>
       <h1>Login</h1>
       <p>Register to application</p>
-    </Auth>
+    </HomeLayout>
   );
 };
 export default Register;

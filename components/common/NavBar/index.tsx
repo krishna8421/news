@@ -25,7 +25,7 @@ export default function NavBar({ isAuth = false, name, imgUrl }: Props) {
     };
   }, []);
   return (
-    <div className="h-16 flex justify-between px-5 items-center w-full sticky top-0 z-50 backdrop-blur bg-white/75 border-gray-100 border-b-2">
+    <div className="h-16 flex justify-between px-5 items-center w-full sticky top-0 z-50 bg-black">
       <div
         className="font-semibold font-Cinzel text-2xl cursor-pointer"
         onClick={async () => {
@@ -37,7 +37,7 @@ export default function NavBar({ isAuth = false, name, imgUrl }: Props) {
       {isAuth ? (
         <div className="flex items-center">
           <div className="mr-4 font-Poppins">
-            <h3 className="text-slate-600 text-sm mr-8">Good {greetings},</h3>
+            <h3 className="text-slate-200 text-sm mr-8">Good {greetings},</h3>
             <h1 className="font-semibold">{name}</h1>
           </div>
           {imgUrl ? (
@@ -57,7 +57,7 @@ export default function NavBar({ isAuth = false, name, imgUrl }: Props) {
             Login
           </h3>
           <div
-            className="cursor-pointer bg-black text-white rounded-full px-8 py-3"
+            className="cursor-pointer bg-primary-red text-white rounded-full px-6 py-2"
             onClick={async () => {
               await router.push("/auth/register");
             }}

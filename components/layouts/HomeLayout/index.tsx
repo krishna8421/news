@@ -5,9 +5,9 @@ interface Props {
   children: ReactNode;
 }
 
-export default function Auth({ children }: Props) {
+export default function HomeLayout({ children }: Props) {
   return (
-    <div className="min-h-screen w-full">
+    <div className="min-h-screen w-full bg-primary-dark text-gray-300">
       <NavBar isAuth={false} />
       {children}
     </div>
