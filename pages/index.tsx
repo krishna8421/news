@@ -3,6 +3,9 @@ import HomeLayout from "@layouts/HomeLayout";
 import HomePageMenuBar from "@common/HomePageMenuBar";
 import Carousel from "@common/Carousel";
 import NewsCard from "@common/NewsCard";
+// import { useAuth } from "@lib/context/AuthContext";
+// import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+// import { auth } from "@lib/firebase/auth`";
 
 const Home: NextPage = () => {
   const imgUrlArr = [
@@ -14,6 +17,8 @@ const Home: NextPage = () => {
     "https://source.unsplash.com/1200x900/?mac",
     "https://source.unsplash.com/1200x900/?russia",
   ];
+  // const {user,loading,isAuth} = useAuth()
+
   return (
     <HomeLayout>
       <div className="flex min-h-[calc(100vh-4rem)] w-screen flex-wrap lg:flex-nowrap">
