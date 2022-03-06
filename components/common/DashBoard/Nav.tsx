@@ -1,25 +1,22 @@
 import Image from "next/image";
 import Avatar from "react-avatar";
-// import Link from "next/link";
+import { useAuth } from "@lib/context/AuthContext";
 
 export default function Nav() {
-  const testData = {
-    pic: true,
-    picLink: "https://avatars.githubusercontent.com/u/93767454?s=200&v=4",
-  };
+  const { user } = useAuth();
 
   return (
     <div className="h-16 flex justify-end px-5 items-center w-[calc(100%-4rem)] fixed z-50 backdrop-blur bg-white/75 border-gray-100 border-b-2">
-      {testData.pic ? (
+      {user?.photoURL ? (
         <Image
-          src={testData.picLink}
+          src={user?.photoURL as string}
           width={40}
           height={40}
           alt="User Avatar"
           className="rounded-full"
         />
       ) : (
-        <Avatar size="40" name={"krishna kumar"} round={true} />
+        <Avatar size="40" name={user?.displayName as string} round={true} />
       )}
     </div>
   );

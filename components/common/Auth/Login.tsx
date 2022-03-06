@@ -4,10 +4,13 @@ import * as Yup from "yup";
 import { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { signInWithEmailAndPassword } from "@firebase/auth";
-import { auth } from "@lib/firebase/auth";
+import { auth } from "@lib/firebase/client";
 import { useAuth } from "@lib/context/AuthContext";
 
-export default function Login() {
+interface Props {
+  closeAuthPopUp: () => void;
+}
+export default function Login({ closeAuthPopUp }: Props) {
   const [show, setShow] = useState(false);
   const handleShowPass = () => setShow(!show);
   const loginSchema = Yup.object().shape({
@@ -37,6 +40,7 @@ export default function Login() {
         onSubmit={async (values, { setSubmitting }) => {
           await loginWithEmailAndPasswordHandler(values.email, values.password);
           setSubmitting(false);
+          closeAuthPopUp();
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (

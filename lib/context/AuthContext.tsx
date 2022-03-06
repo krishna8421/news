@@ -1,5 +1,5 @@
-import { useEffect, useState, useContext, createContext } from "react";
-import { auth } from "@lib/firebase/auth";
+import { useEffect, useState, useContext, createContext, ReactNode } from "react";
+import { auth } from "@lib/firebase/client/";
 import { onAuthStateChanged } from "firebase/auth";
 import Cookie from "js-cookie";
 import { User } from "@firebase/auth-types";
@@ -11,6 +11,9 @@ interface IAuthContext {
   error: string | null;
   setError: (error: string | null) => void;
 }
+interface Props {
+  children: ReactNode;
+}
 
 const AuthContext = createContext<IAuthContext>({
   user: null,
@@ -20,13 +23,15 @@ const AuthContext = createContext<IAuthContext>({
   setError: () => {},
 });
 
-// @ts-ignore
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
   const [error, setError] = useState<any>(null);
 
+  /*
+   * Check if user the auth state has changes and update the state
+   */
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
@@ -42,6 +47,18 @@ export const AuthProvider = ({ children }) => {
       Cookie.set("token", token);
       setLoading(false);
     });
+  }, []);
+  /*
+   * Refreshes the token every 10 minutes
+   */
+  useEffect(() => {
+    const handle = setInterval(async () => {
+      const user = auth.currentUser;
+      console.log(await user?.getIdToken());
+      if (user) await user.getIdToken(true);
+    }, 10 * 60 * 1000);
+
+    return () => clearInterval(handle);
   }, []);
 
   return (

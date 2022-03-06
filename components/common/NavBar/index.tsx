@@ -3,6 +3,8 @@ import Avatar from "react-avatar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "@lib/context/AuthContext";
+import Link from "next/link";
+import { greeting } from "@lib/utils/greet";
 
 interface ShowAuthPopUpType {
   show: boolean;
@@ -30,22 +32,13 @@ export default function NavBar({ isAuth = false, setShowAuthPopUp }: Props) {
   }, [user]);
 
   const router = useRouter();
-  const greeting = (): string => {
-    const time = new Date().getHours();
-    if (time >= 0 && time < 12) {
-      return "Morning";
-    } else if (time >= 12 && time < 18) {
-      return "Afternoon";
-    } else {
-      return "Evening";
-    }
-  };
+
   useEffect(() => {
     setGreet(greeting());
   }, []);
 
   return (
-    <div className="h-16 flex justify-between px-5 items-center w-full sticky top-0 z-10 bg-black">
+    <div className="h-16 flex justify-between px-5 items-center w-full top-0 z-10 bg-black fixed">
       <div
         className="font-semibold font-Cinzel text-2xl cursor-pointer"
         onClick={async () => {
@@ -60,11 +53,21 @@ export default function NavBar({ isAuth = false, setShowAuthPopUp }: Props) {
             <h3 className="text-slate-200 text-xs mr-8">Good {greet},</h3>
             <h1 className="">{name}</h1>
           </div>
-          {imgUrl !== "" ? (
-            <Image src={imgUrl} width={40} height={40} alt="User Avatar" className="rounded-full" />
-          ) : (
-            <Avatar size="40" name={name} round={true} />
-          )}
+          <Link href="/dashboard">
+            <a className="cursor-pointer">
+              {imgUrl !== "" ? (
+                <Image
+                  src={imgUrl}
+                  width={40}
+                  height={40}
+                  alt="User Avatar"
+                  className="rounded-full"
+                />
+              ) : (
+                <Avatar size="40" name={name} round={true} />
+              )}
+            </a>
+          </Link>
         </div>
       ) : (
         <div className="flex items-center">

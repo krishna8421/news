@@ -4,12 +4,16 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-import { auth } from "@lib/firebase/auth";
+import { auth } from "@lib/firebase/client";
 import { createUserWithEmailAndPassword, updateProfile } from "@firebase/auth";
 import { useAuth } from "@lib/context/AuthContext";
 import { useRouter } from "next/router";
 
-export default function Register() {
+interface Props {
+  closeAuthPopUp: () => void;
+}
+
+export default function Register({ closeAuthPopUp }: Props) {
   const [show, setShow] = useState(false);
   const handleShowPass = () => setShow(!show);
   const registerSchema = Yup.object().shape({
@@ -45,6 +49,7 @@ export default function Register() {
         onSubmit={async (values, { setSubmitting }) => {
           await registerWithEmailAndPasswordHandler(values.name, values.email, values.password);
           setSubmitting(false);
+          closeAuthPopUp();
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (

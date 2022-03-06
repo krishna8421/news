@@ -7,7 +7,7 @@ import { IoMdClose } from "react-icons/io";
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "@lib/context/AuthContext";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "@lib/firebase/auth";
+import { auth } from "@lib/firebase/client";
 
 interface Props {
   children: ReactNode;
@@ -32,23 +32,24 @@ export default function HomeLayout({ children }: Props) {
     type: "",
   };
   const [showAuthPopUp, setShowAuthPopUp] = useState(defaultAuthPopUpState);
+  const closeAuthPopUp = () => {
+    setShowAuthPopUp(defaultAuthPopUpState);
+  };
   return (
-    <div className=" min-h-screen w-full bg-primary-dark text-gray-300 relative">
+    <div className=" min-h-screen w-full bg-primary-dark text-gray-300 relative overflow-hidden">
       {showAuthPopUp.show && (
         <AuthLayout>
-          <div className="bg-black w-[28.5rem]  rounded-md border border-slate-800 flex flex-col mt-16">
+          <div className="bg-black w-[28.5rem]  rounded-md border border-slate-800 flex flex-col mt-16 bg-indigo-600">
             <div className="flex justify-end p-3">
               <button
                 className="bg-gray-800 p-1 rounded hover:bg-gray-700 hover:scale-105 transition ease-in-out"
-                onClick={() => {
-                  setShowAuthPopUp(defaultAuthPopUpState);
-                }}
+                onClick={closeAuthPopUp}
               >
                 <IoMdClose size={20} />
               </button>
             </div>
-            {showAuthPopUp.type === "login" && <Login />}
-            {showAuthPopUp.type === "register" && <Register />}
+            {showAuthPopUp.type === "login" && <Login closeAuthPopUp={closeAuthPopUp} />}
+            {showAuthPopUp.type === "register" && <Register closeAuthPopUp={closeAuthPopUp} />}
             <div className="w-8/12 mx-auto flex flex-col items-center justify-center">
               <h4>OR</h4>
               <div className="relative bg-white text-black flex items-center p-3 px-6 rounded-md w-72 mt-4 cursor-pointer">
