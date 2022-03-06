@@ -54,7 +54,6 @@ export const AuthProvider = ({ children }: Props) => {
   useEffect(() => {
     const handle = setInterval(async () => {
       const user = auth.currentUser;
-      console.log(await user?.getIdToken());
       if (user) await user.getIdToken(true);
     }, 10 * 60 * 1000);
 

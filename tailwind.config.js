@@ -1,5 +1,4 @@
 module.exports = {
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   theme: {
     minWidth: {},
@@ -12,7 +11,6 @@ module.exports = {
       fontFamily: {
         Cinzel: ["Cinzel", "serif"],
         Inter: ["Inter", "serif"],
-        Poppins: ["Poppins", "sans-serif"],
       },
       colors: {
         dashboard: "#F6F7FB",

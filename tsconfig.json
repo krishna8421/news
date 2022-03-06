@@ -22,14 +22,12 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@utils/*": ["./utils/*"],
       "@lib/*": ["./lib/*"],
-      "@styles/*": ["lib/styles/*"],
       "@pages/*": ["./pages/*"],
       "@components/*": ["./components/*"],
-      "@layouts/*": ["./components/layouts/*"],
-      "@common/*": ["./components/common/*"],
-      "@api/*": ["./pages/api/*"]
+      "@api/*": ["./pages/api/*"],
+      "@utils/*": ["./utils/*"],
+      "@layouts/*": ["./layouts/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
