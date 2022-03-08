@@ -4,6 +4,7 @@ import { DecodedIdToken } from "firebase-admin/auth";
 import { isEditor } from "@utils/isEditor";
 import { IArticle } from "@interface/Article";
 import { createArticle } from "@utils/createArticle";
+import { updateUser } from "@utils/updateUser";
 
 /**
  *
@@ -43,9 +44,9 @@ export default async function NewArticle(req: NextApiRequest, res: NextApiRespon
   let user: DecodedIdToken;
   try {
     user = await verifyToken(token);
-  } catch (err: any) {
+  } catch (error: any) {
     return res.status(401).send({
-      message: err.message,
+      message: error.message,
     });
   }
 
@@ -63,11 +64,12 @@ export default async function NewArticle(req: NextApiRequest, res: NextApiRespon
     });
   }
 
-  const { headline, img_url, content, tags } = req.body;
+  const { headline, description, img_url, content, tags } = req.body;
 
   const article: IArticle = {
     editor_uid: uid,
     headline,
+    description,
     img_url,
     content,
     created_at: new Date().toISOString(),
@@ -92,15 +94,30 @@ export default async function NewArticle(req: NextApiRequest, res: NextApiRespon
   /**
    * If the user is an Editor, Save the article
    */
+  let articleID: string;
   try {
-    await createArticle(article);
-  } catch (err: any) {
+    articleID = await createArticle(article);
+  } catch (error: any) {
     return res.status(500).send({
-      message: err.message,
+      message: error.message,
     });
   }
 
+  /**
+   * Add Article ID to the author's article array
+   */
+  try {
+    await updateUser.article.add(articleID, uid);
+  } catch (error: any) {
+    return res.status(500).send({
+      message: error.message,
+    });
+  }
+
+  /**
+   * If the article was saved successfully
+   */
   return res.status(200).send({
-    message: "Article created",
+    message: "Article Saved",
   });
 }

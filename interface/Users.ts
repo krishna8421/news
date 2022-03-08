@@ -6,7 +6,7 @@ export interface IUsers {
   ip_address: string[]; // User IP addresses
   preferences_tag: string[]; // User preferences tags
   editor: boolean; // Editor role
-  posts: string[]; // User posts IDs
-  liked_posts: string[]; // User liked posts IDs array
+  article: string[]; // User posts IDs
+  liked_article: string[]; // User liked posts IDs array
 }
 ``;
