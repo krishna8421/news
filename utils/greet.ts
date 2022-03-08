@@ -1,3 +1,8 @@
+/**
+ *
+ * Greet the user according to the time of day.
+ *
+ */
 export const greeting = (): string => {
   const time = new Date().getHours();
   if (time >= 0 && time < 12) {

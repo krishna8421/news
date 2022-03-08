@@ -8,9 +8,8 @@ interface IAuthContext {
   user: User | null;
   loading: boolean;
   isAuth: boolean;
-  error: string | null;
-  setError: (error: string | null) => void;
 }
+
 interface Props {
   children: ReactNode;
 }
@@ -19,15 +18,12 @@ const AuthContext = createContext<IAuthContext>({
   user: null,
   loading: true,
   isAuth: false,
-  error: null,
-  setError: () => {},
 });
 
 export const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
-  const [error, setError] = useState<any>(null);
 
   /*
    * Check if user the auth state has changes and update the state
@@ -48,6 +44,7 @@ export const AuthProvider = ({ children }: Props) => {
       setLoading(false);
     });
   }, []);
+
   /*
    * Refreshes the token every 10 minutes
    */
@@ -60,11 +57,7 @@ export const AuthProvider = ({ children }: Props) => {
     return () => clearInterval(handle);
   }, []);
 
-  return (
-    <AuthContext.Provider value={{ user, loading, isAuth, error, setError }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ user, loading, isAuth }}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => useContext(AuthContext);

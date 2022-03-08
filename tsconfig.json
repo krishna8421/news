@@ -27,7 +27,8 @@
       "@components/*": ["./components/*"],
       "@api/*": ["./pages/api/*"],
       "@utils/*": ["./utils/*"],
-      "@layouts/*": ["./layouts/*"]
+      "@layouts/*": ["./layouts/*"],
+      "@interface/*": ["./interface/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
