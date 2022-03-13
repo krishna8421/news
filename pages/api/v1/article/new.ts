@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { verifyToken } from "@utils/verifyToken";
+import { verifyToken } from "@firebase/server/utils/verifyToken";
 import { DecodedIdToken } from "firebase-admin/auth";
-import { isEditor } from "@utils/isEditor";
+import { isEditor } from "@firebase/server/utils/isEditor";
 import { IArticle } from "@interface/Article";
-import { createArticle } from "@utils/createArticle";
-import { updateUser } from "@utils/updateUser";
+import { createArticle } from "@firebase/server/utils/createArticle";
+import { updateUserDB } from "@firebase/server/utils/updateUserDB";
 
 /**
  *
@@ -107,7 +107,7 @@ export default async function NewArticle(req: NextApiRequest, res: NextApiRespon
    * Add Article ID to the author's article array
    */
   try {
-    await updateUser.article.add(articleID, uid);
+    await updateUserDB.article.add(uid, articleID);
   } catch (error: any) {
     return res.status(500).send({
       message: error.message,

@@ -1,4 +1,4 @@
-import { auth } from "@lib/firebase/server";
+import { auth } from "@firebase/server";
 import { DecodedIdToken } from "firebase-admin/auth";
 
 /**

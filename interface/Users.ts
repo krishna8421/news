@@ -9,4 +9,3 @@ export interface IUsers {
   article: string[]; // User posts IDs
   liked_article: string[]; // User liked posts IDs array
 }
-``;

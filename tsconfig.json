@@ -28,7 +28,8 @@
       "@api/*": ["./pages/api/*"],
       "@utils/*": ["./utils/*"],
       "@layouts/*": ["./layouts/*"],
-      "@interface/*": ["./interface/*"]
+      "@interface/*": ["./interface/*"],
+      "@firebase/*": ["./lib/firebase/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

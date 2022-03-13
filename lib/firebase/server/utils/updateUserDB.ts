@@ -1,25 +1,28 @@
-import { db } from "@lib/firebase/server";
+import { db } from "@firebase/server";
 
 /**
- * Updates a user in the database
+ * Updates User in the database
  */
-export const updateUser = {
+export const updateUserDB = {
   article: {
     /**
      * Updates the articles array of a user
      *
-     * @param {string} articleID - The articleID to add
      * @param {string} uid - UID of the user
+     * @param {string} articleID - The articleID to add
      *
      */
-    add: async (articleID: string, uid: string) => {
+    add: async (uid: string, articleID: string) => {
       try {
         const doc = await db.collection("users").doc(uid);
         const oldArr = (await doc.get()).data()?.article;
         if (!oldArr) {
-          await doc.set({
-            article: [articleID],
-          });
+          await doc.set(
+            {
+              article: [articleID],
+            },
+            { merge: true },
+          );
         } else {
           /**
            * Filter out duplicates
