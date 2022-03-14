@@ -1,2 +1,2 @@
-export const SITE_NAME = "News Site";
-export const SITE_DESCRIPTION = "This is a News Site";
+export const SITE_NAME: string = "HopScotch";
+export const SITE_DESCRIPTION: string = "This is a News Site";

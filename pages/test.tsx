@@ -1,12 +1,8 @@
 import type { NextPage } from "next";
-import { Box } from "@chakra-ui/react";
 import { withAuth } from "@lib/hooks/withAuth";
+import HomePageLayout from "@layouts/HomePageLayout";
 
 const Test: NextPage = () => {
-  return (
-    <Box>
-      <h1>Protected Routes</h1>
-    </Box>
-  );
+  return <HomePageLayout>Test</HomePageLayout>;
 };
 export default withAuth(Test);

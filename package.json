@@ -15,6 +15,7 @@
     "@chakra-ui/react": "^1.8.6",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@headlessui/react": "^1.5.0",
     "@tiptap/extension-image": "^2.0.0-beta.27",
     "@tiptap/extension-link": "^2.0.0-beta.36",
     "@tiptap/extension-typography": "^2.0.0-beta.20",
@@ -36,6 +37,7 @@
     "react-firebase-hooks": "^5.0.3",
     "react-icons": "^4.3.1",
     "react-loading": "^2.0.3",
+    "sharp": "^0.30.2",
     "swiper": "^8.0.6",
     "swr": "^1.2.2",
     "yup": "^0.32.11"
