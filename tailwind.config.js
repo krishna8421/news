@@ -26,4 +26,10 @@ module.exports = {
     },
   },
   plugins: [],
+  safelist: [
+    {
+      pattern: /bg-(indigo|orange|violet|teal|sky|red|green)-(600)/,
+      variants: ["group-hover"],
+    },
+  ],
 };
