@@ -5,6 +5,15 @@ module.exports = {
     "./layouts/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      xsm: "460px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1440px",
+      "3xl": "1536px",
+    },
     minWidth: {},
     maxWidth: {},
     minHeight: {},
@@ -15,12 +24,18 @@ module.exports = {
       fontFamily: {
         Cinzel: ["Cinzel", "serif"],
         Inter: ["Inter", "serif"],
+        Righteous: ["Righteous", "serif"],
       },
       colors: {
         dashboard: "#F6F7FB",
         primary: {
           red: "#E50914",
-          dark: "#0B0B0B",
+          "dark-red": "#7A0006",
+          background: {
+            500: "#333333",
+            700: "#1F1F1F",
+            900: "#141414",
+          },
         },
       },
     },

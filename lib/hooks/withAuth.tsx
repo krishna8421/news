@@ -5,9 +5,9 @@ import { useRouter } from "next/router";
 
 export function withAuth(Component: ComponentType) {
   return function WithAuth(props: any) {
-    const { isAuth } = useAuth();
+    const { isAuth, loading } = useAuth();
     const router = useRouter();
-    if (!isAuth) {
+    if (!loading && !isAuth) {
       typeof window !== "undefined" && router.push("/");
       return <PageLoading />;
     }

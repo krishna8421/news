@@ -4,6 +4,7 @@ import Carousel from "@components/Carousel";
 import CategoryMenu from "@components/CategoryMenu";
 import { CategoryProvider } from "@lib/context/CategoryContext";
 import ArticleContainer from "@components/ArticleContainer";
+import ArticleCard from "@components/ArticleCard";
 
 const Home: NextPage = () => {
   const imgUrlArr = [
@@ -26,7 +27,14 @@ const Home: NextPage = () => {
         <CategoryProvider>
           <CategoryMenu />
         </CategoryProvider>
-        <ArticleContainer>Hola</ArticleContainer>
+        <ArticleContainer>
+          <ArticleCard />
+          <ArticleCard />
+          <ArticleCard />
+          <ArticleCard />
+          <ArticleCard />
+          <ArticleCard />
+        </ArticleContainer>
       </div>
     </HomePageLayout>
   );
