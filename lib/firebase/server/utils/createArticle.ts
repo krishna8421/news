@@ -1,5 +1,5 @@
 import { db } from "@firebase/server";
-import { IArticle } from "@interface/Article";
+import { IArticle } from "@interface/Article.interface";
 
 /**
  *

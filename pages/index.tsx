@@ -24,6 +24,10 @@ const Home: NextPage = () => {
         </div>
       </div>
       <div className="lg:w-7/12 xl:w-2/3 w-full lg:pt-16">
+        {/*
+           TODO
+            Use Radio Groups of headlessUI
+         */}
         <CategoryProvider>
           <CategoryMenu />
         </CategoryProvider>

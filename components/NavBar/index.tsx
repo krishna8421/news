@@ -4,8 +4,13 @@ import { SITE_NAME } from "@lib/constants";
 import { useAuth } from "@lib/context/AuthContext";
 import Avatar from "react-avatar";
 import PageLoading from "@components/PageLoading";
+import { IAuthModalType } from "@interface/AuthModal.interface";
 
-export default function NavBar() {
+interface Props {
+  openAuthModal: (type: IAuthModalType) => void;
+}
+
+export default function NavBar({ openAuthModal }: Props) {
   const { user, isAuth, loading } = useAuth();
   if (loading) return <PageLoading />;
   return (
@@ -40,8 +45,13 @@ export default function NavBar() {
         </Link>
       ) : (
         <div className="flex items-center">
-          <h3 className="mr-5 cursor-pointer">Login</h3>
-          <div className="cursor-pointer bg-primary-red text-white rounded-full px-6 py-2">
+          <h3 onClick={() => openAuthModal("login")} className="mr-5 cursor-pointer">
+            Login
+          </h3>
+          <div
+            onClick={() => openAuthModal("register")}
+            className="cursor-pointer bg-primary-red text-white rounded-full px-6 py-2"
+          >
             Register
           </div>
         </div>

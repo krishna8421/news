@@ -32,7 +32,8 @@ export const updateUserDB = {
           /**
            * Adds article ID to the user's articles array
            *
-           * TODO: Use arrayUnion
+           * TODO
+           *  Use arrayUnion
            */
           await doc.update({
             article: newArr,

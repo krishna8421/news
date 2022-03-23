@@ -5,6 +5,7 @@ import ProgressBar from "@badrap/bar-of-progress";
 import Router from "next/router";
 import Head from "next/head";
 import { SITE_NAME } from "@lib/constants";
+import { MantineProvider } from "@mantine/core";
 // import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 // import { theme } from "@lib/styles/themes";
 
@@ -32,8 +33,28 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </Head>
       {/*<ChakraProvider theme={theme}>*/}
       {/*  <CSSReset />*/}
-      <Component {...pageProps} />
-      {/*</ChakraProvider>*/}
+      <MantineProvider
+        theme={{
+          colorScheme: "dark",
+          colors: {
+            "primary-red": [
+              "#DEC8C9",
+              "#D3ACAE",
+              "#CD9093",
+              "#CC7175",
+              "#D24E55",
+              "#DF2730",
+              "#E50914",
+              "#BA1C24",
+              "#99272D",
+              "#802E32",
+            ],
+          },
+        }}
+      >
+        <Component {...pageProps} />
+        {/*</ChakraProvider>*/}
+      </MantineProvider>
     </AuthProvider>
   );
 };

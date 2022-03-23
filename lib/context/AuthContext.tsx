@@ -1,13 +1,17 @@
 import { useEffect, useState, useContext, createContext, ReactNode } from "react";
-import { auth } from "@lib/firebase/client/";
-import { onAuthStateChanged } from "firebase/auth";
+import { auth, db } from "@lib/firebase/client/";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import Cookie from "js-cookie";
 import { User } from "@firebase/auth-types";
+import { doc, getDoc } from "firebase/firestore";
+import { useRouter } from "next/router";
 
 interface IAuthContext {
   user: User | null;
   loading: boolean;
   isAuth: boolean;
+  isEditor: boolean;
+  signOutUser: () => void;
 }
 
 interface Props {
@@ -18,12 +22,16 @@ const AuthContext = createContext<IAuthContext>({
   user: null,
   loading: true,
   isAuth: false,
+  isEditor: false,
+  signOutUser: () => {},
 });
 
 export const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
+  const [isEditor, setIsEditor] = useState(false);
+  const route = useRouter();
 
   /*
    * Check if user the auth state has changes and update the state
@@ -41,6 +49,13 @@ export const AuthProvider = ({ children }: Props) => {
       setIsAuth(true);
       const token = await user.getIdToken();
       Cookie.set("token", token);
+      /**
+       * Check if the user is an editor
+       */
+      const UserDocRef = doc(db, "users", user.uid);
+      const UserData = await getDoc(UserDocRef);
+      const isEditor = UserData.data()?.isEditor || false;
+      setIsEditor(isEditor);
       setLoading(false);
     });
   }, []);
@@ -57,7 +72,22 @@ export const AuthProvider = ({ children }: Props) => {
     return () => clearInterval(handle);
   }, []);
 
-  return <AuthContext.Provider value={{ user, loading, isAuth }}>{children}</AuthContext.Provider>;
+  const signOutUser = async () => {
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.log(err);
+    }
+    setUser(null);
+    setIsAuth(false);
+    route.push("/");
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, loading, isAuth, isEditor, signOutUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => useContext(AuthContext);

@@ -11,7 +11,7 @@ export default function ArticleCard() {
     category2: "Entertainment",
     mainImg: "https://source.unsplash.com/1200x900/?news",
     authorProfile: "https://source.unsplash.com/100x100/?man",
-    authorName: "John Doe",
+    authorName: "Abhinandan Agarwal",
     verified: true,
     location: "Bhubaneswar",
     // title max length 60
@@ -23,9 +23,14 @@ export default function ArticleCard() {
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam sem magna lectus auctor sed nulla ultrices. Bibendum netus magna.",
   };
   return (
+    /**
+     * TODO
+     *  Change the width to variable using grid?
+     *  Create small components for the every thing here
+     */
     <div className="bg-primary-background-700 h-96 w-64 rounded-xl relative shadow-2xl">
       <div className="bg-gradient-to-r from-primary-red to-primary-dark-red rounded-bl-xl rounded-tr-xl absolute z-10 right-0 flex justify-center items-center">
-        <div className="bg-gray-800 font-Righteous text-sm rounded-bl-xl rounded-tr-xl z-10 right-0 flex justify-center items-center px-4 m-[1px] py-1">
+        <div className="bg-gray-800 font-Righteous text-sm text-white rounded-bl-xl rounded-tr-xl z-10 right-0 flex justify-center items-center px-4 m-[1px] py-1">
           {mockData.category1}
         </div>
       </div>
@@ -48,15 +53,18 @@ export default function ArticleCard() {
               alt="Article Card"
               width={56}
               height={56}
-              className="rounded-lg"
+              className="rounded-xl border"
             />
+            <div className="absolute text-[9px] text=[#EEEBDC] w-full h-10 text-right px-1">
+              {mockData.authorName}
+            </div>
           </div>
         </div>
       </div>
-      <div className="w-2/3 h-20 tracking-tight overflow-scroll no-scrollbar text-sm font-semibold  p-2 pl-3 pb-0">
+      <div className="w-2/3 h-20 tracking-tight overflow-scroll no-scrollbar text-white text-sm font-semibold  p-2 pl-3 pb-0">
         {mockData.title}
       </div>
-      <div className="w-full h-12 tracking-tight overflow-scroll no-scrollbar text-xs font-light text-gray-500  pl-3">
+      <div className="w-full h-12 tracking-tight overflow-scroll no-scrollbar text-xs font-light text-white/60  pl-3">
         {mockData.discription}
       </div>
       <div className="text-[9px] w-full px-3 flex justify-around">
@@ -64,13 +72,17 @@ export default function ArticleCard() {
           {mockData.category2}
         </div>
         <div className=" rounded-full shadow shadow-black bg-primary-background-700 mt-1 p-[3px] px-[10px] flex justify-center items-center">
-          <AiFillEye color="#434343" size={12} className="mx-1" />
+          <AiFillEye size={12} className="mx-1" />
           {mockData.views} views
-          <BiTime color="#434343" size={12} className="mx-1" />
+          <BiTime size={12} className="mx-1" />
           {mockData.time}
         </div>
       </div>
       <div className={"w-full mt-2.5 px-3 flex justify-between items-center"}>
+        {/*
+          TODO
+            Add drop shadow for like and share box
+        */}
         <div className="bg-primary-background-500 rounded-full h-6 w-24 flex justify-around items-center">
           {mockData.isLiked ? (
             <AiFillHeart color="#E3323B" size={15} className="flex-1" />
