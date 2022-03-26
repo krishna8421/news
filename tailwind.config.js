@@ -30,6 +30,7 @@ module.exports = {
         dashboard: "#F6F7FB",
         primary: {
           red: "#E50914",
+          "light-red": "#ef2129",
           "dark-red": "#7A0006",
           background: {
             500: "#333333",

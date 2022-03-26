@@ -5,9 +5,10 @@ export type ICategory =
   | "technology"
   | "politics"
   | "sports"
-  | "entrepreneur";
+  | "entrepreneur"
+  | null;
 
-export type ICategory2 = "hops" | "tcl" | "community" | "influencers";
+export type IType = null | "hops" | "tcl" | "community" | "influencers";
 
 export interface IArticle {
   editor_uid: string; // Editor's UID
@@ -22,7 +23,7 @@ export interface IArticle {
   liked_by: string[]; // Array of IDs of users who liked the article
   tags: string[]; // Array of tags for the article
   category: ICategory; // Category of the article
-  category2: ICategory2; // Category 2 of the article
+  type: IType; // Category 2 of the article
   location: {
     // Location of the article
     city: string; // City

@@ -21,6 +21,7 @@ export default function HomePageLayout({ children }: Props) {
         closeAuthModal={closeAuthModal}
         openAuthModal={openAuthModal}
         isAuthModalOpen={isOpen.value}
+        authModalType={isOpen.type}
       />
       <NavBar openAuthModal={openAuthModal} />
       <div className=" flex w-screen flex-wrap lg:flex-nowrap">{children}</div>

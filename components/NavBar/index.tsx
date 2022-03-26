@@ -14,7 +14,7 @@ export default function NavBar({ openAuthModal }: Props) {
   const { user, isAuth, loading } = useAuth();
   if (loading) return <PageLoading />;
   return (
-    <div className="h-16 w-screen flex  justify-between items-center px-4 fixed top-0 bg-black/5 backdrop-blur-lg z-40">
+    <div className="h-16 w-screen flex justify-between items-center px-4 fixed top-0 bg-black/5 backdrop-blur-lg z-40">
       <Link href="/" passHref>
         <div className="relative h-8 w-36 overflow-hidden cursor-pointer">
           <Image
