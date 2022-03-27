@@ -1,4 +1,4 @@
-import { Input } from "@mantine/core";
+// import { Input } from "@mantine/core";
 import { Formik } from "formik";
 
 export default function Login() {
@@ -18,48 +18,59 @@ export default function Login() {
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
           <form>
             {() => console.log(handleSubmit, isSubmitting)}
-            <Input
+            <input
+              className="focus:outline-0 authFormInput"
               type="email"
               name="email"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.email}
-              variant="default"
-              size="lg"
-              radius="md"
-              placeholder="Email"
-              sx={{
-                input: {
-                  borderRadius: "md",
-                  "&:focus": {
-                    border: "1px solid #E50914",
-                  },
-                },
-              }}
+              // variant="default"
+              // radius="md"
+              placeholder="Email Id"
+              // sx={{
+              //   input: {
+              //     borderRadius: "md",
+              //     minHeight: "4vh", height: "6vh !important",
+              //     "&:focus": {
+              //       border: "1px solid #E50914",
+              //     },
+              //   },
+              // }}
             />
             <div className="text-xs text-red-500">
               {errors.email && touched.email && errors.email}
             </div>
-            <Input
+            <input
+              className="focus:outline-0 authFormInput"
               type="password"
               name="password"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}
-              variant="default"
-              size="lg"
-              radius="md"
+              // variant="default"
+              // radius="md"
               placeholder="Password"
-              sx={{
-                input: {
-                  borderRadius: "md",
-                  "&:focus": {
-                    border: "1px solid #E50914",
-                  },
-                },
-              }}
+              // sx={{
+              //   input: {
+              //     minHeight: "4vh", height: "6vh !important",
+              //     borderRadius: "md",
+              //     "&:focus": {
+              //       border: "1px solid #E50914",
+              //     },
+              //   },
+              // }}
             />
-            <div className="text-xs text-red-500">
+            {/* <input
+              className="focus:outline-0 authFormInput"
+              type="text"
+              name="name"
+              // onChange={handleChange}
+              // onBlur={handleBlur}
+              // value={}
+              placeholder="Name"
+            /> */}
+            <div className="text-red-500" style={{ fontSize: "calc(.6vw + .6vh)" }}>
               {errors.password && touched.password && errors.password}
             </div>
           </form>

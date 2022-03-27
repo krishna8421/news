@@ -43,20 +43,23 @@ export default function AuthModal({
       className="fixed inset-0 overflow-y-auto z-50 flex justify-center "
     >
       <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-md" />
-      <div className="flex pt-[10vh] justify-center">
-        <div className="relative bg-white rounded-[3rem] mx-auto w-[60rem] h-[35rem] bg-primary-background-900 flex">
+      <div className="flex justify-center" style={{ paddingTop: "15vh", paddingBottom: "15vh" }}>
+        <div
+          className="relative bg-white rounded-[3rem] bg-primary-background-900 flex flex-col sm:flex-row"
+          style={{ width: "70vw", height: "70vh" }}
+        >
           <div className="relative flex-1">
             <div className="z-10 absolute w-full h-full flex justify-center items-center rounded-[3rem]">
-              <div className="relative w-11/12 h-[32rem] bg-white/10 backdrop-blur-sm rounded-[3rem] flex justify-center px-4 flex-col text-white">
-                <h1 className="font-Righteous w-full text-3xl ">
+              <div className="smokyScreen relative bg-white/10 backdrop-blur-sm rounded-[3rem] flex justify-center flex-col text-white">
+                <h1 className="font-Righteous w-full" style={{ fontSize: "calc(1.5vw + 1.5vh)" }}>
                   Get regular updates on your favourite topics.
                 </h1>
-                <p className="mt-4 text-sm">
+                <p className="mt-4" style={{ fontSize: "calc(.6vw + .6vh)" }}>
                   Consequat ea exercitation excepteur minim ipsum cupidatat nulla. quis aliquip
                   ipsum laboris non non.
                 </p>
-                <div className="absolute bottom-8">
-                  <div className="relative h-32 w-48">
+                <div className="absolute" style={{ bottom: "0px" }}>
+                  <div className="relative playstore">
                     <Image
                       src="/play-store.png"
                       alt="play-store"
@@ -68,25 +71,34 @@ export default function AuthModal({
                 </div>
               </div>
             </div>
-            <Image
-              src="/red-background.png"
-              alt="red-background"
-              objectFit="cover"
-              layout="fill"
-              className="absolute rounded-[3rem]"
-            />
+            <div className="redbg">
+              <Image
+                src="/red-background.png"
+                alt="red-background"
+                objectFit="cover"
+                layout="fill"
+                className="absolute rounded-[3rem]"
+                style={{ width: "12vw", height: "8vh" }}
+              />
+            </div>
           </div>
-          <div className="flex-1 text-white flex pt-8 items-center flex-col">
-            <div className="relative h-8 w-36">
+          <div
+            className="flex-1 text-white flex items-center flex-col"
+            style={{ padding: "2vh 0px" }}
+          >
+            <div className="relative authlogo">
               <Image
                 src="/logo.png"
                 alt="play-store"
                 objectFit="cover"
                 layout="fill"
-                className="absolute rounded-[3rem]"
+                className="absolute rounded-[3rem] authlogoImg"
               />
             </div>
-            <h2 className="font-Righteous text-2xl mt-8">
+            <h2
+              className="font-Righteous"
+              style={{ marginTop: "3vh", fontSize: "calc(1.5vw + 1.5vh)" }}
+            >
               {authModalType == "login" && "Login to your Account"}
               {authModalType == "register" && "Register new Account"}
             </h2>
@@ -160,20 +172,35 @@ export default function AuthModal({
             {/*  )}*/}
             {/*</Formik>*/}
 
-            <div className="w-2/3 mx-auto">
+            <div
+              style={{
+                textAlign: "center",
+                fontSize: "calc(0.4vw + 0.4vh)",
+                width: "65%",
+                margin: "1.5vh 0px",
+              }}
+            >
+              Consequat ea exercitation excepteur minim ipsum cupidatat nulla. quis aliquip ipsum
+              laboris non non. exercitation excepteur.
+            </div>
+
+            <div style={{ width: "66%" }}>
               {authModalType == "login" && <Login />}
               {/*{authModalType == "register" && "Register"}*/}
             </div>
-            <div className="my-2">or</div>
+            <div style={{ marginBottom: "0.5vh" }}>or</div>
             <div className="w-2/3 mx-auto">
               <div
-                className="select-none w-full border border-primary-red py-3 focus:outline-0 rounded-lg flex justify-center cursor-pointer"
+                className="googleSignin select-none flex border border-primary-red focus:outline-0 rounded-lg flex justify-center cursor-pointer"
                 onClick={handleGoogleAuth}
               >
                 Sign in with Google
               </div>
             </div>
-            <div className="text-sm text-slate-400 absolute bottom-4 cursor-pointer select-none">
+            <div
+              style={{ fontSize: "calc(.6vw + .6vh)", bottom: "1vh" }}
+              className="text-slate-400 absolute cursor-pointer select-none"
+            >
               <a
                 onClick={() => {
                   if (authModalType == "login") openAuthModal("register");
