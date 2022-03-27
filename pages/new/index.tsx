@@ -1,5 +1,5 @@
 import HomePageLayout from "@layouts/HomePageLayout";
-import { withEditor } from "@lib/hooks/withEditor";
+// import { withEditor } from "@lib/hooks/withEditor";
 import { Badge, Checkbox, Input, Radio, RadioGroup, Select } from "@mantine/core";
 import RichTextEditor from "@components/RichTextEditor";
 import { useEffect, useState } from "react";
@@ -412,4 +412,4 @@ const New = () => {
     </HomePageLayout>
   );
 };
-export default withEditor(New);
+export default New;

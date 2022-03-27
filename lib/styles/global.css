@@ -12,6 +12,13 @@
 
 body {
     @apply font-Inter;
+    font-size: calc(.7vw + .7vh);
+}
+
+@media screen and (max-width: 600px) {
+    body {
+        font-size: calc(1vw + 1vh);
+    }
 }
 
 @layer utilities {
@@ -22,5 +29,124 @@ body {
     .no-scrollbar {
         -ms-overflow-style: none;
         scrollbar-width: none;
+    }
+
+    .drawer {
+        color: white; 
+        position: fixed; 
+        display: flex; 
+        flex-direction: column; 
+        justify-content: space-around; 
+        height: 92vh; 
+        margin-top: 8vh; 
+        width: 15vw;
+    }
+
+    .proImg {
+        height: calc(7vw + 7vh);
+        width: calc(7vw + 7vh); 
+        margin-left: 5vw; 
+        margin-top: -6vh; 
+        position: relative;
+    }
+
+    .prosecbody {
+        padding: 15vh 15vw 0px;
+        width: 100vw;
+    }
+
+    .proContent {
+        padding: 1vw 3vh;
+        width: 50vw;
+    }
+
+    .smokyScreen {
+        padding: 10vh 1vw; 
+        width: 30vw;
+        height: 60vh;
+    }
+
+    .authlogo {
+        width: 12vw; 
+        height: 8vh;
+    }
+    
+    .playstore {
+        height: 17vh;
+        width: 9vw; 
+    }
+
+    .authFormInput {
+        font-size: calc(.7vw + .7vh); 
+        min-height: 4vh; 
+        height: 4vh; 
+        color: #838383; 
+        background-color: #141414; 
+        padding: 2.5vh .8vw; 
+        width: 100%; 
+        border: calc(0.05vw + 0.05vh) solid #E50914;
+        border-radius: calc(0.3vw + 0.3vh); 
+        margin: 1vh 0px;
+    }
+
+    .googleSignin {
+        height: 7vh; 
+        align-items: center; 
+        font-size: calc(1vw + 1vh);
+    }
+
+    @media screen and (max-width: 600px) {
+        .proImg {
+          margin: 0px auto 4vh;
+          height: calc(10vw + 10vh);
+          width: calc(10vw + 10vh); 
+        }
+
+        .prosecbody {
+            padding: 15vh 0vw 0px 20vw;
+        }
+
+        .proContent {
+            width: 75vw;
+        }
+
+        .smokyScreen {
+            padding: 3vh 2vw; 
+            width: 60vw;
+            height: 20vh;
+            justify-content: space-around;
+        }
+
+        .redbg{
+            width: 70vw;
+            height: 22vh;
+        }
+
+        .authlogo {
+            width: 50vw;
+        }
+
+        .authlogoImg {
+            height: 5vh;
+            width: 20vw;
+            bottom: 5.5vh;
+        }
+
+        .playstore {
+            height: 8vh;
+            width: 17vw;
+            bottom: 4vh;
+        }
+
+        .authFormInput {
+            min-height: 2vh; 
+            height: 2vh; 
+            padding: 1.5vh .8vw; 
+        }
+
+        .googleSignin {
+            height: 4vh; 
+            margin-bottom: 2vh;
+        }
     }
 }
