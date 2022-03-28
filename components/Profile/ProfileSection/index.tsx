@@ -1,7 +1,6 @@
-import Img2 from "../../public/v03-lines-49 1.png";
-import Tick from "../../public/Verified Badge.png";
 import Image from "next/image";
 import { useState } from "react";
+import RedBackground from "../../../public/red-background-rec.png";
 
 const ProfileSection = () => {
   const [editMode, setEditMode] = useState(false);
@@ -9,17 +8,20 @@ const ProfileSection = () => {
   const mockData = {
     mainImg: "https://source.unsplash.com/1200x900/?news",
     authorProfile: "https://source.unsplash.com/100x100/?man",
+    name: "Sushant Mishra",
+    bio: "Laboris amet deserunt dolor aliqua exercitation adipisicing excepteur cillum ipsum commodo eiusmod. Quis est sit occaecat cupidatat aute ea nostrud est sit elit. Commodo officia sit enim ullamco veniam.",
   };
 
   const normalView = () => {
     return (
       <>
-        <div style={{ width: "80vw" }} className="hidden sm:block">
+        <div className="hidden sm:block w-[80vw]">
           <Image
-            src={Img2}
+            src={RedBackground}
             alt="Article Card"
             height={"200%"}
-            style={{ borderRadius: "2vw", height: "20vh" }}
+            objectFit="cover"
+            className="rounded-lg"
           />
         </div>
         <div className="flex flex-col sm:flex-row">
@@ -28,7 +30,8 @@ const ProfileSection = () => {
               src={mockData.authorProfile}
               alt="Article Card"
               layout="fill"
-              style={{ borderRadius: "50%", marginLeft: "5vw", marginTop: "-4vh" }}
+              objectFit="cover"
+              className="rounded-full"
             />
           </div>
           <div className="proContent">
@@ -46,7 +49,7 @@ const ProfileSection = () => {
                 }}
               >
                 <div style={{ display: "flex", alignItems: "flex-end" }}>
-                  Sushant Mishra
+                  {mockData.name}
                   <div
                     style={{
                       width: "calc(1.5vw + 1.5vh)",
@@ -57,11 +60,11 @@ const ProfileSection = () => {
                     }}
                   >
                     <Image
-                      src={Tick}
+                      src="/verified.png"
                       alt="Article Card"
                       width={200}
                       height={200}
-                      style={{ width: "1vw", height: "1vh" }}
+                      className="w-[1vw] h-[1vh]"
                     />
                   </div>
                 </div>
@@ -119,9 +122,7 @@ const ProfileSection = () => {
                   fontSize: "calc(.7vw + .7vh)",
                 }}
               >
-                Laboris amet deserunt dolor aliqua exercitation adipisicing excepteur cillum ipsum
-                commodo eiusmod. Quis est sit occaecat cupidatat aute ea nostrud est sit elit.
-                Commodo officia sit enim ullamco veniam.
+                {mockData.bio}
               </div>
               <div
                 style={{ marginBottom: "2.5vh", fontWeight: "600", fontSize: "calc(1vw + 1vh)" }}
@@ -153,12 +154,13 @@ const ProfileSection = () => {
   const editView = () => {
     return (
       <>
-        <div>
+        <div className="hidden sm:block w-[80vw]">
           <Image
-            src={Img2}
+            src={RedBackground}
             alt="Article Card"
             height={"200%"}
-            style={{ borderRadius: "2vw", height: "20vh" }}
+            objectFit="cover"
+            className="rounded-lg"
           />
         </div>
         <div style={{ display: "flex" }}>
@@ -168,7 +170,7 @@ const ProfileSection = () => {
               alt="Article Card"
               width={`100%`}
               height={`100%`}
-              style={{ borderRadius: "50%", marginLeft: "5vw", marginTop: "-4vh" }}
+              className="rounded-full -mt-4"
             />
           </div>
           <div style={{ padding: "1vw 3vh" }}>

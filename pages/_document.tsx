@@ -1,6 +1,4 @@
 import NextDocument, { Html, Head, Main, NextScript } from "next/document";
-// import { theme } from "@lib/styles/themes";
-// import { ColorModeScript } from "@chakra-ui/react";
 import { SITE_DESCRIPTION } from "@lib/constants";
 import { createGetInitialProps } from "@mantine/next";
 
@@ -19,7 +17,6 @@ export default class Document extends NextDocument {
           <meta name="description" content={SITE_DESCRIPTION} />
         </Head>
         <body>
-          {/*<ColorModeScript initialColorMode={theme.config.initialColorMode} />*/}
           <Main />
           <NextScript />
         </body>

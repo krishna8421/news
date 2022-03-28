@@ -1,7 +1,8 @@
+import NewPost from "@components/Profile/NewPost";
+import ProfileSection from "@components/Profile/ProfileSection";
 import HomePageLayout from "@layouts/HomePageLayout";
 import { useState } from "react";
-import NewPost from "./NewPost";
-import ProfileSection from "./ProfileSection";
+import { useAuth } from "@lib/context/AuthContext";
 
 const bodyContent = (val: number) => {
   switch (val) {
@@ -22,18 +23,19 @@ const bodyContent = (val: number) => {
 
 const Profile = () => {
   const [val, setVal] = useState(1);
-
+  const { signOutUser } = useAuth();
   return (
     <HomePageLayout>
-      <div className="drawer">
-        <button onClick={() => setVal(1)}>profile</button>
-        <button onClick={() => setVal(2)}>create new post</button>
-        <button onClick={() => setVal(3)}>draft</button>
-        <button onClick={() => setVal(4)}>need review</button>
-        <button onClick={() => setVal(5)}>rejected</button>
-      </div>
-      <div className="" style={{}}>
-        {bodyContent(val)}
+      <div className="mt-16">
+        <div className="drawer">
+          <button onClick={() => setVal(1)}>profile</button>
+          <button onClick={() => setVal(2)}>new post</button>
+          <button onClick={() => setVal(3)}>draft</button>
+          <button onClick={() => setVal(4)}>need review</button>
+          <button onClick={() => setVal(5)}>rejected</button>
+          <button onClick={signOutUser}>Logout</button>
+        </div>
+        <div className="">{bodyContent(val)}</div>
       </div>
     </HomePageLayout>
   );

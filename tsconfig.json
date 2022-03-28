@@ -24,6 +24,7 @@
     "paths": {
       "@lib/*": ["./lib/*"],
       "@pages/*": ["./pages/*"],
+      "@public/*": ["./public/*"],
       "@components/*": ["./components/*"],
       "@api/*": ["./pages/api/*"],
       "@utils/*": ["./utils/*"],

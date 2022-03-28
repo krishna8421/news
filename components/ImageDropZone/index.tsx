@@ -10,6 +10,8 @@ interface Props {
   tempImg: string | ArrayBuffer | null;
   removeTempImg: () => void;
   className?: string;
+  caption: string;
+  setCaption: (caption: string) => void;
 }
 
 export default function ImageDropZone({
@@ -18,6 +20,8 @@ export default function ImageDropZone({
   tempImg,
   removeTempImg,
   className,
+  caption,
+  setCaption,
 }: Props) {
   return (
     <div className={`flex flex-wrap gap-8 items-center ${className}`}>
@@ -43,7 +47,7 @@ export default function ImageDropZone({
           className={`w-60 h-40 text-xs flex items-center justify-center text-center`}
           onDrop={onDrop}
           onReject={onReject}
-          maxSize={5 * 1024 ** 2}
+          maxSize={2 * 1024 ** 2}
           accept={IMAGE_MIME_TYPE}
         >
           {() => (
@@ -67,8 +71,8 @@ export default function ImageDropZone({
         minRows={6}
         maxRows={6}
         variant="default"
-        // value={caption}
-        // onChange={(e) => setCaption(e.target.value)}
+        value={caption}
+        onChange={(e) => setCaption(e.target.value)}
       />
     </div>
   );

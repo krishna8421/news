@@ -1,6 +1,4 @@
-// import HomePageLayout from "@layouts/HomePageLayout";
-// import { withEditor } from "@lib/hooks/withEditor";
-import { Badge, Checkbox, Input, Radio, RadioGroup, Select } from "@mantine/core";
+import { Badge, Checkbox, Input, Modal, Radio, RadioGroup, Select } from "@mantine/core";
 import RichTextEditor from "@components/RichTextEditor";
 import { useEffect, useState } from "react";
 import { IoAddOutline } from "react-icons/io5";
@@ -10,11 +8,13 @@ import { IoMdClose } from "react-icons/io";
 import { useAuth } from "@lib/context/AuthContext";
 import PageLoading from "@components/PageLoading";
 import ImageDropZone from "@components/ImageDropZone";
-// import { storage } from "@lib/firebase/client";
-// import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "@lib/firebase/client";
+import { storage } from "@lib/firebase/client";
+import { ref, uploadString, getDownloadURL } from "firebase/storage";
 
 const NewPost = () => {
-  const { user, loading } = useAuth();
+  const { uid, loading } = useAuth();
 
   /**
    * Location
@@ -69,18 +69,25 @@ const NewPost = () => {
   const [ageRestricted, setAgeRestricted] = useState(false);
 
   /**
-   * Images max-3
+   * Normal Images
    */
-  // const [images, setImages] = useState<{ url: string, caption: string }[]>([]);
+  // const [normalImage1, setNormalImage1] = useState<null | File>(null);
+  const [captionNormalImage1, setCaptionNormalImage1] = useState("");
+  // const [normalImage2, setNormalImage2] = useState<null | File>(null);
+  const [captionNormalImage2, setCaptionNormalImage2] = useState("");
+  // const [normalImage3, setNormalImage3] = useState<null | File>(null);
+  const [captionNormalImage3, setCaptionNormalImage3] = useState("");
 
   /**
    * Prime Time
    */
-  // const [primeTime, setPrimeTime] = useState<null | File[]>(null);
+  const [primeTime, setPrimeTime] = useState<null | File>(null);
+  const [captionPrimeTime, setCaptionPrimeTime] = useState("");
   /**
    * Limelight
    */
-  // const [limelight, setLimelight] = useState<null | File[]>(null);
+  const [limelight, setLimelight] = useState<null | File>(null);
+  const [captionLimelight, setCaptionLimelight] = useState("");
 
   /**
    * Title
@@ -114,39 +121,164 @@ const NewPost = () => {
   const [category, setCategory] = useState<ICategory>(null);
 
   /**
-   * Upload temp Image
+   * Show temp Image
    */
   const [tempPrimeTime, setTempPrimeTime] = useState<string | ArrayBuffer | null>(null);
   const [tempLimelight, setTempLimelight] = useState<string | ArrayBuffer | null>(null);
+  const [tempNormalImage1, setTempNormalImage1] = useState<string | ArrayBuffer | null>(null);
+  const [tempNormalImage2, setTempNormalImage2] = useState<string | ArrayBuffer | null>(null);
+  const [tempNormalImage3, setTempNormalImage3] = useState<string | ArrayBuffer | null>(null);
   const handleTempImg = async (file: File, type: string) => {
-    // const storageRef = ref(storage, `/temp/${user?.uid}/${type}.${file.name.split(".").at(-1)}`);
-    // try {
-    //   const uploadTask = await uploadBytes(storageRef, file);
-    //   console.log(uploadTask);
-    // } catch (e) {
-    //   console.log(e);
-    // }
     const data = new FileReader();
     data.readAsDataURL(file);
     data.onload = function () {
-      if (type === "primetime") {
+      if (type === "primeTime") {
         setTempPrimeTime(data.result);
+        setPrimeTime(file);
+        uploadImage("primeTime", data.result);
       } else if (type === "limelight") {
         setTempLimelight(data.result);
+        setLimelight(file);
+      } else if (type === "normalImage1") {
+        setTempNormalImage1(data.result);
+        // setNormalImage1(file);
+      } else if (type === "normalImage2") {
+        setTempNormalImage2(data.result);
+        // setNormalImage2(file);
+      } else if (type === "normalImage3") {
+        setTempNormalImage3(data.result);
+        // setNormalImage3(file);
       }
     };
   };
 
-  if (loading) return <PageLoading />;
+  /**
+   * Submit
+   */
+  const [showMissingAlert, setShowMissingAlert] = useState(false);
+  const uploadImage = async (
+    filename: string,
+    imgBase64: string | ArrayBuffer | null,
+  ): Promise<string> => {
+    const storageRef = ref(storage, `/users/${uid}/${filename}.png`);
+    try {
+      const uploadTask = await uploadString(storageRef, imgBase64 as string, "data_url");
+      console.log(uploadTask.ref.fullPath);
+      return await getDownloadURL(uploadTask.ref);
+    } catch (e: any) {
+      throw new Error(e);
+    }
+  };
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    if (
+      !country ||
+      !state ||
+      !city ||
+      !tempNormalImage1 ||
+      !captionNormalImage1 ||
+      !tempNormalImage2 ||
+      !captionNormalImage2 ||
+      !tempNormalImage3 ||
+      !captionNormalImage3 ||
+      !primeTime ||
+      !captionPrimeTime ||
+      !limelight ||
+      !captionLimelight ||
+      !title ||
+      !subHeading ||
+      !articleData ||
+      !type ||
+      !category
+    ) {
+      setIsSubmitting(false);
+      return setShowMissingAlert(true);
+    }
+    try {
+      const normalImageUrl1 = await uploadImage("normal-image-1", tempNormalImage1);
+      const normalImageUrl2 = await uploadImage("normal-image-2", tempNormalImage2);
+      const normalImageUrl3 = await uploadImage("normal-image-3", tempNormalImage3);
+      const primeTimeUrl = await uploadImage("prime-time", tempPrimeTime);
+      const limelightUrl = await uploadImage("lime-light", tempLimelight);
+      const article = {
+        country,
+        state,
+        city,
+        ageRestricted,
+        normalImage1: {
+          url: normalImageUrl1,
+          caption: captionNormalImage1,
+        },
+        normalImage2: {
+          url: normalImageUrl2,
+          caption: captionNormalImage2,
+        },
+        normalImage3: {
+          url: normalImageUrl3,
+          caption: captionNormalImage3,
+        },
+        primeTime: {
+          url: primeTimeUrl,
+          caption: captionPrimeTime,
+        },
+        limelight: {
+          url: limelightUrl,
+          caption: captionLimelight,
+        },
+        title,
+        subHeading,
+        articleData,
+        tags: [
+          ...title
+            .replace(/\s{2,}/g, " ")
+            .trim()
+            .split(" ")
+            .map((item) => item.toLowerCase()),
+          ...tags.map((item) => item.trim().toLowerCase()),
+        ],
+        type,
+        category,
+      };
+      const userRef = doc(db, "users", uid as string);
+      const res = await getDoc(userRef);
+      const data = res.data();
+      const articleRef = await addDoc(collection(db, "articles"), article);
+      const allArticle = data?.articles || [];
+      allArticle.push(articleRef.id);
+      updateDoc(userRef, {
+        article: allArticle,
+      });
+      setIsSubmitting(false);
+    } catch (error) {
+      console.log(error);
+      setIsSubmitting(false);
+    }
+    setIsSubmitting(false);
+  };
 
+  if (loading) return <PageLoading />;
+  const Required = () => {
+    return <span className="text-primary-red">*</span>;
+  };
   return (
     <div
       style={{ width: "75vw", marginLeft: "20vw" }}
       className="pt-16 w-9/12 mx-auto min-h-screen font-Righteous text-lg pb-16"
     >
+      <Modal
+        opened={showMissingAlert}
+        onClose={() => setShowMissingAlert(false)}
+        title="Missing Data"
+      >
+        <h1 className="text-xl font-Righteous">Fill all the Required fields</h1>
+      </Modal>
       <h1 className="text-primary-red text-3xl">Your Editor</h1>
       {/*Location*/}
-      <div className="mt-12 mb-4">Location</div>
+      <div className="mt-12 mb-4">
+        Location
+        <Required />
+      </div>
       <div className=" flex flex-wrap gap-8 ">
         <Select
           placeholder="Country"
@@ -207,46 +339,68 @@ const NewPost = () => {
         />
       </div>
       {/*Add Image*/}
-      <div className="mt-12 mb-4">Images</div>
+      <div className="mt-12 mb-4">
+        Images
+        <Required />
+      </div>
       <ImageDropZone
-        onDrop={(files) => handleTempImg(files[0], "primetime")}
+        onDrop={(files) => handleTempImg(files[0], "normalImage1")}
         onReject={(files) => console.log("rejected files", files)}
-        tempImg={tempPrimeTime}
-        removeTempImg={() => setTempPrimeTime(null)}
+        tempImg={tempNormalImage1}
+        removeTempImg={() => setTempNormalImage1(null)}
+        caption={captionNormalImage1}
+        setCaption={setCaptionNormalImage1}
       />
       <ImageDropZone
-        onDrop={(files) => handleTempImg(files[0], "primetime")}
+        onDrop={(files) => handleTempImg(files[0], "normalImage2")}
         onReject={(files) => console.log("rejected files", files)}
-        tempImg={tempPrimeTime}
-        removeTempImg={() => setTempPrimeTime(null)}
+        tempImg={tempNormalImage2}
+        removeTempImg={() => setTempNormalImage2(null)}
         className="mt-4"
+        caption={captionNormalImage2}
+        setCaption={setCaptionNormalImage2}
       />
       <ImageDropZone
-        onDrop={(files) => handleTempImg(files[0], "primetime")}
+        onDrop={(files) => handleTempImg(files[0], "normalImage3")}
         onReject={(files) => console.log("rejected files", files)}
-        tempImg={tempPrimeTime}
-        removeTempImg={() => setTempPrimeTime(null)}
+        tempImg={tempNormalImage3}
+        removeTempImg={() => setTempNormalImage3(null)}
         className="mt-4"
+        caption={captionNormalImage3}
+        setCaption={setCaptionNormalImage3}
       />
 
       {/*Prime Time*/}
-      <div className="mt-12 mb-4">Prime Time</div>
+      <div className="mt-12 mb-4">
+        Prime Time
+        <Required />
+      </div>
       <ImageDropZone
-        onDrop={(files) => handleTempImg(files[0], "primetime")}
+        onDrop={(files) => handleTempImg(files[0], "primeTime")}
         onReject={(files) => console.log("rejected files", files)}
         tempImg={tempPrimeTime}
         removeTempImg={() => setTempPrimeTime(null)}
+        caption={captionPrimeTime}
+        setCaption={setCaptionPrimeTime}
       />
-      {/*Limelight*/}
-      <div className="mt-12 mb-4">Limelight</div>
+      {/*LimeLight*/}
+      <div className="mt-12 mb-4">
+        Limelight
+        <Required />
+      </div>
       <ImageDropZone
         onDrop={(files) => handleTempImg(files[0], "limelight")}
         onReject={(files) => console.log("rejected files", files)}
         tempImg={tempLimelight}
         removeTempImg={() => setTempLimelight(null)}
+        caption={captionLimelight}
+        setCaption={setCaptionLimelight}
       />
       {/*Title*/}
-      <div className="mt-12 mb-4">Title</div>
+      <div className="mt-12 mb-4">
+        Title
+        <Required />
+      </div>
       <Input
         variant="filled"
         radius="md"
@@ -255,7 +409,10 @@ const NewPost = () => {
         onChange={(e: any) => setTitle(e.target.value)}
       />
       {/*Sub-heading*/}
-      <div className="mt-12 mb-4">Sub heading</div>
+      <div className="mt-12 mb-4">
+        Sub heading
+        <Required />
+      </div>
       <Input
         variant="filled"
         radius="md"
@@ -264,7 +421,10 @@ const NewPost = () => {
         onChange={(e: any) => setSubHeading(e.target.value)}
       />
       {/*Article*/}
-      <div className="mt-12 mb-4">Article</div>
+      <div className="mt-12 mb-4">
+        Article
+        <Required />
+      </div>
       <RichTextEditor
         value={articleData}
         onChange={setArticleData}
@@ -328,7 +488,10 @@ const NewPost = () => {
       </div>
 
       {/*Type*/}
-      <div className="mt-12 mb-4">Type</div>
+      <div className="mt-12 mb-4">
+        Type
+        <Required />
+      </div>
       <RadioGroup
         orientation="vertical"
         spacing="lg"
@@ -345,7 +508,10 @@ const NewPost = () => {
       </RadioGroup>
 
       {/*Category*/}
-      <div className="mt-12 mb-4">Category</div>
+      <div className="mt-12 mb-4">
+        Category
+        <Required />
+      </div>
       <Select
         placeholder="Category"
         radius="lg"
@@ -388,25 +554,8 @@ const NewPost = () => {
       <div className="w-full flex justify-center">
         <button
           className="px-6 py-2 bg-primary-red mt-8 rounded-xl"
-          onClick={() => {
-            console.log({
-              ageRestricted,
-              title,
-              subHeading,
-              articleData,
-              category,
-              type,
-              tags: [...tags, ...title.split(" ")],
-              userId: user?.uid,
-              location: {
-                country,
-                state,
-                city,
-              },
-              likedBy: [],
-              createdAt: new Date().toISOString(),
-            });
-          }}
+          onClick={handleSubmit}
+          disabled={isSubmitting}
         >
           Post
         </button>

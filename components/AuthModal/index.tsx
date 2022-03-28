@@ -1,13 +1,11 @@
-// import { useState, useRef, Fragment } from "react";
 import { Dialog } from "@headlessui/react";
 import { IAuthModalType } from "@interface/AuthModal.interface";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import Image from "next/image";
-// import { useRouter } from "next/router";
-import { auth } from "@firebase/client";
+import { auth, db } from "@firebase/client";
 import Login from "./Login";
-// import Register from "./Register";
-// import { Formik } from "formik";
+import Register from "./Register";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 interface Props {
   closeAuthModal: () => void;
@@ -23,18 +21,34 @@ export default function AuthModal({
   authModalType,
 }: Props) {
   // const router = useRouter();
-
-  const handleGoogleAuth = () => {
+  const handleGoogleAuth = async () => {
     try {
       const provider = new GoogleAuthProvider();
-      signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      console.log(result);
+      const UserDocRef = doc(db, "users", result.user.uid);
+      const docSnap = await getDoc(UserDocRef);
+      const date = new Date();
+      if (!docSnap.exists()) {
+        await setDoc(UserDocRef, {
+          name: result.user.displayName,
+          email: result.user.email,
+          userUid: auth.currentUser?.uid,
+          preferencesTag: [],
+          isEditor: false,
+          likedArticles: [],
+          createdAt: date.toISOString(),
+          articles: [],
+        });
+      }
     } catch (error: any) {
       /**
        * TODO
        *  Handle error
        */
-      console.log(error);
+      console.log(error.message);
     }
+    closeAuthModal();
   };
   return (
     <Dialog
@@ -43,10 +57,10 @@ export default function AuthModal({
       className="fixed inset-0 overflow-y-auto z-50 flex justify-center "
     >
       <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-md" />
-      <div className="flex justify-center" style={{ paddingTop: "15vh", paddingBottom: "15vh" }}>
+      <div className="flex justify-center" style={{ paddingTop: "15vh", paddingBottom: "10vh" }}>
         <div
-          className="relative bg-white rounded-[3rem] bg-primary-background-900 flex flex-col sm:flex-row"
-          style={{ width: "70vw", height: "70vh" }}
+          className="relative rounded-[3rem] bg-primary-background-900 flex flex-col sm:flex-row"
+          style={{ width: "70vw", height: "80vh" }}
         >
           <div className="relative flex-1">
             <div className="z-10 absolute w-full h-full flex justify-center items-center rounded-[3rem]">
@@ -77,8 +91,7 @@ export default function AuthModal({
                 alt="red-background"
                 objectFit="cover"
                 layout="fill"
-                className="absolute rounded-[3rem]"
-                style={{ width: "12vw", height: "8vh" }}
+                className="absolute rounded-[3rem] w-[12vw] h-8vh"
               />
             </div>
           </div>
@@ -92,7 +105,7 @@ export default function AuthModal({
                 alt="play-store"
                 objectFit="cover"
                 layout="fill"
-                className="absolute rounded-[3rem] authlogoImg"
+                className="absolute authlogoImg"
               />
             </div>
             <h2
@@ -102,96 +115,28 @@ export default function AuthModal({
               {authModalType == "login" && "Login to your Account"}
               {authModalType == "register" && "Register new Account"}
             </h2>
-            {/*<h5 className="text-xs mt-4 font-light text-slate-400 px-8 text-center">*/}
-            {/*  {authModalType == "login" && "Consequat ea exercitation excepteur minim ipsum cupidatat nulla. quis aliquip ipsum laboris non non. exercitation excepteur."}*/}
-            {/*  {authModalType == "register" && "Consequat ea exercitation excepteur minim ipsum cupidatat nulla. quis aliquip ipsum laboris non non. exercitation excepteur."}*/}
-            {/*</h5>*/}
-            {/*<Formik*/}
-            {/*  initialValues={authModalType == "login" ? {*/}
-            {/*    name: "",*/}
-            {/*    email: "",*/}
-            {/*    password: "",*/}
-            {/*  } : authModalType == "register" ? {*/}
-            {/*    name: "",*/}
-            {/*    email: "",*/}
-            {/*    password: "",*/}
-            {/*  } : {}}*/}
-            {/*  onSubmit={(values, { setSubmitting }) => {*/}
-            {/*    setSubmitting(true);*/}
-            {/*    if (authModalType == "login") {*/}
-            {/*      // login(values.email, values.password);*/}
-            {/*      console.log(values.email, values.password);*/}
-            {/*    } else if (authModalType == "register") {*/}
-            {/*      // register(values.name, values.email, values.password);*/}
-            {/*      console.log(values.name, values.email, values.password);*/}
-            {/*    }*/}
-            {/*    setSubmitting(false);*/}
+            {/*<h5*/}
+            {/*  className="text-xs mt-2 font-light text-slate-400 px-8 text-center"*/}
+            {/*  style={{*/}
+            {/*    textAlign: "center",*/}
+            {/*    fontSize: "calc(0.4vw + 0.4vh)",*/}
+            {/*    width: "65%",*/}
+            {/*    margin: "1.5vh 0px",*/}
             {/*  }}*/}
             {/*>*/}
-            {/*  {({*/}
-            {/*      values,*/}
-            {/*      errors,*/}
-            {/*      touched,*/}
-            {/*      handleChange,*/}
-            {/*      handleBlur,*/}
-            {/*      handleSubmit,*/}
-            {/*      isSubmitting,*/}
-            {/*    }) => (*/}
-            {/*    <form onSubmit={handleSubmit} className="w-full flex items-center flex-col">*/}
-            {/*      <div className={`my-6 w-full ${authModalType == "login" ? "mt-16" : ""}`}>*/}
-            {/*        {authModalType == "login" && (*/}
-            {/*          <Login*/}
-            {/*            handleChange={handleChange}*/}
-            {/*            handleBlur={handleBlur}*/}
-            {/*            values={values}*/}
-            {/*            errors={errors}*/}
-            {/*            touched={touched}*/}
-            {/*          />*/}
-            {/*        )}*/}
-            {/*        {authModalType == "register" && (*/}
-            {/*          <Register*/}
-            {/*            // handleChange={handleChange}*/}
-            {/*            // handleBlur={handleBlur}*/}
-            {/*            // values={values}*/}
-            {/*            // errors={errors}*/}
-            {/*            // touched={touched}*/}
-            {/*          />*/}
-            {/*        )}*/}
-            {/*      </div>*/}
-            {/*      <div className="w-2/3 ">*/}
-            {/*        <button*/}
-            {/*          className="w-full bg-primary-red hover:bg-primary-light-red text-white py-3 rounded-md"*/}
-            {/*          type="submit"*/}
-            {/*          disabled={isSubmitting}*/}
-            {/*        >*/}
-            {/*          {authModalType == "login" && "Login"}*/}
-            {/*          {authModalType == "register" && "Register"}*/}
-            {/*        </button>*/}
-            {/*      </div>*/}
-            {/*    </form>*/}
-            {/*  )}*/}
-            {/*</Formik>*/}
-
-            <div
-              style={{
-                textAlign: "center",
-                fontSize: "calc(0.4vw + 0.4vh)",
-                width: "65%",
-                margin: "1.5vh 0px",
-              }}
-            >
-              Consequat ea exercitation excepteur minim ipsum cupidatat nulla. quis aliquip ipsum
-              laboris non non. exercitation excepteur.
+            {/*  {authModalType == "login" &&*/}
+            {/*    "Consequat ea exercitation excepteur minim ipsum cupidatat nulla. quis aliquip ipsum laboris non non. exercitation excepteur."}*/}
+            {/*  {authModalType == "register" &&*/}
+            {/*    "Consequat ea exercitation excepteur minim ipsum cupidatat nulla. quis aliquip ipsum laboris non non. exercitation excepteur."}*/}
+            {/*</h5>*/}
+            <div>
+              {authModalType == "login" && <Login closeAuthModal={closeAuthModal} />}
+              {authModalType == "register" && <Register closeAuthModal={closeAuthModal} />}
             </div>
-
-            <div style={{ width: "66%" }}>
-              {authModalType == "login" && <Login />}
-              {/*{authModalType == "register" && "Register"}*/}
-            </div>
-            <div style={{ marginBottom: "0.5vh" }}>or</div>
+            <div className="my-2">or</div>
             <div className="w-2/3 mx-auto">
               <div
-                className="googleSignin select-none flex border border-primary-red focus:outline-0 rounded-lg flex justify-center cursor-pointer"
+                className="select-none w-72 p-3 m-auto flex border border-primary-red focus:outline-0 rounded-lg flex justify-center cursor-pointer"
                 onClick={handleGoogleAuth}
               >
                 Sign in with Google

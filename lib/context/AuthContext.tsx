@@ -11,6 +11,7 @@ interface IAuthContext {
   loading: boolean;
   isAuth: boolean;
   isEditor: boolean;
+  uid: null | string;
   signOutUser: () => void;
 }
 
@@ -23,6 +24,7 @@ const AuthContext = createContext<IAuthContext>({
   loading: true,
   isAuth: false,
   isEditor: false,
+  uid: null,
   signOutUser: () => {},
 });
 
@@ -31,6 +33,7 @@ export const AuthProvider = ({ children }: Props) => {
   const [loading, setLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
   const [isEditor, setIsEditor] = useState(false);
+  const [uid, setUid] = useState<string | null>(null);
   const route = useRouter();
 
   /*
@@ -40,12 +43,14 @@ export const AuthProvider = ({ children }: Props) => {
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
         setUser(null);
+        setUid(null);
         setIsAuth(false);
         Cookie.set("token", "");
         setLoading(false);
         return;
       }
       setUser(user);
+      setUid(user.uid);
       setIsAuth(true);
       const token = await user.getIdToken();
       Cookie.set("token", token);
@@ -84,7 +89,7 @@ export const AuthProvider = ({ children }: Props) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, isAuth, isEditor, signOutUser }}>
+    <AuthContext.Provider value={{ user, loading, isAuth, isEditor, signOutUser, uid }}>
       {children}
     </AuthContext.Provider>
   );
