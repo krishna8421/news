@@ -133,7 +133,7 @@ export default function AuthModal({
               {authModalType == "login" && <Login closeAuthModal={closeAuthModal} />}
               {authModalType == "register" && <Register closeAuthModal={closeAuthModal} />}
             </div>
-            <div style={{ marginBottom: "0.5vh" }}>or</div>
+            <div className="my-2">or</div>
             <div className="w-2/3 mx-auto">
               <div
                 className="select-none w-72 p-3 m-auto flex border border-primary-red focus:outline-0 rounded-lg flex justify-center cursor-pointer"
