@@ -264,7 +264,7 @@ const NewPost = () => {
   return (
     <div
       style={{ width: "75vw", marginLeft: "20vw" }}
-      className="pt-16 w-9/12 mx-auto min-h-screen font-Righteous text-lg pb-16"
+      className="pt-4 w-9/12 mx-auto min-h-screen font-Righteous text-lg pb-16"
     >
       <Modal
         opened={showMissingAlert}
@@ -273,7 +273,7 @@ const NewPost = () => {
       >
         <h1 className="text-xl font-Righteous">Fill all the Required fields</h1>
       </Modal>
-      <h1 className="text-primary-red text-3xl">Your Editor</h1>
+      <h1 className="text-primary-red text-3xl">Write your new post here</h1>
       {/*Location*/}
       <div className="mt-12 mb-4">
         Location

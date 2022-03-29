@@ -55,7 +55,10 @@ export default function CategoryMenu({}: Props) {
   const { category } = useCategory();
 
   return (
-    <div className="my-4 w-11/12 m-auto h-16 overflow-y-hidden overflow-x-auto flex no-scrollbar items-center hover:bg-red">
+    <div
+      style={{ marginTop: "-1.5vh" }}
+      className="w-11/12 m-auto h-16 overflow-y-hidden overflow-x-auto flex no-scrollbar items-center hover:bg-red"
+    >
       {categoryList.map((data, index) => (
         <CategoryBox
           key={index}

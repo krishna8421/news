@@ -1,6 +1,9 @@
 import Image from "next/image";
 import { useState } from "react";
 import RedBackground from "../../../public/red-background-rec.png";
+import EditIcon from "../../../public/Vector.png";
+import LikeIcon from "../../../public/Like Icon.png";
+import ViewIcon from "../../../public/Views icon.png";
 
 const ProfileSection = () => {
   const [editMode, setEditMode] = useState(false);
@@ -18,7 +21,7 @@ const ProfileSection = () => {
         <div className="hidden sm:block w-[80vw]">
           <Image
             src={RedBackground}
-            alt="Article Card"
+            alt="Profile Banner"
             height={"200%"}
             objectFit="cover"
             className="rounded-lg"
@@ -28,7 +31,7 @@ const ProfileSection = () => {
           <div className="proImg">
             <Image
               src={mockData.authorProfile}
-              alt="Article Card"
+              alt="Profile Pic"
               layout="fill"
               objectFit="cover"
               className="rounded-full"
@@ -36,18 +39,7 @@ const ProfileSection = () => {
           </div>
           <div className="proContent">
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <div
-                style={{
-                  marginBottom: "-.5vh",
-                  width: "60vw",
-                  fontFamily: "Righteous",
-                  fontWeight: "400",
-                  fontSize: "calc(1.3vw + 1.3vh)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
+              <div className="proContentHeding">
                 <div style={{ display: "flex", alignItems: "flex-end" }}>
                   {mockData.name}
                   <div
@@ -61,46 +53,41 @@ const ProfileSection = () => {
                   >
                     <Image
                       src="/verified.png"
-                      alt="Article Card"
+                      alt="Verified icon"
                       width={200}
                       height={200}
                       className="w-[1vw] h-[1vh]"
                     />
                   </div>
                 </div>
-                <button onClick={() => setEditMode(!editMode)}>edit profile</button>
+                <button
+                  style={{
+                    padding: "calc(.2vw + .2vh)",
+                    backgroundColor: "#E50914",
+                    borderRadius: "calc(.3vw + .3vh)",
+                  }}
+                  onClick={() => setEditMode(!editMode)}
+                >
+                  <div style={{ height: "2vmax", width: "2vmax" }}>
+                    <Image src={EditIcon} alt="Edit Icon" objectFit="cover" />
+                  </div>
+                </button>
               </div>
               <div style={{ marginBottom: "2.5vh", fontSize: "calc(.7vw + .7vh)" }}>
                 Editor in chief
               </div>
               <div style={{ marginBottom: "3vh", display: "flex" }}>
-                <div
-                  style={{
-                    backgroundColor: "#E50914",
-                    color: "white",
-                    padding: ".4vh 1vw",
-                    borderRadius: "1vh",
-                    marginRight: "1vw",
-                    fontFamily: "Righteous",
-                    fontWeight: "400",
-                    fontSize: "calc(1vw + 1vh)",
-                  }}
-                >
-                  likes 242
+                <div className="likeNview">
+                  <div className="likeNviewIcon">
+                    <Image src={LikeIcon} alt="Like Icon" objectFit="cover" />
+                  </div>{" "}
+                  242
                 </div>
-                <div
-                  style={{
-                    backgroundColor: "#E50914",
-                    color: "white",
-                    padding: ".4vh 1vw",
-                    borderRadius: "1vh",
-                    marginRight: "1vw",
-                    fontFamily: "Righteous",
-                    fontWeight: "400",
-                    fontSize: "calc(1vw + 1vh)",
-                  }}
-                >
-                  views 745
+                <div className="likeNview">
+                  <div className="likeNviewIcon">
+                    <Image src={ViewIcon} alt="View Icon" objectFit="cover" />
+                  </div>{" "}
+                  745
                 </div>
               </div>
               <div
@@ -135,7 +122,7 @@ const ProfileSection = () => {
                     padding: ".4vh 1vw",
                     borderRadius: "1vh",
                     marginLeft: "1vw",
-                    fontFamily: "Righteous",
+                    fontFamily: "Segoe UI",
                     fontWeight: "400",
                     fontSize: "calc(1vw + 1vh)",
                   }}

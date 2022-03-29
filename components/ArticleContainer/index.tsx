@@ -5,5 +5,9 @@ interface Props {
 }
 
 export default function ArticleContainer({ children }: Props) {
-  return <div className="w-11/12 m-auto flex gap-6 flex-wrap justify-center p-8">{children}</div>;
+  return (
+    <div style={{ gap: "5vh 1.5vw" }} className="w-11/12 m-auto flex flex-wrap">
+      {children}
+    </div>
+  );
 }

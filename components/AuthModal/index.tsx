@@ -57,10 +57,10 @@ export default function AuthModal({
       className="fixed inset-0 overflow-y-auto z-50 flex justify-center "
     >
       <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-md" />
-      <div className="flex justify-center" style={{ paddingTop: "15vh", paddingBottom: "10vh" }}>
+      <div className="flex justify-center" style={{ paddingTop: "7vh", paddingBottom: "7vh" }}>
         <div
           className="relative rounded-[3rem] bg-primary-background-900 flex flex-col sm:flex-row"
-          style={{ width: "70vw", height: "80vh" }}
+          style={{ width: "70vw", height: "85vh" }}
         >
           <div className="relative flex-1">
             <div className="z-10 absolute w-full h-full flex justify-center items-center rounded-[3rem]">
@@ -134,7 +134,7 @@ export default function AuthModal({
               {authModalType == "register" && <Register closeAuthModal={closeAuthModal} />}
             </div>
             <div className="my-2">or</div>
-            <div className="w-2/3 mx-auto">
+            <div className="mx-auto">
               <div
                 className="select-none w-72 p-3 m-auto flex border border-primary-red focus:outline-0 rounded-lg flex justify-center cursor-pointer"
                 onClick={handleGoogleAuth}

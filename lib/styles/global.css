@@ -4,148 +4,249 @@
  */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+html {
+    font-size: calc(.9vw + .9vh);
+}
+
 body {
-    @apply font-Inter;
-    font-size: calc(.7vw + .7vh);
+  @apply font-Inter;
+  font-size: calc(0.7vw + 0.7vh);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 @media screen and (max-width: 640px) {
-    body {
-        font-size: calc(1vw + 1vh);
-    }
+  body {
+    font-size: calc(1vw + 1vh);
+  }
 }
 
 @layer utilities {
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 
-    .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 
-    .drawer {
-        color: white;
-        position: fixed;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        height: 92vh;
-        width: 15vw;
-    }
+  .drawer {
+    color: white;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    height: 92vh;
+    width: 16vw;
+    background-color: #1f1f1f;
+    border-top-right-radius: calc(0.8vw + 0.8vh);
+  }
 
+  .drawerBtn {
+    background-color: #333333;
+    border-radius: calc(0.4vw + 0.4vh);
+    padding: 1.9vh 1vw;
+    margin: 2vh 1.5vw;
+    /* font-family: Montserrat; */
+    font-size: calc(0.9vw + 0.9vh);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+  }
+
+  .drawerBtnActive {
+    background-color: #e50914;
+    border-radius: calc(0.4vw + 0.4vh);
+    padding: 1.9vh 1vw;
+    margin: 2vh 1.5vw;
+    font-size: calc(0.9vw + 0.9vh);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+  }
+
+  .drawerBtnIcon {
+    width: calc(1.5vw + 1.5vh);
+    height: auto;
+    margin-right: 1vw;
+    display: flex;
+    align-items: center;
+  }
+
+  .drawerBtnTxt {
+    white-space: nowrap;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .drawerBtnTxt::-webkit-scrollbar {
+    display: none;
+  }
+
+  .proImg {
+    height: calc(7vw + 7vh);
+    width: calc(7vw + 7vh);
+    margin-left: 5vw;
+    margin-top: -6vh;
+    position: relative;
+  }
+
+  .prosecbody {
+    padding: 2vh 0px 0px 18vw;
+    width: 100vw;
+  }
+
+  .proContent {
+    padding: 1vw 3vh;
+    width: 50vw;
+  }
+
+  .proContentHeding {
+    margin-bottom: -0.5vh;
+    width: 60vw;
+    font-family: Righteous;
+    font-weight: 400;
+    font-size: calc(1.3vw + 1.3vh);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .smokyScreen {
+    padding: 10vh 1vw;
+    width: 30vw;
+    height: 60vh;
+  }
+
+  .authlogo {
+    width: 12vw;
+    height: 8vh;
+  }
+
+  .playstore {
+    height: 17vh;
+    width: 9vw;
+  }
+
+  .authFormInput {
+    font-size: calc(0.7vw + 0.7vh);
+    min-height: 4vh;
+    height: 4vh;
+    color: #838383;
+    background-color: #141414;
+    padding: 2.5vh 0.8vw;
+    width: 100%;
+    border: calc(0.05vw + 0.05vh) solid #e50914;
+    border-radius: calc(0.3vw + 0.3vh);
+    margin: 1vh 0px;
+  }
+
+  .googleSignin {
+    height: 7vh;
+    align-items: center;
+    font-size: calc(1vw + 1vh);
+  }
+
+  .likeNview {
+    background-color: #E50914;
+    color: white;
+    padding: 1vh 1vw;
+    border-radius: 1vh;
+    margin-right: 1vw;
+    font-family: Righteous;
+    font-weight: 400;
+    font-size: calc(1vw + 1vh);
+    display: flex;
+  }
+
+  .likeNviewIcon {
+    height: calc(1.5vw + 1.5vh);
+    width: calc(1.5vw + 1.5vh);
+    margin-right: 1vw;
+  }
+
+  @media screen and (max-width: 640px) {
     .proImg {
-        height: calc(7vw + 7vh);
-        width: calc(7vw + 7vh);
-        margin-left: 5vw;
-        margin-top: -6vh;
-        position: relative;
+      margin: 0px auto 4vh;
+      height: calc(10vw + 10vh);
+      width: calc(10vw + 10vh);
     }
 
     .prosecbody {
-        padding: 15vh 15vw 0px;
-        width: 100vw;
+      padding: 3vh 0vw 0px 14vw;
     }
 
     .proContent {
-        padding: 1vw 3vh;
-        width: 50vw;
+      width: 85vw;
+    }
+
+    .proContentHeding {
+        width: 70vw;
     }
 
     .smokyScreen {
-        padding: 10vh 1vw;
-        width: 30vw;
-        height: 60vh;
+      padding: 3vh 2vw;
+      width: 60vw;
+      height: 20vh;
+      justify-content: space-around;
+    }
+
+    .redbg {
+      width: 70vw;
+      height: 22vh;
     }
 
     .authlogo {
-        width: 12vw;
-        height: 8vh;
+      width: 50vw;
+    }
+
+    .authlogoImg {
+      height: 5vh;
+      width: 20vw;
+      bottom: 5.5vh;
     }
 
     .playstore {
-        height: 17vh;
-        width: 9vw;
+      height: 8vh;
+      width: 17vw;
+      bottom: 4vh;
     }
 
     .authFormInput {
-        font-size: calc(.7vw + .7vh);
-        min-height: 4vh;
-        height: 4vh;
-        color: #838383;
-        background-color: #141414;
-        padding: 2.5vh .8vw;
-        width: 100%;
-        border: calc(0.05vw + 0.05vh) solid #E50914;
-        border-radius: calc(0.3vw + 0.3vh);
-        margin: 1vh 0px;
+      min-height: 2vh;
+      height: 2vh;
+      padding: 1.5vh 0.8vw;
     }
 
     .googleSignin {
-        height: 7vh;
-        align-items: center;
-        font-size: calc(1vw + 1vh);
+      height: 4vh;
+      margin-bottom: 2vh;
     }
 
-    @media screen and (max-width: 640px) {
-        .proImg {
-          margin: 0px auto 4vh;
-          height: calc(10vw + 10vh);
-          width: calc(10vw + 10vh);
-        }
-
-        .prosecbody {
-            padding: 15vh 0vw 0px 20vw;
-        }
-
-        .proContent {
-            width: 75vw;
-        }
-
-        .smokyScreen {
-            padding: 3vh 2vw;
-            width: 60vw;
-            height: 20vh;
-            justify-content: space-around;
-        }
-
-        .redbg{
-            width: 70vw;
-            height: 22vh;
-        }
-
-        .authlogo {
-            width: 50vw;
-        }
-
-        .authlogoImg {
-            height: 5vh;
-            width: 20vw;
-            bottom: 5.5vh;
-        }
-
-        .playstore {
-            height: 8vh;
-            width: 17vw;
-            bottom: 4vh;
-        }
-
-        .authFormInput {
-            min-height: 2vh;
-            height: 2vh;
-            padding: 1.5vh .8vw;
-        }
-
-        .googleSignin {
-            height: 4vh;
-            margin-bottom: 2vh;
-        }
+    .drawerBtn {
+      flex-direction: column;
     }
+
+    .drawerBtnActive {
+      flex-direction: column;
+    }
+
+    .drawerBtnIcon {
+        margin-bottom: 1vh;
+    }
+
+    .drawerBtnTxt {
+        white-space: normal;
+        overflow: initial;
+    }
+
+  }
 }
