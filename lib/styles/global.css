@@ -234,15 +234,19 @@ body {
 
     .drawerBtn {
       flex-direction: column;
+      padding: 1vh 0;
+      margin: 2vh 3vw;
     }
 
     .drawerBtnActive {
       flex-direction: column;
+      padding: 1vh 0;
+      margin: 2vh 3vw;
     }
 
-    .drawerBtnIcon {
-        margin-bottom: 1vh;
-    }
+    /*.drawerBtnIcon {*/
+    /*    margin-bottom: 1vh;*/
+    /*}*/
 
     .drawerBtnTxt {
         white-space: normal;

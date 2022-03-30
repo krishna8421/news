@@ -83,9 +83,7 @@ const Article = ({ article }: any) => {
         </div>
       </div>
       <div className="lg:w-7/12 xl:w-2/3 w-full lg:pt-20 lg:px-16 px-4 pt-12 text-white font-Montserrat">
-        <h1 className="tracking-wide text-2xl font-extrabold text-center">
-          {title}vbisrbvhsbv csjkndcks ksbncjeskf ejfbcwejhfc wejf ewhbfwe fewjf{" "}
-        </h1>
+        <h1 className="tracking-wide text-2xl font-extrabold text-center">{title}</h1>
         <div className="bg-primary-red mt-8 font-bold py-1 px-2 rounded">{type.toUpperCase()}</div>
         <div className="flex flex-col w-full mx-auto items-center mt-8 w-12 h-12 relative">
           <Image

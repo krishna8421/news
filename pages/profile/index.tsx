@@ -5,13 +5,13 @@ import HomePageLayout from "@layouts/HomePageLayout";
 import { useState } from "react";
 import { useAuth } from "@lib/context/AuthContext";
 import Image from "next/image";
-import ProfileIcon from "../../public/Selected profile.png";
-import NewPostIcon from "../../public/Selected new icon.png";
-import DraftsIcon from "../../public/Drafts icon selected.png";
 import NeedReviewIcon from "../../public/Need review selected.png";
 import RejectedIcon from "../../public/Rejected selected.png";
 import { IoMdLogOut } from "react-icons/io";
 import { withAuth } from "@lib/hooks/withAuth";
+import { CgProfile } from "react-icons/cg";
+import { MdModeEditOutline } from "react-icons/md";
+import { MdDrafts } from "react-icons/md";
 
 const bodyContent = (val: number) => {
   switch (val) {
@@ -38,40 +38,40 @@ const Profile = () => {
       <div className="mt-16">
         <div className="drawer">
           <button className={val == 1 ? "drawerBtnActive" : "drawerBtn"} onClick={() => setVal(1)}>
-            <span className="drawerBtnIcon">
-              <Image src={ProfileIcon} alt="Profile Icon" objectFit="cover" />
+            <span className="p-[5px] sm:mr-4 bg-white rounded-full">
+              <CgProfile color="red" />
             </span>
-            <div className="drawerBtnTxt">Profile</div>
+            <div className="drawerBtnTxt hidden sm:block">Profile</div>
           </button>
           <button className={val == 2 ? "drawerBtnActive" : "drawerBtn"} onClick={() => setVal(2)}>
-            <span className="drawerBtnIcon">
-              <Image src={NewPostIcon} alt="Profile Icon" objectFit="cover" />
+            <span className="p-[5px] sm:mr-4 bg-white rounded-full">
+              <MdModeEditOutline color="red" />
             </span>
-            <div className="drawerBtnTxt">Create New Post</div>
+            <div className="drawerBtnTxt hidden sm:block">Create New Post</div>
           </button>
           <button className={val == 3 ? "drawerBtnActive" : "drawerBtn"} onClick={() => setVal(3)}>
-            <span className="drawerBtnIcon">
-              <Image src={DraftsIcon} alt="Profile Icon" objectFit="cover" />
+            <span className="p-[5px] sm:mr-4 bg-white rounded-full">
+              <MdDrafts color="red" />
             </span>
-            <div className="drawerBtnTxt">Drafts</div>
+            <div className="drawerBtnTxt hidden sm:block">Drafts</div>
           </button>
           <button className={val == 4 ? "drawerBtnActive" : "drawerBtn"} onClick={() => setVal(4)}>
             <span className="drawerBtnIcon">
               <Image src={NeedReviewIcon} alt="Profile Icon" objectFit="cover" />
             </span>
-            <div className="drawerBtnTxt">Need Review</div>
+            <div className="drawerBtnTxt hidden sm:block">Need Review</div>
           </button>
           <button className={val == 5 ? "drawerBtnActive" : "drawerBtn"} onClick={() => setVal(5)}>
             <span className="drawerBtnIcon">
               <Image src={RejectedIcon} alt="Profile Icon" objectFit="cover" />
             </span>
-            <div className="drawerBtnTxt">Rejected</div>
+            <div className="drawerBtnTxt hidden sm:block">Rejected</div>
           </button>
           <button className="drawerBtn" onClick={signOutUser}>
             <span className="p-[5px] mr-4 bg-white rounded-full">
               <IoMdLogOut color="red" />
             </span>
-            <div className="drawerBtnTxt">Logout</div>
+            <div className="drawerBtnTxt hidden sm:block">Logout</div>
           </button>
         </div>
         <div className="">{bodyContent(val)}</div>

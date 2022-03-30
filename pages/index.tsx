@@ -31,6 +31,7 @@ const Home: NextPage = () => {
         <CategoryProvider>
           <CategoryMenu />
         </CategoryProvider>
+
         <ArticleContainer>
           <ArticleCard />
           <ArticleCard />

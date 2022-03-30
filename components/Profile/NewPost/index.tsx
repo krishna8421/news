@@ -84,12 +84,12 @@ const NewPost = () => {
   /**
    * Prime Time
    */
-  const [primeTime, setPrimeTime] = useState<null | File>(null);
+  // const [primeTime, setPrimeTime] = useState<null | File>(null);
   const [captionPrimeTime, setCaptionPrimeTime] = useState("");
   /**
    * Limelight
    */
-  const [limelight, setLimelight] = useState<null | File>(null);
+  // const [limelight, setLimelight] = useState<null | File>(null);
   const [captionLimelight, setCaptionLimelight] = useState("");
 
   /**
@@ -137,11 +137,10 @@ const NewPost = () => {
     data.onload = function () {
       if (type === "primeTime") {
         setTempPrimeTime(data.result);
-        setPrimeTime(file);
-        uploadImage("primeTime", data.result);
+        // setPrimeTime(file);
       } else if (type === "limelight") {
         setTempLimelight(data.result);
-        setLimelight(file);
+        // setLimelight(file);
       } else if (type === "normalImage1") {
         setTempNormalImage1(data.result);
         // setNormalImage1(file);
@@ -181,14 +180,14 @@ const NewPost = () => {
       !city ||
       !tempNormalImage1 ||
       !captionNormalImage1 ||
-      !tempNormalImage2 ||
-      !captionNormalImage2 ||
-      !tempNormalImage3 ||
-      !captionNormalImage3 ||
-      !primeTime ||
-      !captionPrimeTime ||
-      !limelight ||
-      !captionLimelight ||
+      // !tempNormalImage2 ||
+      // !captionNormalImage2 ||
+      // !tempNormalImage3 ||
+      // !captionNormalImage3 ||
+      // !primeTime ||
+      // !captionPrimeTime ||
+      // !limelight ||
+      // !captionLimelight ||
       !title ||
       !subHeading ||
       !articleData ||
@@ -266,8 +265,12 @@ const NewPost = () => {
   };
 
   if (loading) return <PageLoading />;
-  const Required = () => {
-    return <span className="text-primary-red">*</span>;
+  const Required = ({ data }: { data?: string }) => {
+    return (
+      <span className="text-primary-red flex pl-1">
+        *<div className="text-xs px-1 pt-[calc(.1vw+.1vh)]">{data}</div>
+      </span>
+    );
   };
   return (
     <div
@@ -283,7 +286,7 @@ const NewPost = () => {
       </Modal>
       <h1 className="text-primary-red text-3xl">Write your new post here</h1>
       {/*Location*/}
-      <div className="mt-12 mb-4">
+      <div className="mt-12 mb-4 flex">
         Location
         <Required />
       </div>
@@ -336,7 +339,7 @@ const NewPost = () => {
         />
       </div>
       {/*Age Restrictions*/}
-      <div className="mt-12 mb-4">Age Restricted</div>
+      <div className="mt-12 mb-4 flex">Age Restricted</div>
       <div className="flex">
         <p>Yes</p>
         <Checkbox
@@ -347,9 +350,9 @@ const NewPost = () => {
         />
       </div>
       {/*Add Image*/}
-      <div className="mt-12 mb-4">
+      <div className="mt-12 mb-4 flex">
         Images
-        <Required />
+        <Required data={"(Atleast one image)"} />
       </div>
       <ImageDropZone
         onDrop={(files) => handleTempImg(files[0], "normalImage1")}
@@ -379,10 +382,7 @@ const NewPost = () => {
       />
 
       {/*Prime Time*/}
-      <div className="mt-12 mb-4">
-        Prime Time
-        <Required />
-      </div>
+      <div className="mt-12 mb-4 flex">Prime Time</div>
       <ImageDropZone
         onDrop={(files) => handleTempImg(files[0], "primeTime")}
         onReject={(files) => console.log("rejected files", files)}
@@ -392,10 +392,7 @@ const NewPost = () => {
         setCaption={setCaptionPrimeTime}
       />
       {/*LimeLight*/}
-      <div className="mt-12 mb-4">
-        Limelight
-        <Required />
-      </div>
+      <div className="mt-12 mb-4 flex">Limelight</div>
       <ImageDropZone
         onDrop={(files) => handleTempImg(files[0], "limelight")}
         onReject={(files) => console.log("rejected files", files)}
@@ -405,7 +402,7 @@ const NewPost = () => {
         setCaption={setCaptionLimelight}
       />
       {/*Title*/}
-      <div className="mt-12 mb-4">
+      <div className="mt-12 mb-4 flex">
         Title
         <Required />
       </div>
@@ -417,7 +414,7 @@ const NewPost = () => {
         onChange={(e: any) => setTitle(e.target.value)}
       />
       {/*Sub-heading*/}
-      <div className="mt-12 mb-4">
+      <div className="mt-12 mb-4 flex">
         Sub heading
         <Required />
       </div>
@@ -429,7 +426,7 @@ const NewPost = () => {
         onChange={(e: any) => setSubHeading(e.target.value)}
       />
       {/*Article*/}
-      <div className="mt-12 mb-4">
+      <div className="mt-12 mb-4 flex">
         Article
         <Required />
       </div>
@@ -445,7 +442,7 @@ const NewPost = () => {
         ]}
       />
       {/*Tags*/}
-      <div className="mt-12 mb-4">Tags for search bar</div>
+      <div className="mt-12 mb-4 flex">Tags for search bar</div>
       <div className="flex gap-8">
         <Input
           variant="filled"
@@ -496,7 +493,7 @@ const NewPost = () => {
       </div>
 
       {/*Type*/}
-      <div className="mt-12 mb-4">
+      <div className="mt-12 mb-4 flex">
         Type
         <Required />
       </div>
@@ -516,7 +513,7 @@ const NewPost = () => {
       </RadioGroup>
 
       {/*Category*/}
-      <div className="mt-12 mb-4">
+      <div className="mt-12 mb-4 flex">
         Category
         <Required />
       </div>

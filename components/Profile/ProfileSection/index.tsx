@@ -49,7 +49,7 @@ const ProfileSection = () => {
                     value={mockData.name}
                     classNames={{
                       unstyledVariant: "border-b border-primary-red focus:border-primary-red",
-                      input: "text-2xl font-Righteous text-slate-300",
+                      input: "text-2xl font-Righteous text-slate-300 h-auto",
                     }}
                   />
                 ) : (
@@ -82,7 +82,7 @@ const ProfileSection = () => {
                 }}
                 onClick={() => setEditMode(!editMode)}
               >
-                {editMode ? <MdModeEditOutline /> : <IoIosSave />}
+                {!editMode ? <MdModeEditOutline /> : <IoIosSave />}
               </div>
             </div>
             <div style={{ marginBottom: "2.5vh", fontSize: "calc(.7vw + .7vh)" }}>
@@ -93,7 +93,7 @@ const ProfileSection = () => {
                   value={mockData.designation}
                   classNames={{
                     unstyledVariant: "border-b border-primary-red focus:border-primary-red",
-                    input: "text-xs font-Inter w-24 text-slate-300",
+                    input: "text-xs font-Inter w-24 text-slate-300 h-auto",
                   }}
                 />
               ) : (
@@ -136,11 +136,11 @@ const ProfileSection = () => {
               {editMode ? (
                 <Textarea
                   className="w-full"
-                  minRows={6}
+                  // minRows={6}
                   maxRows={6}
                   classNames={{
                     unstyledVariant: "border-b border-primary-red focus:border-primary-red",
-                    input: "text-sm font-Montserrat font-medium text-slate-300",
+                    input: "text-sm font-Montserrat font-medium text-slate-300 h-auto",
                   }}
                   variant="unstyled"
                   value={mockData.bio}
