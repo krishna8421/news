@@ -18,7 +18,7 @@ const nextConfig = {
     CLIENT_EMAIL: process.env.CLIENT_EMAIL,
   },
   images: {
-    domains: ["lh3.googleusercontent.com", "source.unsplash.com"],
+    domains: ["lh3.googleusercontent.com", "source.unsplash.com", "firebasestorage.googleapis.com"],
   },
 };
 

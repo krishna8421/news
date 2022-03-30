@@ -25,6 +25,7 @@ module.exports = {
         Cinzel: ["Cinzel", "serif"],
         Inter: ["Inter", "serif"],
         Righteous: ["Righteous", "serif"],
+        Montserrat: ["Montserrat", "serif"],
       },
       colors: {
         dashboard: "#F6F7FB",

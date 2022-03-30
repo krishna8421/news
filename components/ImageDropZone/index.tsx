@@ -24,14 +24,16 @@ export default function ImageDropZone({
   setCaption,
 }: Props) {
   return (
-    <div className={`flex flex-wrap gap-8 items-center ${className}`}>
+    <div
+      className={`flex flex-wrap gap-4 md:justify-start justify-center items-center ${className} border p-4 border-slate-800 rounded-lg`}
+    >
       {tempImg && (
         <div className="relative">
           <Image
             src={tempImg as string}
             alt="Temp Image"
-            width={240}
-            height={160}
+            width={192}
+            height={128}
             objectFit="cover"
             objectPosition="center"
             className="rounded"
@@ -44,7 +46,7 @@ export default function ImageDropZone({
       )}
       {!tempImg && (
         <Dropzone
-          className={`w-60 h-40 text-xs flex items-center justify-center text-center`}
+          className={`w-48 h-32 text-xs flex items-center justify-center text-center`}
           onDrop={onDrop}
           onReject={onReject}
           maxSize={2 * 1024 ** 2}
@@ -67,7 +69,7 @@ export default function ImageDropZone({
           },
         }}
         placeholder="Add Caption"
-        className="w-80"
+        className="w-full md:w-80"
         minRows={6}
         maxRows={6}
         variant="default"

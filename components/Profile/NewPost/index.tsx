@@ -12,9 +12,12 @@ import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@lib/firebase/client";
 import { storage } from "@lib/firebase/client";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
+import ReactLoading from "react-loading";
+import { useRouter } from "next/router";
 
 const NewPost = () => {
-  const { uid, loading } = useAuth();
+  const router = useRouter();
+  const { uid, loading, user } = useAuth();
 
   /**
    * Location
@@ -239,6 +242,10 @@ const NewPost = () => {
         ],
         type,
         category,
+        createdAt: new Date().toISOString(),
+        authorUID: uid,
+        authorName: user?.displayName,
+        authorPhotoURL: user?.photoURL,
       };
       const userRef = doc(db, "users", uid as string);
       const res = await getDoc(userRef);
@@ -250,6 +257,7 @@ const NewPost = () => {
         articles: allArticle,
       });
       setIsSubmitting(false);
+      router.reload();
     } catch (error) {
       console.log(error);
       setIsSubmitting(false);
@@ -553,11 +561,13 @@ const NewPost = () => {
       {/*Submit*/}
       <div className="w-full flex justify-center">
         <button
-          className="px-6 py-2 bg-primary-red mt-8 rounded-xl"
+          className={`px-6 py-2 bg-primary-red mt-8 rounded-xl ${
+            isSubmitting ? "cursor-not-allowed" : ""
+          }`}
           onClick={handleSubmit}
           disabled={isSubmitting}
         >
-          Post
+          {isSubmitting ? <ReactLoading type="spin" color="#fff" /> : "Post"}
         </button>
       </div>
     </div>

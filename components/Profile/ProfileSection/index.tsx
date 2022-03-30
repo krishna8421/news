@@ -4,13 +4,17 @@ import RedBackground from "../../../public/red-background-rec.png";
 import LikeIcon from "../../../public/Like Icon.png";
 import ViewIcon from "../../../public/Views icon.png";
 import { MdModeEditOutline } from "react-icons/md";
+import { Input, Textarea } from "@mantine/core";
+import { IoIosSave } from "react-icons/io";
 
 const ProfileSection = () => {
   const [editMode, setEditMode] = useState(false);
+  console.log(editMode);
   const mockData = {
     mainImg: "https://source.unsplash.com/1200x900/?news",
     authorProfile: "https://source.unsplash.com/100x100/?man",
     name: "Sushant Mishra",
+    designation: "Editor",
     bio: "Laboris amet deserunt dolor aliqua exercitation adipisicing excepteur cillum ipsum commodo eiusmod. Quis est sit occaecat cupidatat aute ea nostrud est sit elit. Commodo officia sit enim ullamco veniam.",
   };
   return (
@@ -37,8 +41,20 @@ const ProfileSection = () => {
         <div className="proContent">
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div className="proContentHeading">
-              <div style={{ display: "flex", alignItems: "flex-end" }}>
-                {mockData.name}
+              <div style={{ display: "flex", alignItems: "flex-end" }} className="mb-2">
+                {editMode ? (
+                  <Input
+                    size="md"
+                    variant="unstyled"
+                    value={mockData.name}
+                    classNames={{
+                      unstyledVariant: "border-b border-primary-red focus:border-primary-red",
+                      input: "text-2xl font-Righteous text-slate-300",
+                    }}
+                  />
+                ) : (
+                  <div className="pb-1 text-2xl font-Righteous text-slate-300">{mockData.name}</div>
+                )}
                 <div
                   style={{
                     width: "calc(1.5vw + 1.5vh)",
@@ -59,18 +75,30 @@ const ProfileSection = () => {
               </div>
               <div
                 style={{
-                  padding: "calc(.2vw + .2vh)",
+                  padding: "calc(.3vw + .3vh)",
                   backgroundColor: "#E50914",
                   borderRadius: "calc(.3vw + .3vh)",
                   cursor: "pointer",
                 }}
                 onClick={() => setEditMode(!editMode)}
               >
-                <MdModeEditOutline />
+                {editMode ? <MdModeEditOutline /> : <IoIosSave />}
               </div>
             </div>
             <div style={{ marginBottom: "2.5vh", fontSize: "calc(.7vw + .7vh)" }}>
-              Editor in chief
+              {editMode ? (
+                <Input
+                  size="md"
+                  variant="unstyled"
+                  value={mockData.designation}
+                  classNames={{
+                    unstyledVariant: "border-b border-primary-red focus:border-primary-red",
+                    input: "text-xs font-Inter w-24 text-slate-300",
+                  }}
+                />
+              ) : (
+                <div className="text-xs font-Inter text-slate-300">{mockData.designation}</div>
+              )}
             </div>
             <div style={{ marginBottom: "3vh", display: "flex" }}>
               <div className="likeNView">
@@ -105,7 +133,23 @@ const ProfileSection = () => {
                 fontSize: "calc(.7vw + .7vh)",
               }}
             >
-              {mockData.bio}
+              {editMode ? (
+                <Textarea
+                  className="w-full"
+                  minRows={6}
+                  maxRows={6}
+                  classNames={{
+                    unstyledVariant: "border-b border-primary-red focus:border-primary-red",
+                    input: "text-sm font-Montserrat font-medium text-slate-300",
+                  }}
+                  variant="unstyled"
+                  value={mockData.bio}
+                />
+              ) : (
+                <div className="text-sm font-Montserrat font-medium text-slate-300">
+                  {mockData.bio}
+                </div>
+              )}
             </div>
             <div style={{ marginBottom: "2.5vh", fontWeight: "600", fontSize: "calc(1vw + 1vh)" }}>
               Total Content Uploaded
