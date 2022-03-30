@@ -247,7 +247,7 @@ const NewPost = () => {
       const allArticle = data?.articles || [];
       allArticle.push(articleRef.id);
       updateDoc(userRef, {
-        article: allArticle,
+        articles: allArticle,
       });
       setIsSubmitting(false);
     } catch (error) {

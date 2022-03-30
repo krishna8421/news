@@ -23,7 +23,7 @@ const Home: NextPage = () => {
           <Carousel imgUrlArr={imgUrlArr} />
         </div>
       </div>
-      <div className="lg:w-7/12 xl:w-2/3 w-full lg:pt-16">
+      <div className="lg:w-7/12 xl:w-2/3 w-full pt-4 lg:pt-16">
         {/*
            TODO
             Use Radio Groups of headlessUI

@@ -73,7 +73,7 @@ export default function AuthModal({
                   ipsum laboris non non.
                 </p>
                 <div className="absolute" style={{ bottom: "0px" }}>
-                  <div className="relative playstore">
+                  <div className="relative playStore">
                     <Image
                       src="/play-store.png"
                       alt="play-store"
@@ -85,7 +85,7 @@ export default function AuthModal({
                 </div>
               </div>
             </div>
-            <div className="redbg">
+            <div className="redBg">
               <Image
                 src="/red-background.png"
                 alt="red-background"
@@ -99,13 +99,13 @@ export default function AuthModal({
             className="flex-1 text-white flex items-center flex-col"
             style={{ padding: "2vh 0px" }}
           >
-            <div className="relative authlogo">
+            <div className="relative authLogo">
               <Image
                 src="/logo.png"
                 alt="play-store"
                 objectFit="cover"
                 layout="fill"
-                className="absolute authlogoImg"
+                className="absolute authLogoImg"
               />
             </div>
             <h2

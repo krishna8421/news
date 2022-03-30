@@ -57,7 +57,7 @@ body {
     font-weight: 600;
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
   }
 
   .drawerBtnActive {
@@ -69,7 +69,7 @@ body {
     font-weight: 600;
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
   }
 
   .drawerBtnIcon {
@@ -99,8 +99,8 @@ body {
     position: relative;
   }
 
-  .prosecbody {
-    padding: 2vh 0px 0px 18vw;
+  .proSecBody {
+    padding: 2vh 0 0 18vw;
     width: 100vw;
   }
 
@@ -109,10 +109,10 @@ body {
     width: 50vw;
   }
 
-  .proContentHeding {
+  .proContentHeading {
     margin-bottom: -0.5vh;
     width: 60vw;
-    font-family: Righteous;
+    font-family: Righteous, sans-serif;
     font-weight: 400;
     font-size: calc(1.3vw + 1.3vh);
     display: flex;
@@ -126,12 +126,12 @@ body {
     height: 60vh;
   }
 
-  .authlogo {
+  .authLogo {
     width: 12vw;
     height: 8vh;
   }
 
-  .playstore {
+  .playStore {
     height: 17vh;
     width: 9vw;
   }
@@ -146,7 +146,7 @@ body {
     width: 100%;
     border: calc(0.05vw + 0.05vh) solid #e50914;
     border-radius: calc(0.3vw + 0.3vh);
-    margin: 1vh 0px;
+    margin: 1vh 0;
   }
 
   .googleSignin {
@@ -155,19 +155,19 @@ body {
     font-size: calc(1vw + 1vh);
   }
 
-  .likeNview {
+  .likeNView {
     background-color: #E50914;
     color: white;
     padding: 1vh 1vw;
     border-radius: 1vh;
     margin-right: 1vw;
-    font-family: Righteous;
+    font-family: Righteous, sans-serif;
     font-weight: 400;
     font-size: calc(1vw + 1vh);
     display: flex;
   }
 
-  .likeNviewIcon {
+  .likeNViewIcon {
     height: calc(1.5vw + 1.5vh);
     width: calc(1.5vw + 1.5vh);
     margin-right: 1vw;
@@ -175,20 +175,20 @@ body {
 
   @media screen and (max-width: 640px) {
     .proImg {
-      margin: 0px auto 4vh;
+      margin: 0 auto 4vh;
       height: calc(10vw + 10vh);
       width: calc(10vw + 10vh);
     }
 
-    .prosecbody {
-      padding: 3vh 0vw 0px 14vw;
+    .proSecBody {
+      padding: 3vh 0 0 14vw;
     }
 
     .proContent {
       width: 85vw;
     }
 
-    .proContentHeding {
+    .proContentHeading {
         width: 70vw;
     }
 
@@ -199,22 +199,22 @@ body {
       justify-content: space-around;
     }
 
-    .redbg {
+    .redBg {
       width: 70vw;
       height: 22vh;
     }
 
-    .authlogo {
+    .authLogo {
       width: 50vw;
     }
 
-    .authlogoImg {
+    .authLogoImg {
       height: 5vh;
       width: 20vw;
       bottom: 5.5vh;
     }
 
-    .playstore {
+    .playStore {
       height: 8vh;
       width: 17vw;
       bottom: 4vh;

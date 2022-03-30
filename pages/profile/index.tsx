@@ -10,6 +10,8 @@ import NewPostIcon from "../../public/Selected new icon.png";
 import DraftsIcon from "../../public/Drafts icon selected.png";
 import NeedReviewIcon from "../../public/Need review selected.png";
 import RejectedIcon from "../../public/Rejected selected.png";
+import { IoMdLogOut } from "react-icons/io";
+import { withAuth } from "@lib/hooks/withAuth";
 
 const bodyContent = (val: number) => {
   switch (val) {
@@ -65,11 +67,11 @@ const Profile = () => {
             </span>
             <div className="drawerBtnTxt">Rejected</div>
           </button>
-          <button className={val == 6 ? "drawerBtnActive" : "drawerBtn"} onClick={signOutUser}>
-            <span className="drawerBtnIcon">
-              <Image src={ProfileIcon} alt="Profile Icon" objectFit="cover" />
+          <button className="drawerBtn" onClick={signOutUser}>
+            <span className="p-[5px] mr-4 bg-white rounded-full">
+              <IoMdLogOut color="red" />
             </span>
-            Logout
+            <div className="drawerBtnTxt">Logout</div>
           </button>
         </div>
         <div className="">{bodyContent(val)}</div>
@@ -77,4 +79,4 @@ const Profile = () => {
     </HomePageLayout>
   );
 };
-export default Profile;
+export default withAuth(Profile);

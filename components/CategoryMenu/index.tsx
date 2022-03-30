@@ -13,7 +13,6 @@ export default function CategoryMenu({}: Props) {
   // Complete the function to show the articles related to the
   // category that was returned
   // const categoryBoxOnClickHandler = (category: string) => {
-  //   console.log(category);
   // };
   const categoryList = [
     {

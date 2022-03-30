@@ -15,7 +15,7 @@ const CategoryContext = createContext<ICategoryContext>({
 });
 
 export const CategoryProvider = ({ children }: Props) => {
-  const [category, setCategory] = useState<string>("recommended");
+  const [category, setCategory] = useState("recommended");
   return (
     <CategoryContext.Provider value={{ category, setCategory }}>
       {children}

@@ -33,12 +33,16 @@ export default function Register({ closeAuthModal }: { closeAuthModal: () => voi
           await setDoc(UserDocRef, {
             name,
             email,
+            designation: "User",
+            bio: "",
             userUid: auth.currentUser?.uid,
-            preferencesTag: [],
             isEditor: false,
+            preferencesTags: [],
             likedArticles: [],
-            createdAt: date.toISOString(),
+            draftArticles: [],
             articles: [],
+            likedArticlesCount: 0,
+            createdAt: date.toISOString(),
           });
         }
         await router.reload();
