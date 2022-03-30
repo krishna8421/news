@@ -12,11 +12,11 @@ yarn lint || (
 )
 echo "ESLint check completed successfully. ✅ "
 
-#  yarn build || (
-#    echo "Build failed. ❌ "
-#    exit 1
-#  )
-#  echo "Build completed successfully. ✅ "
+  yarn build || (
+    echo "Build failed. ❌ "
+    exit 1
+  )
+  echo "Build completed successfully. ✅ "
 
 git add .
 
