@@ -18,12 +18,12 @@ const Home: NextPage = () => {
   ];
   return (
     <HomePageLayout>
-      <div className="lg:w-5/12 xl:w-1/3 w-full">
-        <div className="lg:fixed lg:w-5/12 xl:w-1/3 w-full">
+      <div className="primetime w-full">
+        {/* <div className="lg:fixed lg:w-5/12 xl:w-1/3 w-full"> */}
           <Carousel imgUrlArr={imgUrlArr} />
-        </div>
+        {/* </div> */}
       </div>
-      <div className="lg:w-7/12 xl:w-2/3 w-full pt-4 lg:pt-16">
+      <div className="homeRightSec w-full pt-4 lg:pt-16">
         {/*
            TODO
             Use Radio Groups of headlessUI

@@ -26,7 +26,7 @@ export default function Carousel({ imgUrlArr }: Props) {
       >
         {imgUrlArr.map((imgUrl, index) => (
           <SwiperSlide key={index}>
-            <div className="w-full lg:h-screen h-[35rem] relative shadow-2xl">
+            <div className="w-full lg:h-screen h-[70vh] relative shadow-2xl">
               <Image src={imgUrl} alt="Headline" layout="fill" objectFit="cover" priority={true} />
             </div>
           </SwiperSlide>

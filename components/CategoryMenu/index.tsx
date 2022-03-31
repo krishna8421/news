@@ -18,44 +18,44 @@ export default function CategoryMenu({}: Props) {
     {
       name: "Recommended",
       hoverColor: "indigo",
-      icon: <BiNews size={20} />,
+      icon: <BiNews style={{fontSize: "calc(1vw + 1vh)"}} />,
     },
     {
       name: "Business",
       hoverColor: "orange",
-      icon: <MdBusinessCenter size={20} />,
+      icon: <MdBusinessCenter style={{fontSize: "calc(1vw + 1vh)"}} />,
     },
     {
       name: "Entertainment",
       hoverColor: "violet",
-      icon: <MdMovie size={20} />,
+      icon: <MdMovie style={{fontSize: "calc(1vw + 1vh)"}} />,
     },
     {
       name: "Technology",
       hoverColor: "teal",
-      icon: <BiChip size={20} />,
+      icon: <BiChip style={{fontSize: "calc(1vw + 1vh)"}} />,
     },
     {
       name: "Politics",
       hoverColor: "sky",
-      icon: <FaBookOpen size={20} />,
+      icon: <FaBookOpen style={{fontSize: "calc(1vw + 1vh)"}} />,
     },
     {
       name: "Sports",
       hoverColor: "red",
-      icon: <IoMdFootball size={20} />,
+      icon: <IoMdFootball style={{fontSize: "calc(1vw + 1vh)"}} />,
     },
     {
       name: "Entrepreneur",
       hoverColor: "green",
-      icon: <BsGraphUp size={20} />,
+      icon: <BsGraphUp style={{fontSize: "calc(1vw + 1vh)"}} />,
     },
   ];
   const { category } = useCategory();
 
   return (
     <div
-      style={{ marginTop: "-1.5vh" }}
+      style={{ marginTop: "-1.5vh", fontSize: "calc(.7vw + .7vh)" }}
       className="w-11/12 m-auto h-16 my-4 pt-4 overflow-y-hidden overflow-x-auto flex no-scrollbar items-center hover:bg-red"
     >
       {categoryList.map((data, index) => (

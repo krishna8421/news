@@ -5,14 +5,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html {
-    font-size: calc(.9vw + .9vh);
+  font-size: calc(0.9vw + 0.9vh);
 }
 
 body {
@@ -157,7 +157,7 @@ body {
   }
 
   .likeNView {
-    background-color: #E50914;
+    background-color: #e50914;
     color: white;
     padding: 1vh 1vw;
     border-radius: 1vh;
@@ -172,6 +172,49 @@ body {
     height: calc(1.5vw + 1.5vh);
     width: calc(1.5vw + 1.5vh);
     margin-right: 1vw;
+  }
+
+  .homeArticlesCard {
+    width: 19vw;
+    padding-bottom: 2.5vh;
+  }
+
+  .homeArticleMainImg {
+    height: 30vh;
+    position: relative;
+  }
+
+  .homeArticleTitle {
+    font-weight: 700;
+    font-size: calc(0.6vw + 0.6vh);
+    width: 11vw;
+    padding-left: 0.9vw;
+    padding-bottom: 1vh;
+  }
+
+  .homeArticleProImg {
+    height: calc(3vw + 3vh);
+    width: calc(3vw + 3vh);
+    position: relative;
+  }
+
+  .homeArticleDesc {
+    font-weight: 600;
+    font-size: calc(0.51vw + 0.51vh);
+    opacity: 0.6;
+    color: #fff;
+    padding: 0px 1vw 1vh;
+  }
+
+  .primetime {
+      height: 100vh;
+      width: 30vw;
+  }
+
+  .homeRightSec {
+    height: 100vh;
+    width: 70vw;
+    overflow-y: scroll;
   }
 
   @media screen and (max-width: 640px) {
@@ -190,7 +233,7 @@ body {
     }
 
     .proContentHeading {
-        width: 70vw;
+      width: 70vw;
     }
 
     .smokyScreen {
@@ -249,8 +292,43 @@ body {
     /*}*/
 
     .drawerBtnTxt {
-        white-space: normal;
-        overflow: initial;
+      white-space: normal;
+      overflow: initial;
+    }
+
+    .homeArticlesCard {
+      width: 90vw;
+    }
+
+    .homeArticleMainImg {
+      height: 40vh;
+    }
+
+    .homeArticleTitle {
+      font-size: calc(1.4vw + 1.4vh);
+      width: 55vw;
+      padding-left: 5vw;
+    }
+
+    .homeArticleProImg {
+      height: calc(5vw + 5vh);
+      width: calc(5vw + 5vh);
+      position: relative;
+    }
+
+    .homeArticleDesc {
+      font-size: calc(1.1vw + 1.1vh);
+      padding: 0.5vh 5vw 1vh;
+    }
+
+    .primetime {
+        height: 70vh;
+        width: 100vw;
+    }
+  
+    .homeRightSec {
+      width: 100vw;
+      overflow-y: visible;
     }
   }
 }
