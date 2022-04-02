@@ -5,6 +5,7 @@ import { useAuth } from "@lib/context/AuthContext";
 import Avatar from "react-avatar";
 import PageLoading from "@components/PageLoading";
 import { IAuthModalType } from "@interface/AuthModal.interface";
+import Search from "@components/Search";
 
 interface Props {
   openAuthModal: (type: IAuthModalType) => void;
@@ -27,6 +28,7 @@ export default function NavBar({ openAuthModal }: Props) {
           />
         </div>
       </Link>
+      <Search />
       {isAuth ? (
         <Link href="/profile">
           <a className="cursor-pointer">
