@@ -20,7 +20,7 @@ const Home: NextPage = () => {
     <HomePageLayout>
       <div className="primetime w-full">
         {/* <div className="lg:fixed lg:w-5/12 xl:w-1/3 w-full"> */}
-          <Carousel imgUrlArr={imgUrlArr} />
+        <Carousel imgUrlArr={imgUrlArr} />
         {/* </div> */}
       </div>
       <div className="homeRightSec w-full pt-4 lg:pt-16">

@@ -33,9 +33,10 @@ export default function Register({ closeAuthModal }: { closeAuthModal: () => voi
           await setDoc(UserDocRef, {
             name,
             email,
-            designation: "User",
-            bio: "",
             userUid: auth.currentUser?.uid,
+            profileImage: auth.currentUser?.photoURL,
+            designation: "User",
+            bio: `Hey, I am ${name}`,
             isEditor: false,
             preferencesTags: [],
             likedArticles: [],

@@ -1,22 +1,49 @@
 import Image from "next/image";
-import { useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import RedBackground from "../../../public/red-background-rec.png";
 import LikeIcon from "../../../public/Like Icon.png";
 import ViewIcon from "../../../public/Views icon.png";
 import { MdModeEditOutline } from "react-icons/md";
 import { Input, Textarea } from "@mantine/core";
 import { IoIosSave } from "react-icons/io";
+import { useData } from "@lib/context/DataContext";
+import { useAuth } from "@lib/context/AuthContext";
+import { Avatar } from "@mantine/core";
 
 const ProfileSection = () => {
+  const { name, designation, bio, profileImage, updateName, updateBio, updateDesignation } =
+    useData();
+  const { uid } = useAuth();
+
   const [editMode, setEditMode] = useState(false);
-  console.log(editMode);
-  const mockData = {
-    mainImg: "https://source.unsplash.com/1200x900/?news",
-    authorProfile: "https://source.unsplash.com/100x100/?man",
-    name: "Sushant Mishra",
-    designation: "Editor",
-    bio: "Laboris amet deserunt dolor aliqua exercitation adipisicing excepteur cillum ipsum commodo eiusmod. Quis est sit occaecat cupidatat aute ea nostrud est sit elit. Commodo officia sit enim ullamco veniam.",
+  const [newName, setNewName] = useState("");
+  const [newBio, setNewBio] = useState("");
+  const [newDesignation, setNewDesignation] = useState("");
+  // const [newProfileImage, setNewProfileImage] = useState("");
+
+  useEffect(() => {
+    setNewName(name);
+    setNewBio(bio);
+    setNewDesignation(designation);
+  }, [name, designation, bio]);
+
+  const handleEdit = () => {
+    if (editMode) {
+      if (name !== newName) {
+        updateName(newName, uid as string);
+      }
+      if (bio !== newBio) {
+        updateBio(newBio, uid as string);
+      }
+      if (designation !== newDesignation) {
+        updateDesignation(newDesignation, uid as string);
+      }
+      return setEditMode(false);
+    } else if (!editMode) {
+      return setEditMode(true);
+    }
   };
+
   return (
     <div className="proSecBody">
       <div className="hidden sm:block w-[80vw]">
@@ -30,13 +57,32 @@ const ProfileSection = () => {
       </div>
       <div className="flex flex-col sm:flex-row">
         <div className="proImg">
-          <Image
-            src={mockData.authorProfile}
-            alt="Profile Pic"
-            layout="fill"
-            objectFit="cover"
-            className="rounded-full"
-          />
+          {profileImage ? (
+            <Image
+              src={profileImage}
+              alt="Profile Pic"
+              layout="fill"
+              objectFit="cover"
+              className="rounded-full"
+            />
+          ) : (
+            <Avatar
+              radius="xl"
+              sx={{
+                height: "calc(7vw + 7vh)",
+                width: "calc(7vw + 7vh)",
+                borderRadius: "100%",
+                position: "relative",
+                "@media screen and (max-width: 640px)": {
+                  margin: "0 auto 4vh",
+                  height: "calc(10vw + 10vh)",
+                  width: "calc(10vw + 10vh)",
+                },
+              }}
+            >
+              {name.split("")[0]}
+            </Avatar>
+          )}
         </div>
         <div className="proContent">
           <div style={{ display: "flex", flexDirection: "column" }}>
@@ -46,14 +92,15 @@ const ProfileSection = () => {
                   <Input
                     size="md"
                     variant="unstyled"
-                    value={mockData.name}
+                    value={newName}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setNewName(e.target.value)}
                     classNames={{
                       unstyledVariant: "border-b border-primary-red focus:border-primary-red",
                       input: "text-2xl font-Righteous text-slate-300 h-auto",
                     }}
                   />
                 ) : (
-                  <div className="pb-1 text-2xl font-Righteous text-slate-300">{mockData.name}</div>
+                  <div className="pb-1 text-2xl font-Righteous text-slate-300">{newName}</div>
                 )}
                 <div
                   style={{
@@ -80,7 +127,7 @@ const ProfileSection = () => {
                   borderRadius: "calc(.3vw + .3vh)",
                   cursor: "pointer",
                 }}
-                onClick={() => setEditMode(!editMode)}
+                onClick={handleEdit}
               >
                 {!editMode ? <MdModeEditOutline /> : <IoIosSave />}
               </div>
@@ -90,14 +137,15 @@ const ProfileSection = () => {
                 <Input
                   size="md"
                   variant="unstyled"
-                  value={mockData.designation}
+                  value={newDesignation}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setNewDesignation(e.target.value)}
                   classNames={{
                     unstyledVariant: "border-b border-primary-red focus:border-primary-red",
                     input: "text-xs font-Inter w-24 text-slate-300 h-auto",
                   }}
                 />
               ) : (
-                <div className="text-xs font-Inter text-slate-300">{mockData.designation}</div>
+                <div className="text-xs font-Inter text-slate-300">{newDesignation}</div>
               )}
             </div>
             <div style={{ marginBottom: "3vh", display: "flex" }}>
@@ -136,19 +184,18 @@ const ProfileSection = () => {
               {editMode ? (
                 <Textarea
                   className="w-full"
-                  // minRows={6}
+                  minRows={4}
                   maxRows={6}
                   classNames={{
                     unstyledVariant: "border-b border-primary-red focus:border-primary-red",
-                    input: "text-sm font-Montserrat font-medium text-slate-300 h-auto",
+                    input: "text-sm font-Montserrat font-medium text-slate-300 h-auto p-0",
                   }}
                   variant="unstyled"
-                  value={mockData.bio}
+                  value={newBio}
+                  onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setNewBio(e.target.value)}
                 />
               ) : (
-                <div className="text-sm font-Montserrat font-medium text-slate-300">
-                  {mockData.bio}
-                </div>
+                <div className="text-sm font-Montserrat font-medium text-slate-300">{newBio}</div>
               )}
             </div>
             <div style={{ marginBottom: "2.5vh", fontWeight: "600", fontSize: "calc(1vw + 1vh)" }}>

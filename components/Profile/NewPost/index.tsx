@@ -203,6 +203,8 @@ const NewPost = () => {
       const normalImageUrl3 = await uploadImage("normal-image-3", tempNormalImage3);
       const primeTimeUrl = await uploadImage("prime-time", tempPrimeTime);
       const limelightUrl = await uploadImage("lime-light", tempLimelight);
+      // @ts-ignore
+      // @ts-ignore
       const article = {
         country,
         state,
@@ -236,13 +238,25 @@ const NewPost = () => {
             .replace(/\s{2,}/g, " ")
             .trim()
             .split(" ")
-            .map((item) => item.toLowerCase()),
+            // @ts-ignore
+            .map((a: string) => {
+              if (a.length > 2) return a;
+            })
+            .filter(Boolean)
+            .map((item) => item?.toLowerCase()),
           ...tags.map((item) => item.trim().toLowerCase()),
         ],
         type,
         category,
         createdAt: new Date().toISOString(),
         authorUID: uid,
+        likedBy: [],
+        viewedBy: 0,
+        isDraft: true,
+        isPrimeTime: false,
+        isLimelight: false,
+        isRegular: false,
+        needReview: false,
         authorName: user?.displayName,
         authorPhotoURL: user?.photoURL,
       };

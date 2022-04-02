@@ -18,37 +18,37 @@ export default function CategoryMenu({}: Props) {
     {
       name: "Recommended",
       hoverColor: "indigo",
-      icon: <BiNews style={{fontSize: "calc(1vw + 1vh)"}} />,
+      icon: <BiNews style={{ fontSize: "calc(1vw + 1vh)" }} />,
     },
     {
       name: "Business",
       hoverColor: "orange",
-      icon: <MdBusinessCenter style={{fontSize: "calc(1vw + 1vh)"}} />,
+      icon: <MdBusinessCenter style={{ fontSize: "calc(1vw + 1vh)" }} />,
     },
     {
       name: "Entertainment",
       hoverColor: "violet",
-      icon: <MdMovie style={{fontSize: "calc(1vw + 1vh)"}} />,
+      icon: <MdMovie style={{ fontSize: "calc(1vw + 1vh)" }} />,
     },
     {
       name: "Technology",
       hoverColor: "teal",
-      icon: <BiChip style={{fontSize: "calc(1vw + 1vh)"}} />,
+      icon: <BiChip style={{ fontSize: "calc(1vw + 1vh)" }} />,
     },
     {
       name: "Politics",
       hoverColor: "sky",
-      icon: <FaBookOpen style={{fontSize: "calc(1vw + 1vh)"}} />,
+      icon: <FaBookOpen style={{ fontSize: "calc(1vw + 1vh)" }} />,
     },
     {
       name: "Sports",
       hoverColor: "red",
-      icon: <IoMdFootball style={{fontSize: "calc(1vw + 1vh)"}} />,
+      icon: <IoMdFootball style={{ fontSize: "calc(1vw + 1vh)" }} />,
     },
     {
       name: "Entrepreneur",
       hoverColor: "green",
-      icon: <BsGraphUp style={{fontSize: "calc(1vw + 1vh)"}} />,
+      icon: <BsGraphUp style={{ fontSize: "calc(1vw + 1vh)" }} />,
     },
   ];
   const { category } = useCategory();

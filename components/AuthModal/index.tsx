@@ -34,11 +34,16 @@ export default function AuthModal({
           name: result.user.displayName,
           email: result.user.email,
           userUid: auth.currentUser?.uid,
-          preferencesTag: [],
+          profileImage: auth.currentUser?.photoURL,
+          designation: "User",
+          bio: `Hey, I am ${result.user.displayName}`,
           isEditor: false,
+          preferencesTag: [],
           likedArticles: [],
-          createdAt: date.toISOString(),
+          draftArticles: [],
           articles: [],
+          likedArticlesCount: 0,
+          createdAt: date.toISOString(),
         });
       }
     } catch (error: any) {

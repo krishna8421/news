@@ -6,8 +6,14 @@ import Carousel from "@components/Carousel";
 import Image from "next/image";
 
 const getArticle = async (articleID: string) => {
-  const ArticleDocRef = doc(db, "articles", articleID);
-  const articleData = await getDoc(ArticleDocRef);
+  let articleData = null;
+  try {
+    const ArticleDocRef = doc(db, "articles", articleID);
+    articleData = await getDoc(ArticleDocRef);
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
+
   return articleData.data();
 };
 
@@ -29,11 +35,12 @@ export const getStaticPaths = async () => {
 };
 
 export async function getStaticProps({ params }: any) {
-  const article = await getArticle(params.uid);
-  if (!article) {
+  let article = null;
+  try {
+    article = await getArticle(params.uid);
+  } catch (e) {
     return {
-      redirect: "/",
-      permanent: false,
+      notFound: true,
     };
   }
   return {
@@ -46,7 +53,7 @@ export async function getStaticProps({ params }: any) {
 
 const Article = ({ article }: any) => {
   if (!article) {
-    return <div>Loading...</div>;
+    return <div>...</div>;
   }
   const {
     // ageRestricted,
@@ -85,7 +92,7 @@ const Article = ({ article }: any) => {
       <div className="lg:w-7/12 xl:w-2/3 w-full lg:pt-20 lg:px-16 px-4 pt-12 text-white font-Montserrat">
         <h1 className="tracking-wide text-2xl font-extrabold text-center">{title}</h1>
         <div className="bg-primary-red mt-8 font-bold py-1 px-2 rounded">{type.toUpperCase()}</div>
-        <div className="flex flex-col w-full mx-auto items-center mt-8 w-12 h-12 relative">
+        <div className="flex flex-col mx-auto items-center mt-8 w-12 h-12 relative">
           <Image
             className="rounded-xl absolute"
             src={authorPhotoURL}

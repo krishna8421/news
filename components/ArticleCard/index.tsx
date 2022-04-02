@@ -24,7 +24,11 @@ export default function ArticleCard() {
   };
   return (
     <div
-      className="homeArticlesCard bg-primary-background-700 rounded-xl relative shadow-2xl"
+      className="homeArticlesCard bg-primary-background-700 rounded-xl relative"
+      style={{
+        boxShadow:
+          "rgba(0, 0, 0, 0.75) calc(0.3vh + 0.3vw) calc(0.3vh + 0.3vw) calc(0.2vh + 0.2vw) 0px",
+      }}
     >
       <div className="bg-gradient-to-r from-primary-red to-primary-dark-red rounded-bl-xl rounded-tr-xl absolute z-10 right-0 flex justify-center items-center">
         <div className="bg-gray-800 font-Righteous text-[calc(1.3vw+1.3vh)] sm:text-[calc(0.6vw+0.6vh)] text-white rounded-bl-xl rounded-tr-xl z-10 right-0 flex justify-center items-center px-4 m-[1px] py-1">
@@ -36,8 +40,8 @@ export default function ArticleCard() {
           src={mockData.mainImg}
           alt="Article Card"
           layout="fill"
-        // width={256}
-        // height={184}
+          // width={256}
+          // height={184}
           className="h-64 w-64 rounded-xl"
         />
       </div>
@@ -49,12 +53,12 @@ export default function ArticleCard() {
               <MdVerified className="z-30" color="#42A5F5" />
             </div>
             <div className="homeArticleProImg">
-            <Image
-              src={mockData.authorProfile}
-              alt="Article Card"
-              layout="fill"
-              className="rounded-xl border"
-            />
+              <Image
+                src={mockData.authorProfile}
+                alt="Article Card"
+                layout="fill"
+                className="rounded-xl border"
+              />
             </div>
             <div className="absolute text-[9px] text=[#EEEBDC] w-full h-10 text-right px-1">
               {mockData.authorName}
@@ -65,9 +69,7 @@ export default function ArticleCard() {
       <div className="homeArticleTitle overflow-scroll no-scrollbar text-white pb-0">
         {mockData.title}
       </div>
-      <div className="homeArticleDesc overflow-scroll no-scrollbar">
-        {mockData.discription}
-      </div>
+      <div className="homeArticleDesc overflow-scroll no-scrollbar">{mockData.discription}</div>
       <div className="text-[calc(1vw+1vh)] sm:text-[calc(.45vw+.45vh)] w-full px-7 sm:px-3 flex justify-between">
         <div
           style={{ color: "#fff" }}
@@ -98,14 +100,20 @@ export default function ArticleCard() {
           className="bg-primary-background-500 rounded-full h-12 sm:h-6 w-48 sm:w-24 flex justify-around items-center"
         >
           {mockData.isLiked ? (
-            <AiFillHeart color="#E3323B" className="flex-1 text-[calc(2vw+2vh)] sm:text-[calc(1vw+1vh)]" />
+            <AiFillHeart
+              color="#E3323B"
+              className="flex-1 text-[calc(2vw+2vh)] sm:text-[calc(1vw+1vh)]"
+            />
           ) : (
             <AiOutlineHeart className="flex-1 text-[calc(2vw+2vh)] sm:text-[calc(1vw+1vh)]" />
           )}
           <span style={{ color: "#fff", marginTop: "-.4vh" }} className="text-gray-400 flex-none">
             |
           </span>
-          <AiOutlineShareAlt style={{ color: "#fff" }} className="flex-1 text-[calc(2vw+2vh)] sm:text-[calc(1vw+1vh)]" />
+          <AiOutlineShareAlt
+            style={{ color: "#fff" }}
+            className="flex-1 text-[calc(2vw+2vh)] sm:text-[calc(1vw+1vh)]"
+          />
         </div>
         <div
           style={{
