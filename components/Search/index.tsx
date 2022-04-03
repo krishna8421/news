@@ -1,113 +1,70 @@
-import { useState } from "react";
+// import { useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment } from "react";
+// import styles from "./Search.module.css";
+// import { FaSearch } from "react-icons/fa";
+// import { Input } from "@mantine/core";
+import { useAuth } from "@lib/context/AuthContext";
+import TagBox from "@components/TagBox";
 
-export default function Search() {
-  const [searchText, setSearchText] = useState("");
-  const [isSearchBoxOpen, setIsSearchBoxOpen] = useState(0);
+interface Props {
+  isSearchBoxOpen: boolean;
+  closeSearch: () => void;
+}
 
-  const fireSearch = (val: any) => {
-    console.log("searched");
-    setSearchText(val);
-    console.log(val.length, "searched");
-    if (val.length > 2) {
-      console.log("searched");
-    }
+export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
+  const { user } = useAuth();
+  const mockData = {
+    tags: ["media", "mumbai", "ukraine", "tanmaybhat", "waronukraine", "russia"],
   };
-
   return (
-    <div className={isSearchBoxOpen ? "searchSectionFocused" : "searchSection"}>
-      <div className="searchBox">
-        <input
-          placeholder="Search for topics, locations, editors & sources"
-          className="searchInput focus:outline-none"
-          value={searchText}
-          onFocus={() => setIsSearchBoxOpen(1)}
-          onChange={(e) => fireSearch(e.target.value)}
-        />
-        <button>icon</button>
-      </div>
-      {isSearchBoxOpen ? (
-        <div onClick={() => setIsSearchBoxOpen(1)} className="searchDropdown">
-          <div>
-            <div
-              style={{ fontFamily: "Montserrat", fontSize: "calc(.8vw + .8vh)", fontWeight: "500" }}
-            >
-              Hey,
-            </div>
-            <div
-              style={{
-                fontFamily: "Righteous",
-                fontSize: "calc(1.3vw + 1.3vh)",
-                marginTop: "calc(-.2vw - .2vh)",
-              }}
-            >
-              User
-            </div>
-          </div>
-          <div
-            style={{
-              backgroundColor: "#141414",
-              borderRadius: "calc(.8vw + .8vh)",
-              padding: "1.5vh 1vw",
-              display: "flex",
-              flexWrap: "wrap",
-            }}
+    <Transition appear show={isSearchBoxOpen} as={Fragment}>
+      <Dialog as="div" className="fixed inset-0 overflow-y-auto z-[1000]" onClose={closeSearch}>
+        <div className="min-h-screen px-4 text-center">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            <button onClick={() => setSearchText(`${"media"}`)} className="hashtagCell">
-              #media
-            </button>
-            <button onClick={() => setSearchText(`${"mumbai"}`)} className="hashtagCell">
-              #mumbai
-            </button>
-            <button onClick={() => setSearchText(`${"ukraine"}`)} className="hashtagCell">
-              #ukraine
-            </button>
-            <button onClick={() => setSearchText(`${"tanmaybh"}`)} className="hashtagCell">
-              #tanmaybh
-            </button>
-            <button onClick={() => setSearchText(`${"waronukraine"}`)} className="hashtagCell">
-              #waronukraine
-            </button>
-            <button onClick={() => setSearchText(`${"russia"}`)} className="hashtagCell">
-              #russia
-            </button>
-            <button onClick={() => setSearchText(`${"russians"}`)} className="hashtagCell">
-              #russians
-            </button>
-          </div>
-          <div className="flex flex-wrap" style={{ marginTop: "1.5vh" }}>
-            <div className="searchMenuCategories">
-              <span>Hops</span> <button className="searchMenuCatNxtBtn">&gt;</button>
+            <Dialog.Overlay className="fixed inset-0 bg-black/30 backdrop-blur" />
+          </Transition.Child>
+          {/* <span className="inline-block h-screen pt-[10vh]" aria-hidden="true">
+            &#8203;
+          </span> */}
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+          >
+            <div className="transition-all  rounded-lg mt-[10vh] transform shadow-2xl inline-block overflow-hidden w-[21rem]">
+              <div className="bg-[#292929] h-12 rounded-lg"></div>
+              <div className="bg-[#292929] mt-4 rounded-lg text-white flex flex-col items-start p-4">
+                {user && (
+                  <>
+                    <div>Hey,</div>
+                    <span className="text-xl font-Righteous">
+                      {user.displayName?.split(" ")[0] as string}
+                    </span>
+                  </>
+                )}
+                <div className="w-full mt-4 gap-2 bg-primary-background-900 rounded-lg h-16 flex flex-wrap p-2 px-4 overflow-hidden overflow-y-auto no-scrollbar">
+                  {mockData.tags.map((tag, i) => (
+                    <TagBox key={i} tag={tag} />
+                  ))}
+                </div>
+              </div>
             </div>
-            <div className="searchMenuCategories">
-              <span>Influencers</span> <button className="searchMenuCatNxtBtn">&gt;</button>
-            </div>
-            <div className="searchMenuCategories">
-              <span>Community</span> <button className="searchMenuCatNxtBtn">&gt;</button>
-            </div>
-            <div className="searchMenuCategories">
-              <span>TCL</span> <button className="searchMenuCatNxtBtn">&gt;</button>
-            </div>
-          </div>
-          <div className="flex">
-            <div>
-              <div>Image</div>
-              <div>Content</div>
-            </div>
-            <div>
-              <div>Image</div>
-              <div>Content</div>
-            </div>
-            <div>
-              <div>Image</div>
-              <div>Content</div>
-            </div>
-            <div>
-              <div>Image</div>
-              <div>Content</div>
-            </div>
-          </div>
+          </Transition.Child>
         </div>
-      ) : null}
-    </div>
+      </Dialog>
+    </Transition>
   );
 }

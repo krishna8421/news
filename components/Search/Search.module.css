@@ -1,0 +1,19 @@
+.main {
+    background-color: #2C2E33;
+}
+
+.search_input,
+.search_input:focus {
+  border-style: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 3rem 0.5rem 0.7rem;
+  color: rgba(238, 238, 238, 0.8);
+  width: 21rem;
+  height: 2.5rem;
+  font-size: 0.9rem;
+  outline: none;
+}
+.search_input:focus {
+  box-shadow: 0 0 0 1px rgba(36, 36, 36, 0.479);
+}
+

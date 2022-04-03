@@ -11,6 +11,7 @@ import { BiTime } from "react-icons/bi";
 import { AiFillHeart, AiOutlineShareAlt } from "react-icons/ai";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import Image from "next/image";
+import LimeLightContainer from "@components/LimeLightContainer";
 
 const Home: NextPage = () => {
   const imgUrlArr = [
@@ -27,8 +28,17 @@ const Home: NextPage = () => {
       <div className="primetime w-full">
         <Carousel imgUrlArr={imgUrlArr} />
         <div className="primetimeContent">
-          <div style={{ backgroundColor: "#460B0A", padding: "2vh 2vw", width: "fit-content" }}>
-            Primetime
+          <div className="h-12 w-28 bg-[#E50914] z-10 flex justify-center items-center">
+            <div className="relative w-[80%] h-[80%]">
+              <Image
+                src="/primetimeLogo.png"
+                alt="PrimeTime"
+                layout="fill"
+                objectFit="cover"
+                className="rounded absolute"
+                priority={true}
+              />
+            </div>
           </div>
           <div style={{ padding: "0px 1vmax 0px 2vmax", marginBottom: ".5vmax" }}>
             <div style={{ display: "flex", alignItems: "center" }}>
@@ -113,17 +123,32 @@ const Home: NextPage = () => {
           <ArticleCard />
           <ArticleCard />
           <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
-          <LimeLightCard
-            imgUrl={imgUrlArr[1]}
-            author="Krishna Kumar"
-            location="Patna"
-            title="Watch: Alliance Air's Jabalpur runway mishap caught on camera by passenger"
-            viewCount={500}
-            verified
-          />
+          <LimeLightContainer>
+            <LimeLightCard
+              imgUrl={imgUrlArr[1]}
+              author="Krishna Kumar"
+              location="Patna"
+              title="Watch: Alliance Air's Jabalpur runway mishap caught on camera by passenger"
+              viewCount={500}
+              verified
+            />
+            <LimeLightCard
+              imgUrl={imgUrlArr[1]}
+              author="Krishna Kumar"
+              location="Patna"
+              title="Watch: Alliance Air's Jabalpur runway mishap caught on camera by passenger"
+              viewCount={500}
+              verified
+            />
+            <LimeLightCard
+              imgUrl={imgUrlArr[1]}
+              author="Krishna Kumar"
+              location="Patna"
+              title="Watch: Alliance Air's Jabalpur runway mishap caught on camera by passenger"
+              viewCount={500}
+              verified
+            />
+          </LimeLightContainer>
         </ArticleContainer>
       </div>
     </HomePageLayout>
