@@ -95,7 +95,7 @@ body {
   .proImg {
     height: calc(7vw + 7vh);
     width: calc(7vw + 7vh);
-    margin-left: 5vw;
+    margin-left: 2vw;
     margin-top: -6vh;
     position: relative;
   }
@@ -211,8 +211,8 @@ body {
   }
 
   .primetime {
-      height: 100vh;
-      width: 30vw;
+    height: 100vh;
+    width: 30vw;
   }
 
   .homeRightSec {
@@ -223,12 +223,12 @@ body {
 
   .searchSection {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
   }
 
   .searchSectionFocused {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     margin-top: 53vh;
   }
 
@@ -246,21 +246,21 @@ body {
     width: 30vw;
     border-radius: calc(0.5vw + 0.5vh);
     padding: 0px 1vw;
-    font-size: calc(.8vw + .8vh);
+    font-size: calc(0.8vw + 0.8vh);
     font-weight: 600;
   }
 
   .searchInput::placeholder {
-      opacity: 1;
-      color: #fff;
+    opacity: 1;
+    color: #fff;
   }
 
   .searchDropdown {
-    width: 35vw; 
-    min-height: 45vh; 
-    background-color: #292929; 
-    margin-top: 2vh; 
-    border-radius: calc(1vw + 1vh); 
+    width: 35vw;
+    min-height: 45vh;
+    background-color: #292929;
+    margin-top: 2vh;
+    border-radius: calc(1vw + 1vh);
     padding: 2vh 2vw;
     backdrop-filter: blur(52px);
     color: #fff;
@@ -268,17 +268,17 @@ body {
 
   .hashtagCell {
     background-color: #292929;
-    padding: .5vh 1vw;
-    margin: .5vh .2vw;
-    border-radius: calc(.5vw + .5vh);
+    padding: 0.5vh 1vw;
+    margin: 0.5vh 0.2vw;
+    border-radius: calc(0.5vw + 0.5vh);
     font-weight: 500;
   }
 
   .searchMenuCategories {
     background-color: #141414;
-    padding: .8vh 1vw;
-    margin: 1vh .5vw;
-    border-radius: calc(.2vw + .2vh);
+    padding: 0.8vh 1vw;
+    margin: 1vh 0.5vw;
+    border-radius: calc(0.2vw + 0.2vh);
     font-weight: 400;
     font-size: calc(1vw + 1vh);
     width: 46%;
@@ -297,7 +297,66 @@ body {
     width: calc(2vw + 2vh);
   }
 
+  .proArticleSec {
+    display: flex;
+    overflow-x: scroll;
+    width: 65vw;
+  }
+
+  .proArticleCard {
+    background-color: #1F1F1F;
+    width: calc(15vw + 15vh);
+    border-radius: calc(1vw + 1vh);
+    margin: 1vh 1vw;
+  }
+
+  .proArticleImg {
+    height: calc(10vw + 10vh);
+    width: calc(15vw + 15vh);
+    position: relative;
+  }
+
+  .proArticleTxt {
+    padding: 1vh 1vw;
+    font-size: calc(.8vw + .8vh);
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .proDraftSec {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80vw;
+    margin-top: 5vh;
+  }
+
+  .proDraftCard {
+    background-color: #1F1F1F;
+    width: calc(15vw + 15vh);
+    border-radius: calc(1vw + 1vh);
+    margin: 3vh 1vw;
+  }
+
+  .draftBody {
+    width: 75vw;
+    margin-left: 20vw;
+  }
+
+  .primetimeContent {
+    color: #fff; position: absolute; bottom: 0vh; z-index: 999; height: 50vh; width: 30vw; display: flex; flex-direction: column; justify-content: space-between;
+  }
+
+  .primetimeLikesNtime {
+    width: max-content; 
+    color: #fff; 
+    font-size: calc(.5vw + .5vh);
+  }
+
   @media screen and (max-width: 640px) {
+    .drawer {
+      width: 10vw;
+    }
+
     .proImg {
       margin: 0 auto 4vh;
       height: calc(10vw + 10vh);
@@ -305,7 +364,7 @@ body {
     }
 
     .proSecBody {
-      padding: 3vh 0 0 14vw;
+      padding: 3vh 0 0 8vw;
     }
 
     .proContent {
@@ -402,13 +461,59 @@ body {
     }
 
     .primetime {
-        height: 70vh;
-        width: 100vw;
+      height: 70vh;
+      width: 100vw;
     }
-  
+
     .homeRightSec {
       width: 100vw;
       overflow-y: visible;
+    }
+
+    .proArticleSec {
+      flex-wrap: wrap;
+      overflow-x: scroll;
+      width: 80vw;
+    }
+    
+    .proArticleCard {
+      width: calc(12vw + 12vh);
+      margin: 2vh 2vw;
+      height: fit-content;
+    }
+
+    .proArticleImg {
+      width: calc(12vw + 12vh);
+    }
+
+    .proArticleTxt {
+      padding: 2vh 2vw;
+    }
+
+    .proDraftSec {
+      margin-top: 2vh;
+  }
+
+    .proDraftCard {
+      width: calc(12vw + 12vh);
+      margin: 2vh 2vw;
+      height: fit-content;
+    }
+
+    .draftBody {
+      width: 80vw;
+      margin-left: 15vw;
+    }
+
+    .primetimeContent {
+      position: relative;
+    bottom: 35vh;
+    height: 35vh;
+    width: 100vw;
+    }
+
+    .primetimeLikesNtime {
+      font-size: calc(.7vw + .7vh);
     }
   }
 }

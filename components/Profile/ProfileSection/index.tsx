@@ -215,7 +215,64 @@ const ProfileSection = () => {
                 23
               </span>
             </div>
-            <div>carousel</div>
+            <div className="proArticleSec">
+              <div className="proArticleCard">
+                <div className="proArticleImg">
+                  {profileImage ? (
+                    <Image
+                      src={profileImage}
+                      alt="Profile Pic"
+                      layout="fill"
+                      objectFit="cover"
+                      style={{ borderRadius: "calc(1vw + 1vh)" }}
+                    />
+                  ) : (
+                    <>no image</>
+                  )}
+                </div>
+                <div className="proArticleTxt">
+                  Akshay Kumar cheers for Anupam Khers The Kashmir Files; Says, Amazing to see the
+                  audience back to the cinemas in large numbers
+                </div>
+              </div>
+              <div className="proArticleCard">
+                <div className="proArticleImg">
+                  {profileImage ? (
+                    <Image
+                      src={profileImage}
+                      alt="Profile Pic"
+                      layout="fill"
+                      objectFit="cover"
+                      style={{ borderRadius: "calc(1vw + 1vh)" }}
+                    />
+                  ) : (
+                    <>no image</>
+                  )}
+                </div>
+                <div className="proArticleTxt">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam sem magna
+                </div>
+              </div>
+              <div className="proArticleCard">
+                <div className="proArticleImg">
+                  {profileImage ? (
+                    <Image
+                      src={profileImage}
+                      alt="Profile Pic"
+                      layout="fill"
+                      objectFit="cover"
+                      style={{ borderRadius: "calc(1vw + 1vh)" }}
+                    />
+                  ) : (
+                    <>no image</>
+                  )}
+                </div>
+                <div className="proArticleTxt">
+                  Akshay Kumar cheers for Anupam Khers The Kashmir Files; Says, Amazing to see the
+                  audience back to the cinemas in large numbers
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
