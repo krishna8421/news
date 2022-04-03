@@ -174,9 +174,13 @@ body {
     margin-right: 1vw;
   }
 
-  .homeArticlesCard {
+  .homeArticlesCard, .homeLimeLightCard {
     width: 19vw;
     padding-bottom: 2.5vh;
+  }
+  
+  .homeLimeLightCard{
+    height: 45vh
   }
 
   .homeArticleMainImg {
@@ -372,7 +376,7 @@ body {
       overflow: initial;
     }
 
-    .homeArticlesCard {
+    .homeArticlesCard, .homeLimeLightCard {
       width: 90vw;
     }
 

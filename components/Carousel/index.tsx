@@ -11,7 +11,19 @@ interface Props {
 
 export default function Carousel({ imgUrlArr }: Props) {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full relative">
+      <div className="absolute h-12 w-28 bg-[#E50914] z-30 top-[50%] flex justify-center items-center">
+        <div className="relative w-[80%] h-[80%]">
+          <Image
+            src="/primetimeLogo.png"
+            alt="PrimeTime"
+            layout="fill"
+            objectFit="cover"
+            className="rounded absolute"
+            priority={true}
+          />
+        </div>
+      </div>
       <Swiper
         scrollbar={{
           hide: true,

@@ -5,6 +5,7 @@ import CategoryMenu from "@components/CategoryMenu";
 import { CategoryProvider } from "@lib/context/CategoryContext";
 import ArticleContainer from "@components/ArticleContainer";
 import ArticleCard from "@components/ArticleCard";
+import LimeLightCard from "@components/LimeLightCard";
 
 const Home: NextPage = () => {
   const imgUrlArr = [
@@ -31,7 +32,6 @@ const Home: NextPage = () => {
         <CategoryProvider>
           <CategoryMenu />
         </CategoryProvider>
-
         <ArticleContainer>
           <ArticleCard />
           <ArticleCard />
@@ -39,6 +39,14 @@ const Home: NextPage = () => {
           <ArticleCard />
           <ArticleCard />
           <ArticleCard />
+          <LimeLightCard
+            imgUrl={imgUrlArr[1]}
+            author="Krishna Kumar"
+            location="Patna"
+            title="Watch: Alliance Air's Jabalpur runway mishap caught on camera by passenger"
+            viewCount={500}
+            verified
+          />
         </ArticleContainer>
       </div>
     </HomePageLayout>

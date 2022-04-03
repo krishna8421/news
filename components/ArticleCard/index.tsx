@@ -2,8 +2,8 @@ import Image from "next/image";
 import { MdVerified } from "react-icons/md";
 import { AiFillEye } from "react-icons/ai";
 import { BiTime } from "react-icons/bi";
-import { AiOutlineHeart, AiFillHeart, AiOutlineShareAlt } from "react-icons/ai";
 import { HiOutlineLocationMarker } from "react-icons/hi";
+import LinkShare from "@components/LinkShare";
 
 export default function ArticleCard() {
   const mockData = {
@@ -88,33 +88,7 @@ export default function ArticleCard() {
         </div>
       </div>
       <div className={"w-full mt-5 sm:mt-2.5 px-7 sm:px-3 flex justify-between items-center"}>
-        {/*
-          TODO
-            Add drop shadow for like and share box
-        */}
-        <div
-          style={{
-            boxShadow:
-              "calc(0.3vw + 0.3vh) calc(0.3vw + 0.3vh) calc(0.2vw + 0.2vh) 0px rgba(0,0,0,0.75)",
-          }}
-          className="bg-primary-background-500 rounded-full h-12 sm:h-6 w-48 sm:w-24 flex justify-around items-center"
-        >
-          {mockData.isLiked ? (
-            <AiFillHeart
-              color="#E3323B"
-              className="flex-1 text-[calc(2vw+2vh)] sm:text-[calc(1vw+1vh)]"
-            />
-          ) : (
-            <AiOutlineHeart className="flex-1 text-[calc(2vw+2vh)] sm:text-[calc(1vw+1vh)]" />
-          )}
-          <span style={{ color: "#fff", marginTop: "-.4vh" }} className="text-gray-400 flex-none">
-            |
-          </span>
-          <AiOutlineShareAlt
-            style={{ color: "#fff" }}
-            className="flex-1 text-[calc(2vw+2vh)] sm:text-[calc(1vw+1vh)]"
-          />
-        </div>
+        <LinkShare liked />
         <div
           style={{
             fontFamily: "Righteous",
