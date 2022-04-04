@@ -46,7 +46,7 @@ const ProfileSection = () => {
 
   return (
     <div className="proSecBody">
-      <div className="hidden sm:block w-[80vw]">
+      <div className="w-[80vw] ml-9 sm:ml-0">
         <Image
           src={RedBackground}
           alt="Profile Banner"
@@ -120,157 +120,158 @@ const ProfileSection = () => {
                   />
                 </div>
               </div>
-              <div
-                style={{
-                  padding: "calc(.3vw + .3vh)",
-                  backgroundColor: "#E50914",
-                  borderRadius: "calc(.3vw + .3vh)",
-                  cursor: "pointer",
+              {!editMode ?
+                <div
+                  className="proEditBtn"
+                  onClick={handleEdit}
+                >
+                  <MdModeEditOutline />
+                </div>
+                :
+                <div
+                  className="proSaveBtn"
+                  onClick={handleEdit}
+                >
+                  <IoIosSave />
+                </div>}
+            </div>
+          </div>
+
+          {editMode ? (
+            <div className="proDesignationEdit">
+              <Input
+                size="md"
+                variant="unstyled"
+                value={newDesignation}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setNewDesignation(e.target.value)}
+                classNames={{
+                  unstyledVariant: "border-b border-primary-red focus:border-primary-red",
+                  input: "text-xs text-center font-Inter w-24 text-slate-300 h-auto",
                 }}
-                onClick={handleEdit}
-              >
-                {!editMode ? <MdModeEditOutline /> : <IoIosSave />}
-              </div>
+              />
             </div>
-            <div style={{ marginBottom: "2.5vh", fontSize: "calc(.7vw + .7vh)" }}>
-              {editMode ? (
-                <Input
-                  size="md"
-                  variant="unstyled"
-                  value={newDesignation}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => setNewDesignation(e.target.value)}
-                  classNames={{
-                    unstyledVariant: "border-b border-primary-red focus:border-primary-red",
-                    input: "text-xs font-Inter w-24 text-slate-300 h-auto",
-                  }}
-                />
-              ) : (
-                <div className="text-xs font-Inter text-slate-300">{newDesignation}</div>
-              )}
+          ) : (
+            <div className="proDesignation">
+              <div className="text-xs text-center sm:text-left font-Inter text-slate-300">{newDesignation}</div>
             </div>
-            <div style={{ marginBottom: "3vh", display: "flex" }}>
-              <div className="likeNView">
-                <div className="likeNViewIcon">
-                  <Image src={LikeIcon} alt="Like Icon" objectFit="cover" />
-                </div>{" "}
-                242
-              </div>
-              <div className="likeNView">
-                <div className="likeNViewIcon">
-                  <Image src={ViewIcon} alt="View Icon" objectFit="cover" />
-                </div>{" "}
-                745
-              </div>
+          )}
+          <div style={{ marginBottom: "3vh", display: "flex" }}>
+            <div className="likeNView">
+              <div className="likeNViewIcon">
+                <Image src={LikeIcon} alt="Like Icon" objectFit="cover" />
+              </div>{" "}
+              242
             </div>
-            <div
+            <div className="likeNView">
+              <div className="likeNViewIcon">
+                <Image src={ViewIcon} alt="View Icon" objectFit="cover" />
+              </div>{" "}
+              745
+            </div>
+          </div>
+          <div
+            style={{
+              marginBottom: ".5vh",
+              fontWeight: "600",
+              fontSize: "calc(1vw + 1vh)",
+              fontFamily: "Segoe UI",
+            }}
+          >
+            Bio
+          </div>
+          <div
+            style={{
+              marginBottom: "3vh",
+              border: "calc(.1vw + .1vh) solid #303030",
+              borderRadius: "calc(.3vw + .3vh)",
+              padding: ".5vh 1vw",
+              fontSize: "calc(.7vw + .7vh)",
+            }}
+          >
+            {editMode ? (
+              <Textarea
+                className="w-full"
+                minRows={4}
+                maxRows={6}
+                classNames={{
+                  unstyledVariant: "border-b border-primary-red focus:border-primary-red",
+                  input: "text-sm font-Montserrat font-medium text-slate-300 h-auto p-0",
+                }}
+                variant="unstyled"
+                value={newBio}
+                onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setNewBio(e.target.value)}
+              />
+            ) : (
+              <div className="text-sm font-Montserrat font-medium text-slate-300">{newBio}</div>
+            )}
+          </div>
+          <div style={{ marginBottom: "2.5vh", fontWeight: "600", fontSize: "calc(1vw + 1vh)" }}>
+            Total Content Uploaded
+            <span
               style={{
-                marginBottom: ".5vh",
-                fontWeight: "600",
-                fontSize: "calc(1vw + 1vh)",
+                backgroundColor: "#E50914",
+                color: "white",
+                padding: ".4vh 1vw",
+                borderRadius: "1vh",
+                marginLeft: "1vw",
                 fontFamily: "Segoe UI",
+                fontWeight: "400",
+                fontSize: "calc(1vw + 1vh)",
               }}
             >
-              Bio
-            </div>
-            <div
-              style={{
-                marginBottom: "3vh",
-                border: "calc(.1vw + .1vh) solid #303030",
-                borderRadius: "calc(.3vw + .3vh)",
-                padding: ".5vh 1vw",
-                fontSize: "calc(.7vw + .7vh)",
-              }}
-            >
-              {editMode ? (
-                <Textarea
-                  className="w-full"
-                  minRows={4}
-                  maxRows={6}
-                  classNames={{
-                    unstyledVariant: "border-b border-primary-red focus:border-primary-red",
-                    input: "text-sm font-Montserrat font-medium text-slate-300 h-auto p-0",
-                  }}
-                  variant="unstyled"
-                  value={newBio}
-                  onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setNewBio(e.target.value)}
-                />
-              ) : (
-                <div className="text-sm font-Montserrat font-medium text-slate-300">{newBio}</div>
-              )}
-            </div>
-            <div style={{ marginBottom: "2.5vh", fontWeight: "600", fontSize: "calc(1vw + 1vh)" }}>
-              Total Content Uploaded
-              <span
-                style={{
-                  backgroundColor: "#E50914",
-                  color: "white",
-                  padding: ".4vh 1vw",
-                  borderRadius: "1vh",
-                  marginLeft: "1vw",
-                  fontFamily: "Segoe UI",
-                  fontWeight: "400",
-                  fontSize: "calc(1vw + 1vh)",
-                }}
-              >
-                23
-              </span>
-            </div>
-            <div className="proArticleSec">
-              <div className="proArticleCard">
-                <div className="proArticleImg">
-                  {profileImage ? (
-                    <Image
-                      src={profileImage}
-                      alt="Profile Pic"
-                      layout="fill"
-                      objectFit="cover"
-                      style={{ borderRadius: "calc(1vw + 1vh)" }}
-                    />
-                  ) : (
-                    <>no image</>
-                  )}
-                </div>
-                <div className="proArticleTxt">
-                  Akshay Kumar cheers for Anupam Khers The Kashmir Files; Says, Amazing to see the
-                  audience back to the cinemas in large numbers
-                </div>
+              23
+            </span>
+          </div>
+          <div className="proArticleSec">
+            <div className="proArticleCard">
+              <div className="proArticleImg">
+                {profileImage ?
+                  <Image
+                    src={profileImage}
+                    alt="Profile Pic"
+                    layout="fill"
+                    objectFit="cover"
+                    style={{ borderRadius: "calc(1vw + 1vh)" }}
+                  />
+                  : <>no image</>
+                }
               </div>
-              <div className="proArticleCard">
-                <div className="proArticleImg">
-                  {profileImage ? (
-                    <Image
-                      src={profileImage}
-                      alt="Profile Pic"
-                      layout="fill"
-                      objectFit="cover"
-                      style={{ borderRadius: "calc(1vw + 1vh)" }}
-                    />
-                  ) : (
-                    <>no image</>
-                  )}
-                </div>
-                <div className="proArticleTxt">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam sem magna
-                </div>
+              <div className="proArticleTxt">
+                Akshay Kumar cheers for Anupam Khers The Kashmir Files; Says, Amazing to see the audience back to the cinemas in large numbers
               </div>
-              <div className="proArticleCard">
-                <div className="proArticleImg">
-                  {profileImage ? (
-                    <Image
-                      src={profileImage}
-                      alt="Profile Pic"
-                      layout="fill"
-                      objectFit="cover"
-                      style={{ borderRadius: "calc(1vw + 1vh)" }}
-                    />
-                  ) : (
-                    <>no image</>
-                  )}
-                </div>
-                <div className="proArticleTxt">
-                  Akshay Kumar cheers for Anupam Khers The Kashmir Files; Says, Amazing to see the
-                  audience back to the cinemas in large numbers
-                </div>
+            </div>
+            <div className="proArticleCard">
+              <div className="proArticleImg">
+                {profileImage ?
+                  <Image
+                    src={profileImage}
+                    alt="Profile Pic"
+                    layout="fill"
+                    objectFit="cover"
+                    style={{ borderRadius: "calc(1vw + 1vh)" }}
+                  />
+                  : <>no image</>
+                }
+              </div>
+              <div className="proArticleTxt">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam sem magna
+              </div>
+            </div>
+            <div className="proArticleCard">
+              <div className="proArticleImg">
+                {profileImage ?
+                  <Image
+                    src={profileImage}
+                    alt="Profile Pic"
+                    layout="fill"
+                    objectFit="cover"
+                    style={{ borderRadius: "calc(1vw + 1vh)" }}
+                  />
+                  : <>no image</>
+                }
+              </div>
+              <div className="proArticleTxt">
+                Akshay Kumar cheers for Anupam Khers The Kashmir Files; Says, Amazing to see the audience back to the cinemas in large numbers
               </div>
             </div>
           </div>

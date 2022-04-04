@@ -121,6 +121,20 @@ body {
     justify-content: space-between;
   }
 
+  .proEditBtn {
+    padding: calc(0.3vw + 0.3vh);
+    background-color: rgb(229, 9, 20);
+    border-radius: calc(0.3vw + 0.3vh);
+    cursor: pointer;
+  }
+
+  .proSaveBtn {
+    padding: calc(0.3vw + 0.3vh);
+    background-color: rgb(229, 9, 20);
+    border-radius: calc(0.3vw + 0.3vh);
+    cursor: pointer;
+  }
+
   .smokyScreen {
     padding: 10vh 1vw;
     width: 30vw;
@@ -156,6 +170,16 @@ body {
     font-size: calc(1vw + 1vh);
   }
 
+  .proDesignation {
+    margin-bottom: 2.5vh;
+    font-size: calc(.7vw + .7vh);
+  }
+
+  .proDesignationEdit {
+    margin-bottom: 2.5vh;
+    font-size: calc(.7vw + .7vh);
+  }
+
   .likeNView {
     background-color: #e50914;
     color: white;
@@ -166,6 +190,7 @@ body {
     font-weight: 400;
     font-size: calc(1vw + 1vh);
     display: flex;
+    align-items: center;
   }
 
   .likeNViewIcon {
@@ -304,7 +329,7 @@ body {
   }
 
   .proArticleCard {
-    background-color: #1F1F1F;
+    background-color: #1f1f1f;
     width: calc(15vw + 15vh);
     border-radius: calc(1vw + 1vh);
     margin: 1vh 1vw;
@@ -318,7 +343,7 @@ body {
 
   .proArticleTxt {
     padding: 1vh 1vw;
-    font-size: calc(.8vw + .8vh);
+    font-size: calc(0.8vw + 0.8vh);
     font-weight: 700;
     color: #fff;
   }
@@ -331,10 +356,13 @@ body {
   }
 
   .proDraftCard {
-    background-color: #1F1F1F;
+    background-color: #1f1f1f;
     width: calc(15vw + 15vh);
     border-radius: calc(1vw + 1vh);
     margin: 3vh 1vw;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
   }
 
   .draftBody {
@@ -343,13 +371,21 @@ body {
   }
 
   .primetimeContent {
-    color: #fff; position: absolute; bottom: 0vh; z-index: 999; height: 50vh; width: 30vw; display: flex; flex-direction: column; justify-content: space-between;
+    color: #fff;
+    position: absolute;
+    bottom: 0vh;
+    z-index: 999;
+    height: 50vh;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .primetimeLikesNtime {
-    width: max-content; 
-    color: #fff; 
-    font-size: calc(.5vw + .5vh);
+    width: max-content;
+    color: #fff;
+    font-size: calc(0.5vw + 0.5vh);
   }
 
   @media screen and (max-width: 640px) {
@@ -358,7 +394,7 @@ body {
     }
 
     .proImg {
-      margin: 0 auto 4vh;
+      margin: 0 32vw 1vh auto;
       height: calc(10vw + 10vh);
       width: calc(10vw + 10vh);
     }
@@ -373,6 +409,26 @@ body {
 
     .proContentHeading {
       width: 70vw;
+      justify-content: center;
+      margin-left: 16vw;
+    }
+
+    .proEditBtn {
+      position: relative;
+    top: 7.5vh;
+    right: 9vw;
+    padding: 0.6vh 8vw;
+    font-size: calc(1.8vw + 1.8vh);
+    border-radius: 1vh;
+    }
+
+    .proSaveBtn {
+      position: relative;
+    top: 10vh;
+    right: 11vw;
+    padding: 0.5vh 8vw;
+    font-size: calc(2vw + 2vh);
+    border-radius: 1vh;
     }
 
     .smokyScreen {
@@ -413,6 +469,27 @@ body {
       height: 4vh;
       margin-bottom: 2vh;
     }
+
+    .proDesignationEdit {
+      margin: 0px auto 2.5vh 29vw;
+    }
+
+    .proDesignation {
+      margin: 0px auto 2.5vh 3vw;
+    }
+
+    .likeNView {
+      padding: 0.5vh 4vw;
+    border-radius: 1vh;
+    margin-right: 5vw;
+    font-size: calc(1.2vw + 1.2vh);
+    }
+
+    .likeNViewIcon {
+      height: calc(2vw + 2vh);
+      width: calc(2vw + 2vh);
+      margin-right: 1vw;
+  }
 
     .drawerBtn {
       flex-direction: column;
@@ -473,9 +550,9 @@ body {
     .proArticleSec {
       flex-wrap: wrap;
       overflow-x: scroll;
-      width: 80vw;
+      width: 86vw;
     }
-    
+
     .proArticleCard {
       width: calc(12vw + 12vh);
       margin: 2vh 2vw;
@@ -492,7 +569,8 @@ body {
 
     .proDraftSec {
       margin-top: 2vh;
-  }
+      width: 86vw;
+    }
 
     .proDraftCard {
       width: calc(12vw + 12vh);
@@ -507,13 +585,13 @@ body {
 
     .primetimeContent {
       position: relative;
-    bottom: 35vh;
-    height: 35vh;
-    width: 100vw;
+      bottom: 35vh;
+      height: 35vh;
+      width: 100vw;
     }
 
     .primetimeLikesNtime {
-      font-size: calc(.7vw + .7vh);
+      font-size: calc(0.7vw + 0.7vh);
     }
   }
 }
