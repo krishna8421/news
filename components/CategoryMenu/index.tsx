@@ -56,7 +56,7 @@ export default function CategoryMenu({}: Props) {
   return (
     <div
       style={{ marginTop: "-1.5vh", fontSize: "calc(.7vw + .7vh)" }}
-      className="w-11/12 m-auto h-16 my-4 pt-4 overflow-y-hidden overflow-x-auto flex no-scrollbar items-center hover:bg-red"
+      className="w-11/12 m-auto h-16  pt-4 overflow-y-hidden overflow-x-auto flex no-scrollbar items-center hover:bg-red"
     >
       {categoryList.map((data, index) => (
         <CategoryBox

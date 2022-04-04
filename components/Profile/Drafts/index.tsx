@@ -12,7 +12,7 @@ const Drafts = () => {
       <div className="proDraftSec">
         <button className="proDraftCard" onClick={() => setShowModal(true)}>
           <div className="proArticleImg">
-            {profileImage ?
+            {profileImage ? (
               <Image
                 src={profileImage}
                 alt="Profile Pic"
@@ -20,16 +20,18 @@ const Drafts = () => {
                 objectFit="cover"
                 style={{ borderRadius: "calc(1vw + 1vh)" }}
               />
-              : <>no image</>
-            }
+            ) : (
+              <>no image</>
+            )}
           </div>
           <div className="proArticleTxt">
-            Akshay Kumar cheers for Anupam Khers The Kashmir Files; Says, Amazing to see the audience back to the cinemas in large numbers
+            Akshay Kumar cheers for Anupam Khers The Kashmir Files; Says, Amazing to see the
+            audience back to the cinemas in large numbers
           </div>
         </button>
         <button className="proDraftCard" onClick={() => setShowModal(true)}>
           <div className="proArticleImg">
-            {profileImage ?
+            {profileImage ? (
               <Image
                 src={profileImage}
                 alt="Profile Pic"
@@ -37,16 +39,17 @@ const Drafts = () => {
                 objectFit="cover"
                 style={{ borderRadius: "calc(1vw + 1vh)" }}
               />
-              : <>no image</>
-            }
+            ) : (
+              <>no image</>
+            )}
           </div>
           <div className="proArticleTxt">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam sem magna
           </div>
-          </button>
+        </button>
         <button className="proDraftCard" onClick={() => setShowModal(true)}>
           <div className="proArticleImg">
-            {profileImage ?
+            {profileImage ? (
               <Image
                 src={profileImage}
                 alt="Profile Pic"
@@ -54,16 +57,18 @@ const Drafts = () => {
                 objectFit="cover"
                 style={{ borderRadius: "calc(1vw + 1vh)" }}
               />
-              : <>no image</>
-            }
+            ) : (
+              <>no image</>
+            )}
           </div>
           <div className="proArticleTxt">
-            Akshay Kumar cheers for Anupam Khers The Kashmir Files; Says, Amazing to see the audience back to the cinemas in large numbers
+            Akshay Kumar cheers for Anupam Khers The Kashmir Files; Says, Amazing to see the
+            audience back to the cinemas in large numbers
           </div>
-          </button>
+        </button>
         <button className="proDraftCard" onClick={() => setShowModal(true)}>
           <div className="proArticleImg">
-            {profileImage ?
+            {profileImage ? (
               <Image
                 src={profileImage}
                 alt="Profile Pic"
@@ -71,8 +76,9 @@ const Drafts = () => {
                 objectFit="cover"
                 style={{ borderRadius: "calc(1vw + 1vh)" }}
               />
-              : <>no image</>
-            }
+            ) : (
+              <>no image</>
+            )}
           </div>
           <div className="proArticleTxt">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam sem magna

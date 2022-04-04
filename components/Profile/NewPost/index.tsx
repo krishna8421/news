@@ -203,8 +203,10 @@ const NewPost = () => {
       const normalImageUrl3 = await uploadImage("normal-image-3", tempNormalImage3);
       const primeTimeUrl = await uploadImage("prime-time", tempPrimeTime);
       const limelightUrl = await uploadImage("lime-light", tempLimelight);
-      // @ts-ignore
-      // @ts-ignore
+      const userRef = doc(db, "users", uid as string);
+      const res = await getDoc(userRef);
+      const data = res.data();
+      const isVerified = data?.isVerified;
       const article = {
         country,
         state,
@@ -259,10 +261,8 @@ const NewPost = () => {
         needReview: false,
         authorName: user?.displayName,
         authorPhotoURL: user?.photoURL,
+        isVerified,
       };
-      const userRef = doc(db, "users", uid as string);
-      const res = await getDoc(userRef);
-      const data = res.data();
       const articleRef = await addDoc(collection(db, "articles"), article);
       const allArticle = data?.articles || [];
       allArticle.push(articleRef.id);

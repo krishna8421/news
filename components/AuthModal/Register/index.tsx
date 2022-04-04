@@ -44,6 +44,7 @@ export default function Register({ closeAuthModal }: { closeAuthModal: () => voi
             articles: [],
             likedArticlesCount: 0,
             createdAt: date.toISOString(),
+            isVerified: false,
           });
         }
         await router.reload();

@@ -44,6 +44,7 @@ export default function AuthModal({
           articles: [],
           likedArticlesCount: 0,
           createdAt: date.toISOString(),
+          isVerified: false,
         });
       }
     } catch (error: any) {

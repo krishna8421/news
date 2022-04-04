@@ -12,8 +12,25 @@ import { AiFillHeart, AiOutlineShareAlt } from "react-icons/ai";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import Image from "next/image";
 import LimeLightContainer from "@components/LimeLightContainer";
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@firebase/client";
 
 const Home: NextPage = () => {
+  const [articleData, setArticleData] = useState<any>([]);
+  useEffect(() => {
+    const getData = async () => {
+      const articlesRef = collection(db, "articles");
+      const articlesData = await getDocs(articlesRef);
+      const data: any[] = [];
+      articlesData.forEach((element) => {
+        data.push(element.data());
+      });
+      setArticleData(data);
+    };
+    getData().then();
+  }, []);
+
   const imgUrlArr = [
     "https://source.unsplash.com/1200x900/?tv",
     "https://source.unsplash.com/1200x900/?game",
@@ -23,6 +40,7 @@ const Home: NextPage = () => {
     "https://source.unsplash.com/1200x900/?mac",
     "https://source.unsplash.com/1200x900/?russia",
   ];
+  // const {user} = useAuth()
   return (
     <HomePageLayout>
       <div className="primetime w-full">
@@ -119,35 +137,34 @@ const Home: NextPage = () => {
         <CategoryProvider>
           <CategoryMenu />
         </CategoryProvider>
+        <div className="w-11/12 m-auto h-16 gap-2 pt-4 text-2xl font-Righteous mb-2 text-white flex items-center">
+          <HiOutlineLocationMarker />
+          <p>Patna, Bihar, India</p>
+        </div>
         <ArticleContainer>
+          {/* <ArticleCard />
           <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
+          <ArticleCard /> */}
+
+          {articleData.map((data: any, i: number) => (
+            <ArticleCard key={i} data={data} />
+          ))}
           <LimeLightContainer>
-            <LimeLightCard
-              imgUrl={imgUrlArr[1]}
-              author="Krishna Kumar"
-              location="Patna"
-              title="Watch: Alliance Air's Jabalpur runway mishap caught on camera by passenger"
-              viewCount={500}
-              verified
-            />
-            <LimeLightCard
-              imgUrl={imgUrlArr[1]}
-              author="Krishna Kumar"
-              location="Patna"
-              title="Watch: Alliance Air's Jabalpur runway mishap caught on camera by passenger"
-              viewCount={500}
-              verified
-            />
-            <LimeLightCard
-              imgUrl={imgUrlArr[1]}
-              author="Krishna Kumar"
-              location="Patna"
-              title="Watch: Alliance Air's Jabalpur runway mishap caught on camera by passenger"
-              viewCount={500}
-              verified
-            />
+            {articleData.map((data: any, i: number) => {
+              if (data.limelight.url) {
+                return (
+                  <LimeLightCard
+                    key={i}
+                    imgUrl={data.limelight.url}
+                    author={data.authorName}
+                    location={data.city}
+                    title={data.title}
+                    viewCount={data.viewedBy}
+                    verified={data.isVerified}
+                  />
+                );
+              } else return null;
+            })}
           </LimeLightContainer>
         </ArticleContainer>
       </div>

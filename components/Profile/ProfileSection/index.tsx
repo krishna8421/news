@@ -120,20 +120,15 @@ const ProfileSection = () => {
                   />
                 </div>
               </div>
-              {!editMode ?
-                <div
-                  className="proEditBtn"
-                  onClick={handleEdit}
-                >
+              {!editMode ? (
+                <div className="proEditBtn" onClick={handleEdit}>
                   <MdModeEditOutline />
                 </div>
-                :
-                <div
-                  className="proSaveBtn"
-                  onClick={handleEdit}
-                >
+              ) : (
+                <div className="proSaveBtn" onClick={handleEdit}>
                   <IoIosSave />
-                </div>}
+                </div>
+              )}
             </div>
           </div>
 
@@ -152,7 +147,9 @@ const ProfileSection = () => {
             </div>
           ) : (
             <div className="proDesignation">
-              <div className="text-xs text-center sm:text-left font-Inter text-slate-300">{newDesignation}</div>
+              <div className="text-xs text-center sm:text-left font-Inter text-slate-300">
+                {newDesignation}
+              </div>
             </div>
           )}
           <div style={{ marginBottom: "3vh", display: "flex" }}>
@@ -225,7 +222,7 @@ const ProfileSection = () => {
           <div className="proArticleSec">
             <div className="proArticleCard">
               <div className="proArticleImg">
-                {profileImage ?
+                {profileImage ? (
                   <Image
                     src={profileImage}
                     alt="Profile Pic"
@@ -233,16 +230,18 @@ const ProfileSection = () => {
                     objectFit="cover"
                     style={{ borderRadius: "calc(1vw + 1vh)" }}
                   />
-                  : <>no image</>
-                }
+                ) : (
+                  <>no image</>
+                )}
               </div>
               <div className="proArticleTxt">
-                Akshay Kumar cheers for Anupam Khers The Kashmir Files; Says, Amazing to see the audience back to the cinemas in large numbers
+                Akshay Kumar cheers for Anupam Khers The Kashmir Files; Says, Amazing to see the
+                audience back to the cinemas in large numbers
               </div>
             </div>
             <div className="proArticleCard">
               <div className="proArticleImg">
-                {profileImage ?
+                {profileImage ? (
                   <Image
                     src={profileImage}
                     alt="Profile Pic"
@@ -250,8 +249,9 @@ const ProfileSection = () => {
                     objectFit="cover"
                     style={{ borderRadius: "calc(1vw + 1vh)" }}
                   />
-                  : <>no image</>
-                }
+                ) : (
+                  <>no image</>
+                )}
               </div>
               <div className="proArticleTxt">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam sem magna
@@ -259,7 +259,7 @@ const ProfileSection = () => {
             </div>
             <div className="proArticleCard">
               <div className="proArticleImg">
-                {profileImage ?
+                {profileImage ? (
                   <Image
                     src={profileImage}
                     alt="Profile Pic"
@@ -267,11 +267,13 @@ const ProfileSection = () => {
                     objectFit="cover"
                     style={{ borderRadius: "calc(1vw + 1vh)" }}
                   />
-                  : <>no image</>
-                }
+                ) : (
+                  <>no image</>
+                )}
               </div>
               <div className="proArticleTxt">
-                Akshay Kumar cheers for Anupam Khers The Kashmir Files; Says, Amazing to see the audience back to the cinemas in large numbers
+                Akshay Kumar cheers for Anupam Khers The Kashmir Files; Says, Amazing to see the
+                audience back to the cinemas in large numbers
               </div>
             </div>
           </div>
