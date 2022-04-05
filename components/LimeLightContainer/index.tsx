@@ -19,11 +19,13 @@ export default function LimeLightContainer({ children }: Props) {
         />
       </div>
 
-      <div
-        style={{ gap: "5vh 1.5vw" }}
-        className="flex w-full no-scrollbar m-auto overflow-y-hidden overflow-x-auto items-center"
-      >
-        {children}
+      <div style={{ width: "100%", overflowX: "scroll" }}>
+        <div
+          style={{ gap: "5vh 1.5vw" }}
+          className="flex w-full no-scrollbar m-auto overflow-y-hidden overflow-x-auto items-center"
+        >
+          {children}
+        </div>
       </div>
     </div>
   );
