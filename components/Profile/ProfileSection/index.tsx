@@ -9,6 +9,9 @@ import { IoIosSave } from "react-icons/io";
 import { useData } from "@lib/context/DataContext";
 import { useAuth } from "@lib/context/AuthContext";
 import { Avatar } from "@mantine/core";
+import { db } from "@firebase/client";
+import { collection, getDocs } from "firebase/firestore";
+import ProfileArticleCard from "@components/Profile/ProfileArticleCard";
 
 const ProfileSection = () => {
   const { name, designation, bio, profileImage, updateName, updateBio, updateDesignation } =
@@ -20,6 +23,23 @@ const ProfileSection = () => {
   const [newBio, setNewBio] = useState("");
   const [newDesignation, setNewDesignation] = useState("");
   // const [newProfileImage, setNewProfileImage] = useState("");
+  const [articleData, setArticleData] = useState<any>([]);
+  const [articlesId, setArticlesId] = useState<any>([]);
+  useEffect(() => {
+    const getData = async () => {
+      const articlesRef = collection(db, "articles");
+      const articlesData = await getDocs(articlesRef);
+      const data: any[] = [];
+      const articlesId: any[] = [];
+      articlesData.forEach((element) => {
+        data.push(element.data());
+        articlesId.push(element.ref.id);
+      });
+      setArticleData(data);
+      setArticlesId(articlesId);
+    };
+    getData().then();
+  }, []);
 
   useEffect(() => {
     setNewName(name);
@@ -216,66 +236,13 @@ const ProfileSection = () => {
                 fontSize: "calc(1vw + 1vh)",
               }}
             >
-              23
+              {articleData.length}
             </span>
           </div>
           <div className="proArticleSec">
-            <div className="proArticleCard">
-              <div className="proArticleImg">
-                {profileImage ? (
-                  <Image
-                    src={profileImage}
-                    alt="Profile Pic"
-                    layout="fill"
-                    objectFit="cover"
-                    style={{ borderRadius: "calc(1vw + 1vh)" }}
-                  />
-                ) : (
-                  <>no image</>
-                )}
-              </div>
-              <div className="proArticleTxt">
-                Akshay Kumar cheers for Anupam Khers The Kashmir Files; Says, Amazing to see the
-                audience back to the cinemas in large numbers
-              </div>
-            </div>
-            <div className="proArticleCard">
-              <div className="proArticleImg">
-                {profileImage ? (
-                  <Image
-                    src={profileImage}
-                    alt="Profile Pic"
-                    layout="fill"
-                    objectFit="cover"
-                    style={{ borderRadius: "calc(1vw + 1vh)" }}
-                  />
-                ) : (
-                  <>no image</>
-                )}
-              </div>
-              <div className="proArticleTxt">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam sem magna
-              </div>
-            </div>
-            <div className="proArticleCard">
-              <div className="proArticleImg">
-                {profileImage ? (
-                  <Image
-                    src={profileImage}
-                    alt="Profile Pic"
-                    layout="fill"
-                    objectFit="cover"
-                    style={{ borderRadius: "calc(1vw + 1vh)" }}
-                  />
-                ) : (
-                  <>no image</>
-                )}
-              </div>
-              <div className="proArticleTxt">
-                Akshay Kumar cheers for Anupam Khers The Kashmir Files; Says, Amazing to see the
-                audience back to the cinemas in large numbers
-              </div>
-            </div>
+            {articleData.map((article: any, index: number) => {
+              return <ProfileArticleCard key={index} article={article} articlesId={articlesId} />;
+            })}
           </div>
         </div>
       </div>

@@ -1,27 +1,22 @@
-import { AiOutlineEye, AiOutlineClockCircle } from "react-icons/ai";
-
+import moment from "moment";
+import { AiFillEye } from "react-icons/ai";
+import { BiTime } from "react-icons/bi";
 interface Props {
   viewCount: number;
   publishTime: string;
+  classNameProp?: string;
 }
 
-export default function ViewsTime({ viewCount, publishTime }: Props) {
+export default function ViewsTime({ viewCount, publishTime, classNameProp = "" }: Props) {
   return (
     <div
-      style={{
-        boxShadow:
-          "calc(0.3vw + 0.3vh) calc(0.3vw + 0.3vh) calc(0.2vw + 0.2vh) 0px rgba(0,0,0,0.75)",
-      }}
-      className="bg-primary-background-500 rounded-full h-5 w-28 flex justify-around items-center"
+      style={{ color: "#fff" }}
+      className={`${classNameProp} shadow rounded-full shadow-black bg-primary-background-700 mt-1 p-[3px] px-[10px] flex justify-center items-center`}
     >
-      <div className="flex items-center gap-2 text-[12px]">
-        <AiOutlineEye />
-        {viewCount}
-      </div>
-      <div className="flex items-center gap-2 text-[12px]">
-        <AiOutlineClockCircle />
-        {publishTime}
-      </div>
+      <AiFillEye style={{ opacity: ".5", marginLeft: "0vh" }} size={12} className="mx-1" />
+      {viewCount} views
+      <BiTime style={{ opacity: ".5", marginLeft: "2vh" }} size={12} className="mx-1" />
+      {moment.utc(publishTime).local().startOf("seconds").fromNow()}
     </div>
   );
 }

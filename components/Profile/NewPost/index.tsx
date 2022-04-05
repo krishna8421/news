@@ -18,6 +18,8 @@ import { useRouter } from "next/router";
 const NewPost = () => {
   const router = useRouter();
   const { uid, loading, user } = useAuth();
+  type _SubmitType = "post" | "draft";
+  const [submitType, setSubmitType] = useState<_SubmitType>("post");
 
   /**
    * Location
@@ -254,7 +256,7 @@ const NewPost = () => {
         authorUID: uid,
         likedBy: [],
         viewedBy: 0,
-        isDraft: true,
+        isDraft: submitType === "draft",
         isPrimeTime: false,
         isLimelight: false,
         isRegular: false,
@@ -570,12 +572,27 @@ const NewPost = () => {
       {/*<Input variant="filled" radius="md" size="md" />*/}
 
       {/*Submit*/}
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center gap-4">
         <button
           className={`px-6 py-2 bg-primary-red mt-8 rounded-xl ${
             isSubmitting ? "cursor-not-allowed" : ""
           }`}
-          onClick={handleSubmit}
+          onClick={() => {
+            setSubmitType("draft");
+            handleSubmit().then();
+          }}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? <ReactLoading type="spin" color="#fff" /> : "Draft"}
+        </button>
+        <button
+          className={`px-6 py-2 bg-primary-red mt-8 rounded-xl ${
+            isSubmitting ? "cursor-not-allowed" : ""
+          }`}
+          onClick={() => {
+            setSubmitType("post");
+            handleSubmit().then();
+          }}
           disabled={isSubmitting}
         >
           {isSubmitting ? <ReactLoading type="spin" color="#fff" /> : "Post"}

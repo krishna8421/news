@@ -16,6 +16,7 @@ const nextConfig = {
     MEASUREMENT_ID: process.env.MEASUREMENT_ID,
     PRIVATE_KEY: process.env.PRIVATE_KEY,
     CLIENT_EMAIL: process.env.CLIENT_EMAIL,
+    BASE_URL: process.env.BASE_URL || "http://localhost:3000",
   },
   images: {
     domains: ["lh3.googleusercontent.com", "source.unsplash.com", "firebasestorage.googleapis.com"],

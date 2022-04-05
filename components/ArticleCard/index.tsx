@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { MdVerified } from "react-icons/md";
-import { AiFillEye } from "react-icons/ai";
-import { BiTime } from "react-icons/bi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import LinkShare from "@components/LinkShare";
-import moment from "moment";
+import ViewsTime from "@components/ViewsTime";
+import Link from "next/link";
 
-export default function ArticleCard({ data }: { data: any }) {
+export default function ArticleCard({ data, articlesId }: { data: any; articlesId: string }) {
+  // console.log(data);
   return (
     <div
       className="homeArticlesCard bg-primary-background-700 rounded-xl relative"
@@ -20,15 +20,17 @@ export default function ArticleCard({ data }: { data: any }) {
           {data.type[0].toUpperCase() + data.type.slice(1)}
         </div>
       </div>
-      <div className="homeArticleMainImg">
-        <Image
-          src={data.normalImage1.url}
-          alt="Article Card"
-          layout="fill"
-          objectFit="cover"
-          className="h-64 w-64 rounded-xl"
-        />
-      </div>
+      <Link href={`articles/${articlesId}`} passHref>
+        <div className="homeArticleMainImg cursor-pointer">
+          <Image
+            src={data.normalImage1.url}
+            alt="Article Card"
+            layout="fill"
+            objectFit="cover"
+            className="h-64 w-64 rounded-xl"
+          />
+        </div>
+      </Link>
       <div className="relative">
         <div className="absolute z-10 -bottom-12 sm:-bottom-7 right-4 sm:right-2 m-2">
           <div className="relative">
@@ -50,10 +52,16 @@ export default function ArticleCard({ data }: { data: any }) {
           </div>
         </div>
       </div>
-      <div className="homeArticleTitle overflow-scroll no-scrollbar text-white pb-0">
-        {data.title}
-      </div>
-      <div className="homeArticleDesc overflow-scroll no-scrollbar">{data.subHeading}</div>
+      <Link href={`articles/${articlesId}`} passHref>
+        <div className="homeArticleTitle overflow-scroll no-scrollbar text-white pb-0 cursor-pointer">
+          {data.title}
+        </div>
+      </Link>
+      <Link href={`articles/${articlesId}`} passHref>
+        <div className="homeArticleDesc cursor-pointer overflow-scroll no-scrollbar">
+          {data.subHeading}
+        </div>
+      </Link>
       <div className="text-[calc(1vw+1vh)] sm:text-[calc(.45vw+.45vh)] w-full px-7 sm:px-3 flex justify-between">
         <div
           style={{ color: "#fff" }}
@@ -61,15 +69,7 @@ export default function ArticleCard({ data }: { data: any }) {
         >
           {data.category[0].toUpperCase() + data.category.slice(1)}
         </div>
-        <div
-          style={{ color: "#fff" }}
-          className=" rounded-full shadow shadow-black bg-primary-background-700 mt-1 p-[3px] px-[10px] flex justify-center items-center"
-        >
-          <AiFillEye style={{ opacity: ".5", marginLeft: "0vh" }} size={12} className="mx-1" />
-          {data.viewedBy} views
-          <BiTime style={{ opacity: ".5", marginLeft: "2vh" }} size={12} className="mx-1" />
-          {moment.utc(data.createdAt).local().startOf("seconds").fromNow()}
-        </div>
+        <ViewsTime viewCount={data.viewedBy} publishTime={data.createdAt} />
       </div>
       <div className={"w-full mt-5 sm:mt-2.5 px-7 sm:px-3 flex justify-between items-center"}>
         <LinkShare liked />
