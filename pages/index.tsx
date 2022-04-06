@@ -18,6 +18,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay } from "swiper";
+import { query, where } from "firebase/firestore";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -44,6 +45,24 @@ const Home: NextPage = () => {
     };
     getData().then();
   }, []);
+
+  // function for category 1 filteration
+  const cat1Filter = async (cat1Value: any) => {
+    const getData1 = async () => {
+      const articlesRef = collection(db, "articles");
+      const q = query(articlesRef, where("category", "==", `${cat1Value}`));
+      const articlesData = await getDocs(q);
+      const data: any[] = [];
+      const articlesId: any[] = [];
+      articlesData.forEach((element) => {
+        data.push(element.data());
+        articlesId.push(element.ref.id);
+      });
+      setArticleData(data);
+      setArticlesId(articlesId);
+    };
+    getData1().then();
+  }
 
   /**
    * Location
@@ -137,7 +156,8 @@ const Home: NextPage = () => {
             Use Radio Groups of headlessUI
          */}
         <CategoryProvider>
-          <CategoryMenu />
+          {/* @ts-ignore */}
+          <CategoryMenu  cat1Filter={cat1Filter} />
         </CategoryProvider>
         <div className="w-11/12 m-auto h-16 gap-2 pt-4 text-2xl font-Righteous mb-2 text-white flex items-center">
           <div style={{ display: "flex", alignItems: "center" }}>

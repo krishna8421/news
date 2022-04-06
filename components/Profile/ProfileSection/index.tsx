@@ -10,7 +10,7 @@ import { useData } from "@lib/context/DataContext";
 import { useAuth } from "@lib/context/AuthContext";
 import { Avatar } from "@mantine/core";
 import { db } from "@firebase/client";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import ProfileArticleCard from "@components/Profile/ProfileArticleCard";
 
 const ProfileSection = () => {
@@ -28,7 +28,8 @@ const ProfileSection = () => {
   useEffect(() => {
     const getData = async () => {
       const articlesRef = collection(db, "articles");
-      const articlesData = await getDocs(articlesRef);
+      const q = query(articlesRef, where("authorUID", "==", `${uid}`));
+      const articlesData = await getDocs(q);
       const data: any[] = [];
       const articlesId: any[] = [];
       articlesData.forEach((element) => {

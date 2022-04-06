@@ -15,11 +15,12 @@ const firebaseConfig = {
   measurementId: process.env.MEASUREMENT_ID,
 };
 
+let app;
 if (!getApps().length) {
-  initializeApp(firebaseConfig);
+  app = initializeApp(firebaseConfig);
 }
 const auth = getAuth();
-const db = getFirestore();
+const db = getFirestore(app);
 const storage = getStorage();
 // const analytics = getAnalytics();
 

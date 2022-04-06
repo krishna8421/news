@@ -62,7 +62,7 @@ export default function ArticleCard({ data, articlesId }: { data: any; articlesI
           {data.subHeading}
         </div>
       </Link>
-      <div className="text-[calc(1vw+1vh)] sm:text-[calc(.45vw+.45vh)] w-full px-7 sm:px-3 flex justify-between">
+      <div className="text-[calc(1vw+1vh)] sm:text-[calc(.45vw+.45vh)] w-full px-7 sm:px-2 flex justify-between">
         <div
           style={{ color: "#fff" }}
           className=" rounded-full shadow shadow-black bg-primary-background-700  mt-1 p-[3px] px-[10px]"

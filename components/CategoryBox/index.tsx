@@ -1,15 +1,14 @@
 import { ReactNode } from "react";
-import { useCategory } from "@lib/context/CategoryContext";
 
 interface Props {
   name: string;
   icon: ReactNode;
   hoverColor: string;
   isActive: boolean;
+  cat1Filter: any;
 }
 
-export default function CategoryBox({ name, icon, hoverColor, isActive }: Props) {
-  const { setCategory } = useCategory();
+export default function CategoryBox({ name, icon, hoverColor, isActive, cat1Filter }: Props) {
   return (
     <div
       style={{
@@ -19,7 +18,7 @@ export default function CategoryBox({ name, icon, hoverColor, isActive }: Props)
         cursor: "pointer",
       }}
       className="flex items-center bg-white/10 rounded-xl mx-2 shadow-lg shadow-slate-900/40 group"
-      onClick={() => setCategory(name.toLowerCase())}
+      onClick={() => cat1Filter(name.toLowerCase())}
     >
       <div
         style={{ padding: "calc(.3vw + .3vh)" }}

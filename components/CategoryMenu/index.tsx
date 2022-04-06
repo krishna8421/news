@@ -7,9 +7,11 @@ import { IoMdFootball } from "react-icons/io";
 import { BsGraphUp } from "react-icons/bs";
 import { useCategory } from "@lib/context/CategoryContext";
 
-interface Props {}
+interface Props {
+  cat1Filter: any;
+}
 
-export default function CategoryMenu({}: Props) {
+export default function CategoryMenu({ cat1Filter }: Props) {
   // Complete the function to show the articles related to the
   // category that was returned
   // const categoryBoxOnClickHandler = (category: string) => {
@@ -65,6 +67,7 @@ export default function CategoryMenu({}: Props) {
           hoverColor={data.hoverColor}
           icon={data.icon}
           isActive={data.name.toLowerCase() === category}
+          cat1Filter={cat1Filter}
         />
       ))}
     </div>

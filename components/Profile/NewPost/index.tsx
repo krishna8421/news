@@ -200,15 +200,26 @@ const NewPost = () => {
       return setShowMissingAlert(true);
     }
     try {
-      const normalImageUrl1 = await uploadImage("normal-image-1", tempNormalImage1);
-      const normalImageUrl2 = await uploadImage("normal-image-2", tempNormalImage2);
-      const normalImageUrl3 = await uploadImage("normal-image-3", tempNormalImage3);
-      const primeTimeUrl = await uploadImage("prime-time", tempPrimeTime);
-      const limelightUrl = await uploadImage("lime-light", tempLimelight);
+      let normalImageUrl1, normalImageUrl2, normalImageUrl3, primeTimeUrl, limelightUrl;
+      if (tempNormalImage1) {
+        normalImageUrl1 = await uploadImage("normal-image-1", tempNormalImage1);
+      }
+      if (tempNormalImage2) {
+        normalImageUrl2 = await uploadImage("normal-image-2", tempNormalImage2);
+      }
+      if (tempNormalImage3) {
+        normalImageUrl3 = await uploadImage("normal-image-3", tempNormalImage3);
+      }
+      if (tempPrimeTime) {
+        primeTimeUrl = await uploadImage("prime-time", tempPrimeTime);
+      }
+      if (tempLimelight) {
+        limelightUrl = await uploadImage("lime-light", tempLimelight);
+      }
       const userRef = doc(db, "users", uid as string);
       const res = await getDoc(userRef);
       const data = res.data();
-      const isVerified = data?.isVerified;
+      // const isVerified = data?.isVerified; TODO: correct it
       const article = {
         country,
         state,
@@ -263,11 +274,12 @@ const NewPost = () => {
         needReview: false,
         authorName: user?.displayName,
         authorPhotoURL: user?.photoURL,
-        isVerified,
+        isVerified: false
       };
       const articleRef = await addDoc(collection(db, "articles"), article);
       const allArticle = data?.articles || [];
       allArticle.push(articleRef.id);
+
       updateDoc(userRef, {
         articles: allArticle,
       });
@@ -308,6 +320,7 @@ const NewPost = () => {
       </div>
       <div className=" flex flex-wrap gap-8 ">
         <Select
+          searchable
           placeholder="Country"
           radius="lg"
           size="md"
@@ -321,6 +334,7 @@ const NewPost = () => {
           onChange={(value: string) => handleCountryChange(value)}
         />
         <Select
+          searchable
           disabled={!country}
           placeholder="State"
           radius="lg"
@@ -338,6 +352,7 @@ const NewPost = () => {
           }}
         />
         <Select
+          searchable
           disabled={!country || !state}
           placeholder="City"
           radius="lg"
@@ -573,30 +588,44 @@ const NewPost = () => {
 
       {/*Submit*/}
       <div className="w-full flex justify-center gap-4">
-        <button
-          className={`px-6 py-2 bg-primary-red mt-8 rounded-xl ${
-            isSubmitting ? "cursor-not-allowed" : ""
-          }`}
-          onClick={() => {
-            setSubmitType("draft");
-            handleSubmit().then();
-          }}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? <ReactLoading type="spin" color="#fff" /> : "Draft"}
-        </button>
-        <button
-          className={`px-6 py-2 bg-primary-red mt-8 rounded-xl ${
-            isSubmitting ? "cursor-not-allowed" : ""
-          }`}
-          onClick={() => {
-            setSubmitType("post");
-            handleSubmit().then();
-          }}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? <ReactLoading type="spin" color="#fff" /> : "Post"}
-        </button>
+        {isSubmitting ?
+          <button
+            className={`px-6 py-2 bg-primary-red mt-8 rounded-xl ${isSubmitting ? "cursor-not-allowed" : ""
+              }`}
+            onClick={() => {
+              setSubmitType("draft");
+              handleSubmit().then();
+            }}
+            disabled={isSubmitting}
+          >
+            <ReactLoading type="spin" color="#fff" />
+          </button>
+          :
+          <>
+            <button
+              className={`px-6 py-2 bg-primary-red mt-8 rounded-xl ${isSubmitting ? "cursor-not-allowed" : ""
+                }`}
+              onClick={() => {
+                setSubmitType("draft");
+                handleSubmit().then();
+              }}
+              disabled={isSubmitting}
+            >
+              Draft
+            </button>
+            <button
+              className={`px-6 py-2 bg-primary-red mt-8 rounded-xl ${isSubmitting ? "cursor-not-allowed" : ""
+                }`}
+              onClick={() => {
+                setSubmitType("post");
+                handleSubmit().then();
+              }}
+              disabled={isSubmitting}
+            >
+              Post
+            </button>
+          </>
+        }
       </div>
     </div>
   );
