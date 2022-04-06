@@ -62,7 +62,7 @@ const Home: NextPage = () => {
       setArticlesId(articlesId);
     };
     getData1().then();
-  }
+  };
 
   /**
    * Location
@@ -157,7 +157,7 @@ const Home: NextPage = () => {
          */}
         <CategoryProvider>
           {/* @ts-ignore */}
-          <CategoryMenu  cat1Filter={cat1Filter} />
+          <CategoryMenu cat1Filter={cat1Filter} />
         </CategoryProvider>
         <div className="w-11/12 m-auto h-16 gap-2 pt-4 text-2xl font-Righteous mb-2 text-white flex items-center">
           <div style={{ display: "flex", alignItems: "center" }}>

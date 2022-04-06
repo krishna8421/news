@@ -163,8 +163,9 @@ const NewPost = () => {
   const uploadImage = async (
     filename: string,
     imgBase64: string | ArrayBuffer | null,
+    articleID: string,
   ): Promise<string> => {
-    const storageRef = ref(storage, `/users/${uid}/${filename}.png`);
+    const storageRef = ref(storage, `/users/${uid}/${articleID}/${filename}.png`);
     try {
       const uploadTask = await uploadString(storageRef, imgBase64 as string, "data_url");
       console.log(uploadTask.ref.fullPath);
@@ -200,22 +201,6 @@ const NewPost = () => {
       return setShowMissingAlert(true);
     }
     try {
-      let normalImageUrl1, normalImageUrl2, normalImageUrl3, primeTimeUrl, limelightUrl;
-      if (tempNormalImage1) {
-        normalImageUrl1 = await uploadImage("normal-image-1", tempNormalImage1);
-      }
-      if (tempNormalImage2) {
-        normalImageUrl2 = await uploadImage("normal-image-2", tempNormalImage2);
-      }
-      if (tempNormalImage3) {
-        normalImageUrl3 = await uploadImage("normal-image-3", tempNormalImage3);
-      }
-      if (tempPrimeTime) {
-        primeTimeUrl = await uploadImage("prime-time", tempPrimeTime);
-      }
-      if (tempLimelight) {
-        limelightUrl = await uploadImage("lime-light", tempLimelight);
-      }
       const userRef = doc(db, "users", uid as string);
       const res = await getDoc(userRef);
       const data = res.data();
@@ -225,26 +210,6 @@ const NewPost = () => {
         state,
         city,
         ageRestricted,
-        normalImage1: {
-          url: normalImageUrl1,
-          caption: captionNormalImage1,
-        },
-        normalImage2: {
-          url: normalImageUrl2,
-          caption: captionNormalImage2,
-        },
-        normalImage3: {
-          url: normalImageUrl3,
-          caption: captionNormalImage3,
-        },
-        primeTime: {
-          url: primeTimeUrl,
-          caption: captionPrimeTime,
-        },
-        limelight: {
-          url: limelightUrl,
-          caption: captionLimelight,
-        },
         title,
         subHeading,
         articleData,
@@ -274,13 +239,60 @@ const NewPost = () => {
         needReview: false,
         authorName: user?.displayName,
         authorPhotoURL: user?.photoURL,
-        isVerified: false
+        isVerified: false,
       };
       const articleRef = await addDoc(collection(db, "articles"), article);
       const allArticle = data?.articles || [];
       allArticle.push(articleRef.id);
-
-      updateDoc(userRef, {
+      /**
+       * Upload Image after article is created
+       */
+      let normalImageUrl1, normalImageUrl2, normalImageUrl3, primeTimeUrl, limelightUrl;
+      if (tempNormalImage1) {
+        normalImageUrl1 = await uploadImage("normal-image-1", tempNormalImage1, articleRef.id);
+      }
+      if (tempNormalImage2) {
+        normalImageUrl2 = await uploadImage("normal-image-2", tempNormalImage2, articleRef.id);
+      }
+      if (tempNormalImage3) {
+        normalImageUrl3 = await uploadImage("normal-image-3", tempNormalImage3, articleRef.id);
+      }
+      if (tempPrimeTime) {
+        primeTimeUrl = await uploadImage("prime-time", tempPrimeTime, articleRef.id);
+      }
+      if (tempLimelight) {
+        limelightUrl = await uploadImage("lime-light", tempLimelight, articleRef.id);
+      }
+      /**
+       * Update article with image url
+       */
+      const newArticleRef = doc(db, "articles", articleRef.id);
+      await updateDoc(newArticleRef, {
+        normalImage1: {
+          url: normalImageUrl1,
+          caption: captionNormalImage1,
+        },
+        normalImage2: {
+          url: normalImageUrl2,
+          caption: captionNormalImage2,
+        },
+        normalImage3: {
+          url: normalImageUrl3,
+          caption: captionNormalImage3,
+        },
+        primeTime: {
+          url: primeTimeUrl,
+          caption: captionPrimeTime,
+        },
+        limelight: {
+          url: limelightUrl,
+          caption: captionLimelight,
+        },
+      });
+      /**
+       * Add article ID to user's article list
+       */
+      await updateDoc(userRef, {
         articles: allArticle,
       });
       setIsSubmitting(false);
@@ -588,10 +600,11 @@ const NewPost = () => {
 
       {/*Submit*/}
       <div className="w-full flex justify-center gap-4">
-        {isSubmitting ?
+        {isSubmitting ? (
           <button
-            className={`px-6 py-2 bg-primary-red mt-8 rounded-xl ${isSubmitting ? "cursor-not-allowed" : ""
-              }`}
+            className={`px-6 py-2 bg-primary-red mt-8 rounded-xl ${
+              isSubmitting ? "cursor-not-allowed" : ""
+            }`}
             onClick={() => {
               setSubmitType("draft");
               handleSubmit().then();
@@ -600,11 +613,12 @@ const NewPost = () => {
           >
             <ReactLoading type="spin" color="#fff" />
           </button>
-          :
+        ) : (
           <>
             <button
-              className={`px-6 py-2 bg-primary-red mt-8 rounded-xl ${isSubmitting ? "cursor-not-allowed" : ""
-                }`}
+              className={`px-6 py-2 bg-primary-red mt-8 rounded-xl ${
+                isSubmitting ? "cursor-not-allowed" : ""
+              }`}
               onClick={() => {
                 setSubmitType("draft");
                 handleSubmit().then();
@@ -614,8 +628,9 @@ const NewPost = () => {
               Draft
             </button>
             <button
-              className={`px-6 py-2 bg-primary-red mt-8 rounded-xl ${isSubmitting ? "cursor-not-allowed" : ""
-                }`}
+              className={`px-6 py-2 bg-primary-red mt-8 rounded-xl ${
+                isSubmitting ? "cursor-not-allowed" : ""
+              }`}
               onClick={() => {
                 setSubmitType("post");
                 handleSubmit().then();
@@ -625,7 +640,7 @@ const NewPost = () => {
               Post
             </button>
           </>
-        }
+        )}
       </div>
     </div>
   );

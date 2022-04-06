@@ -40,7 +40,7 @@ const ProfileSection = () => {
       setArticlesId(articlesId);
     };
     getData().then();
-  }, []);
+  }, [uid]);
 
   useEffect(() => {
     setNewName(name);
