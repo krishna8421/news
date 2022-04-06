@@ -340,7 +340,7 @@ body {
     border-radius: calc(0.2vw + 0.2vh);
     font-weight: 400;
     font-size: calc(1vw + 1vh);
-    width: 46%;
+    width: 23%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -440,6 +440,41 @@ body {
   .swiper-button-next, .swiper-rtl .swiper-button-prev {
     color: #D1D5DB !important;
   }
+
+  .searchArticleCard {
+    background-color: #1f1f1f;
+    width: calc(12vw + 12vh);
+    border-radius: calc(1vw + 1vh);
+    margin: 1vh 1vw;
+    position: relative;
+  }
+
+  .searchArticleImg {
+    height: calc(12vw + 12vh);
+    width: calc(12vw + 12vh);
+    position: relative;
+  }
+
+  .searchArticleText {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    border-radius: calc(1vw + 1vh);
+    position: absolute;
+    bottom: 0vh;
+    width: calc(12vw + 12vh);
+    height: calc(12vw + 12vh);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+
+/* 
+
+Media Query
+
+ */
+
 
   @media screen and (max-width: 640px) {
     .drawer {
