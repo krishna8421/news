@@ -15,19 +15,22 @@ import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import ReactLoading from "react-loading";
 import { useRouter } from "next/router";
 
-// @ts-ignore
-const EditModal = ({ setShowModal }) => {
+interface Props {
+  setShowModal: (showModal: boolean) => void;
+  article: any;
+}
+const EditModal = ({ setShowModal, article }: Props) => {
   const router = useRouter();
   const { uid, loading, user } = useAuth();
 
   /**
    * Location
    */
-  const [country, setCountry] = useState<string | null>(null);
+  const [country, setCountry] = useState<string | null>(article.country || null);
   const [allCountries, setAllCountries] = useState<any>([]);
-  const [state, setState] = useState<string | null>(null);
+  const [state, setState] = useState<string | null>(article.state || null);
   const [allStates, setAllStates] = useState<any>([]);
-  const [city, setCity] = useState<string | null>(null);
+  const [city, setCity] = useState<string | null>(article.city || null);
   const [allCities, setAllCities] = useState<any>([]);
   useEffect(() => {
     setAllCountries(
@@ -70,59 +73,65 @@ const EditModal = ({ setShowModal }) => {
   /**
    * Age Restricted
    */
-  const [ageRestricted, setAgeRestricted] = useState(false);
+  const [ageRestricted, setAgeRestricted] = useState(article.ageRestricted || false);
 
   /**
    * Normal Images
    */
   // const [normalImage1, setNormalImage1] = useState<null | File>(null);
-  const [captionNormalImage1, setCaptionNormalImage1] = useState("");
+  const [captionNormalImage1, setCaptionNormalImage1] = useState(
+    article.normalImage1.caption || "",
+  );
   // const [normalImage2, setNormalImage2] = useState<null | File>(null);
-  const [captionNormalImage2, setCaptionNormalImage2] = useState("");
+  const [captionNormalImage2, setCaptionNormalImage2] = useState(
+    article.normalImage2.caption || "",
+  );
   // const [normalImage3, setNormalImage3] = useState<null | File>(null);
-  const [captionNormalImage3, setCaptionNormalImage3] = useState("");
+  const [captionNormalImage3, setCaptionNormalImage3] = useState(
+    article.normalImage3.caption || "",
+  );
 
   /**
    * Prime Time
    */
   // const [primeTime, setPrimeTime] = useState<null | File>(null);
-  const [captionPrimeTime, setCaptionPrimeTime] = useState("");
+  const [captionPrimeTime, setCaptionPrimeTime] = useState(article.primeTime.caption || "");
   /**
    * Limelight
    */
   // const [limelight, setLimelight] = useState<null | File>(null);
-  const [captionLimelight, setCaptionLimelight] = useState("");
+  const [captionLimelight, setCaptionLimelight] = useState(article.limelight.caption || "");
 
   /**
    * Title
    */
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(article.title || "");
 
   /**
    * Sub heading
    */
-  const [subHeading, setSubHeading] = useState("");
+  const [subHeading, setSubHeading] = useState(article.subHeading || "");
 
   /**
    * Article
    */
-  const [articleData, setArticleData] = useState("");
+  const [articleData, setArticleData] = useState(article.articleData || "");
 
   /**
    * Tags
    */
   const [tag, setTag] = useState<string>("");
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>(article.tags || []);
 
   /**
    * Type
    */
-  const [type, setType] = useState<string | undefined>(undefined);
+  const [type, setType] = useState<string | undefined>(article.type || undefined);
 
   /**
    * Category
    */
-  const [category, setCategory] = useState<ICategory>(null);
+  const [category, setCategory] = useState<ICategory>(article.category || null);
 
   /**
    * Show temp Image
@@ -244,7 +253,7 @@ const EditModal = ({ setShowModal }) => {
               if (a.length > 2) return a;
             })
             .filter(Boolean)
-            .map((item) => item?.toLowerCase()),
+            .map((item: string) => item?.toLowerCase()),
           ...tags.map((item) => item.trim().toLowerCase()),
         ],
         type,

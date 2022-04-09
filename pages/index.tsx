@@ -24,6 +24,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
+import Share from "@components/Share";
 
 const Home: NextPage = () => {
   const [searchLocation, setSearchLocation] = useState(false);
@@ -73,6 +74,10 @@ const Home: NextPage = () => {
   const [allStates, setAllStates] = useState<any>([]);
   const [city, setCity] = useState<string | null>("New Delhi");
   const [allCities, setAllCities] = useState<any>([]);
+
+  const [isShareBoxOpen, setIsShareBoxOpen] = useState(false);
+  const closeShare = () => setIsShareBoxOpen(false);
+  const openShare = () => setIsShareBoxOpen(true);
 
   useEffect(() => {
     setAllCountries(
@@ -354,8 +359,8 @@ const Home: NextPage = () => {
                 } else return null;
               })}
               {articleData.map((data: any, i: number) => {
+                console.log(data.limelight.url);
                 if (data.limelight.url) {
-                  console.log("ggg");
                   return (
                     <SwiperSlide>
                       <LimeLightCard
@@ -373,7 +378,6 @@ const Home: NextPage = () => {
               })}
               {articleData.map((data: any, i: number) => {
                 if (data.limelight.url) {
-                  console.log("ggg");
                   return (
                     <SwiperSlide>
                       <LimeLightCard
@@ -391,7 +395,6 @@ const Home: NextPage = () => {
               })}
               {articleData.map((data: any, i: number) => {
                 if (data.limelight.url) {
-                  console.log("ggg");
                   return (
                     <SwiperSlide>
                       <LimeLightCard
@@ -409,7 +412,6 @@ const Home: NextPage = () => {
               })}
               {articleData.map((data: any, i: number) => {
                 if (data.limelight.url) {
-                  console.log("ggg");
                   return (
                     <SwiperSlide>
                       <LimeLightCard
@@ -428,6 +430,8 @@ const Home: NextPage = () => {
             </Swiper>
           </LimeLightContainer>
         </ArticleContainer>
+        <button onClick={openShare}>Share</button>
+        <Share isShareBoxOpen={isShareBoxOpen} closeShare={closeShare} />
       </div>
     </HomePageLayout>
   );

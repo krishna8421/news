@@ -46,9 +46,6 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
           >
             <Dialog.Overlay className="fixed inset-0 bg-black/30 backdrop-blur" />
           </Transition.Child>
-          {/* <span className="inline-block h-screen pt-[10vh]" aria-hidden="true">
-            &#8203;
-          </span> */}
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"

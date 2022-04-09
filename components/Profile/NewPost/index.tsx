@@ -231,6 +231,7 @@ const NewPost = () => {
         createdAt: new Date().toISOString(),
         authorUID: uid,
         likedBy: [],
+        likes: 0,
         viewedBy: 0,
         isDraft: submitType === "draft",
         isPrimeTime: false,
