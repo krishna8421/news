@@ -9,8 +9,6 @@ import {
   TelegramShareButton,
   TwitterIcon,
   TwitterShareButton,
-  WhatsappIcon,
-  WhatsappShareButton,
 } from "react-share";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
@@ -59,7 +57,7 @@ export default function Share({ isShareBoxOpen, closeShare }: Props) {
               className="transition-all  rounded-lg mt-[10vh] transform  inline-block overflow-hidden w-[21rem]"
             >
               <div
-                className="bg-primary-background-900 rounded-lg flex flex-col justify-center shadow-2xl py-[2rem] gap-4 px-[4rem] w-[30rem] mx-auto"
+                className="bg-primary-background-900 rounded-2xl border-slate-800 border flex flex-col justify-center shadow-2xl py-[2rem] gap-4 px-[4rem] w-[30rem] mx-auto"
                 style={{ color: "white" }}
               >
                 <p className="font-Righteous text-lg ">Share</p>
@@ -86,9 +84,6 @@ export default function Share({ isShareBoxOpen, closeShare }: Props) {
                   <TwitterShareButton url={url as string}>
                     <TwitterIcon size={32} round={true} />
                   </TwitterShareButton>
-                  <WhatsappShareButton url={url as string}>
-                    <WhatsappIcon size={32} round={true} />
-                  </WhatsappShareButton>
                 </div>
               </div>
             </div>
