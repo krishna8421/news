@@ -225,6 +225,10 @@ const NewPost = () => {
             .filter(Boolean)
             .map((item) => item?.toLowerCase()),
           ...tags.map((item) => item.trim().toLowerCase()),
+          ...(user?.displayName as string)
+            .trim()
+            .split(" ")
+            .map((item) => item.trim().toLowerCase()),
         ],
         type,
         category,

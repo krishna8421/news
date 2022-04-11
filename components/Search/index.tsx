@@ -1,15 +1,13 @@
-// import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-// import styles from "./Search.module.css";
-// import { FaSearch } from "react-icons/fa";
-// import { Input } from "@mantine/core";
 import { useAuth } from "@lib/context/AuthContext";
 import TagBox from "@components/TagBox";
-import { useData } from "@lib/context/DataContext";
 import React from "react";
-import Image from "next/image";
 import { FaSearch } from "react-icons/fa";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "@firebase/client";
+import SearchResultBox from "@components/SearchResultBox/SearchResultBox";
 
 interface Props {
   isSearchBoxOpen: boolean;
@@ -22,15 +20,26 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
     tags: ["media", "mumbai", "ukraine", "tanmaybhat", "waronukraine", "russia"],
   };
   const [searchText, setSearchText] = React.useState("");
-  const { profileImage } = useData();
+  const [searchResults, setSearchResults] = useState([]);
+
   const searchAction = (val: any) => {
     setSearchText(val);
-    if (val.length > 2) {
-      // api call
-      console.log("okok", val);
-    }
   };
 
+  const search = async (searchTerm: string) => {
+    const ArticleRef = collection(db, "articles");
+    const q = query(ArticleRef, where("tags", "array-contains", searchTerm));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map((doc) => doc);
+  };
+
+  useEffect(() => {
+    if (searchText.length > 2) {
+      search(searchText).then((res: any) => {
+        setSearchResults(res);
+      });
+    }
+  }, [searchText]);
   return (
     <Transition appear show={isSearchBoxOpen} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 overflow-y-auto z-[1000]" onClose={closeSearch}>
@@ -115,313 +124,17 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
                     </div>
                   </>
                 ) : (
-                  <div className="flex flex-wrap justify-center">
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
-                    <div className="searchArticleCard">
-                      <div className="searchArticleImg">
-                        {profileImage ? (
-                          <Image
-                            src={profileImage}
-                            alt="Profile Pic"
-                            layout="fill"
-                            objectFit="cover"
-                            style={{ borderRadius: "calc(1vw + 1vh)" }}
-                          />
-                        ) : (
-                          <>no img</>
-                        )}
-                      </div>
-                      <div className="searchArticleText">
-                        Toyota’s cheapest car 2022 Glanza launched in India: Check price, features
-                      </div>
-                    </div>
+                  <div className="w-full flex gap-4 py-4">
+                    {searchResults.length <= 0 ? (
+                      <div className="w-full font-Montserrat ">No Search Results</div>
+                    ) : (
+                      searchResults.map((result: any, i) => {
+                        const title = result.data().title;
+                        const imgUrl = result.data().normalImage1.url;
+                        const id = result.id;
+                        return <SearchResultBox title={title} imgUrl={imgUrl} id={id} key={i} />;
+                      })
+                    )}
                   </div>
                 )}
               </div>
