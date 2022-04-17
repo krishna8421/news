@@ -4,9 +4,9 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import LinkShare from "@components/LinkShare";
 import ViewsTime from "@components/ViewsTime";
 import Link from "next/link";
+import { Avatar } from "@mantine/core";
 
 export default function ArticleCard({ data, articlesId }: { data: any; articlesId: string }) {
-  // console.log(data);
   return (
     <div
       className="homeArticlesCard bg-primary-background-700 rounded-xl relative"
@@ -17,13 +17,13 @@ export default function ArticleCard({ data, articlesId }: { data: any; articlesI
     >
       <div className="bg-gradient-to-r from-primary-red to-primary-dark-red rounded-bl-xl rounded-tr-xl absolute z-10 right-0 flex justify-center items-center">
         <div className="bg-gray-800 font-Righteous text-[calc(1.3vw+1.3vh)] sm:text-[calc(0.6vw+0.6vh)] text-white rounded-bl-xl rounded-tr-xl z-10 right-0 flex justify-center items-center px-4 m-[1px] py-1">
-          {data.type[0].toUpperCase() + data.type.slice(1)}
+          {data.type ? data.type[0]?.toUpperCase() + data.type?.slice(1) : <></>}
         </div>
       </div>
       <Link href={`articles/${articlesId}`} passHref>
         <div className="homeArticleMainImg cursor-pointer">
           <Image
-            src={data.normalImage1.url}
+            src={data.normalImage1?.url}
             alt="Article Card"
             layout="fill"
             objectFit="cover"
@@ -39,12 +39,26 @@ export default function ArticleCard({ data, articlesId }: { data: any; articlesI
               <MdVerified className="z-30" color="#42A5F5" />
             </div>
             <div className="homeArticleProImg">
-              <Image
-                src={data.authorPhotoURL}
-                alt="Article Card"
-                layout="fill"
-                className="rounded-xl border"
-              />
+              {data.authorPhotoURL ? (
+                <Image
+                  src={data.authorPhotoURL}
+                  alt="Article Card"
+                  layout="fill"
+                  className="rounded-xl border"
+                />
+              ) : (
+                <Avatar
+                  sx={{
+                    height: "100%",
+                    width: "100%",
+                    borderRadius: "20%",
+                    backgroundColor: "black",
+                    position: "relative",
+                  }}
+                >
+                  {data.authorName?.split("")[0]}
+                </Avatar>
+              )}
             </div>
             <div className="absolute text-[9px] text=[#EEEBDC] w-full h-10 text-right px-1">
               {data.authorName}
@@ -67,7 +81,7 @@ export default function ArticleCard({ data, articlesId }: { data: any; articlesI
           style={{ color: "#fff" }}
           className=" rounded-full shadow shadow-black bg-primary-background-700  mt-1 p-[3px] px-[10px]"
         >
-          {data.category[0].toUpperCase() + data.category.slice(1)}
+          {data.category ? data.category[0]?.toUpperCase() + data.category?.slice(1) : <></>}
         </div>
         <ViewsTime viewCount={data.viewedBy} publishTime={data.createdAt} />
       </div>

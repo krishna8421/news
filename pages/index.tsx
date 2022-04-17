@@ -1,15 +1,8 @@
 import type { NextPage } from "next";
-import HomePageLayout from "@layouts/HomePageLayout";
-import Carousel from "@components/Carousel";
-import CategoryMenu from "@components/CategoryMenu";
 import { CategoryProvider } from "@lib/context/CategoryContext";
-import ArticleContainer from "@components/ArticleContainer";
-import ArticleCard from "@components/ArticleCard";
-import LimeLightCard from "@components/LimeLightCard";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import LimeLightContainer from "@components/LimeLightContainer";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, startAfter } from "firebase/firestore";
 import { db } from "@firebase/client";
 import { Select } from "@mantine/core";
 import { City, Country, State } from "country-state-city";
@@ -25,43 +18,104 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 
+// COMPONENTS =====================================================
+import ArticleCard from "@components/ArticleCard";
+import LimeLightCard from "@components/LimeLightCard";
+import ArticleContainerScroll from "@components/ArticleContainerScroll";
+import ArticleContainer from "@components/ArticleContainer";
+import LimeLightContainer from "@components/LimeLightContainer";
+import HomePageLayout from "@layouts/HomePageLayout";
+import Carousel from "@components/Carousel";
+import CategoryMenu from "@components/CategoryMenu";
+
 const Home: NextPage = () => {
   const [searchLocation, setSearchLocation] = useState(false);
   const [articleData, setArticleData] = useState<any>([]);
   const [articlesId, setArticlesId] = useState<any>([]);
+  const [hasMore, setHasMore] = useState<boolean>(false);
+  const [lastFetched, setLastFetched] = useState<any>();
+  const [cat1, setCat1] = useState<any>();
+
+  const articleLimit = 3;
+
   SwiperCore.use([Autoplay]);
+
+  const getData = async (cat1Value: any) => {
+    const articleCollection = collection(db, "articles");
+    const articlesRef = cat1Value
+      ? query(
+          articleCollection,
+          where("category", "==", `${cat1Value}`),
+          orderBy("createdAt"),
+          limit(articleLimit),
+        )
+      : query(articleCollection, orderBy("createdAt"), limit(articleLimit));
+    const articlesData = await getDocs(articlesRef);
+
+    const last = articlesData.docs[articlesData.docs.length - 1];
+    setLastFetched(last);
+
+    var data: any[] = [];
+    var articlesIdTemp: any[] = [];
+    articlesData.forEach((element) => {
+      data.push(element.data());
+      articlesIdTemp.push(element.ref.id);
+    });
+
+    setArticleData(data);
+    setArticlesId(articlesIdTemp);
+    if (articlesData.docs.length < articleLimit) {
+      setHasMore(false);
+    } else setHasMore(true);
+  };
+
+  const getNext = async () => {
+    const articleCollection = collection(db, "articles");
+    const articlesRef = cat1
+      ? query(
+          articleCollection,
+          where("category", "==", `${cat1}`),
+          orderBy("createdAt"),
+          startAfter(lastFetched),
+          limit(articleLimit),
+        )
+      : query(
+          articleCollection,
+          orderBy("createdAt"),
+          startAfter(lastFetched),
+          limit(articleLimit),
+        );
+
+    const articlesData = await getDocs(articlesRef);
+
+    const last = articlesData.docs[articlesData.docs.length - 1];
+    console.log("last", last);
+    setLastFetched(last);
+
+    var data: any[] = [];
+    var articlesIdTemp: any[] = [];
+    articlesData.forEach((element) => {
+      data.push(element.data());
+      articlesIdTemp.push(element.ref.id);
+    });
+
+    data = [...articleData, ...data];
+    articlesIdTemp = [...articlesId, ...articlesIdTemp];
+
+    setArticleData(data);
+    setArticlesId(articlesIdTemp);
+    if (articlesData.docs.length < articleLimit) {
+      setHasMore(false);
+    } else setHasMore(true);
+  };
   useEffect(() => {
-    const getData = async () => {
-      const articlesRef = collection(db, "articles");
-      const articlesData = await getDocs(articlesRef);
-      const data: any[] = [];
-      const articlesId: any[] = [];
-      articlesData.forEach((element) => {
-        data.push(element.data());
-        articlesId.push(element.ref.id);
-      });
-      setArticleData(data);
-      setArticlesId(articlesId);
-    };
-    getData().then();
+    getData(0).then();
   }, []);
 
   // function for category 1 filteration
   const cat1Filter = async (cat1Value: any) => {
-    const getData1 = async () => {
-      const articlesRef = collection(db, "articles");
-      const q = query(articlesRef, where("category", "==", `${cat1Value}`));
-      const articlesData = await getDocs(q);
-      const data: any[] = [];
-      const articlesId: any[] = [];
-      articlesData.forEach((element) => {
-        data.push(element.data());
-        articlesId.push(element.ref.id);
-      });
-      setArticleData(data);
-      setArticlesId(articlesId);
-    };
-    getData1().then();
+    setCat1(cat1Value);
+    getData(cat1Value);
   };
 
   /**
@@ -150,7 +204,7 @@ const Home: NextPage = () => {
       <div className="primetime w-full">
         <Carousel />
       </div>
-      <div className="homeRightSec w-full pt-4 lg:pt-16">
+      <div className="homeRightSec w-full pt-4 lg:pt-16" id="scrollParent">
         {/*
            TODO
             Use Radio Groups of headlessUI
@@ -307,9 +361,14 @@ const Home: NextPage = () => {
           </div>
         </div>
         <ArticleContainer>
-          {articleData.map((data: any, i: number) => (
-            <ArticleCard key={i} data={data} articlesId={articlesId[i]} />
-          ))}
+          {articlesId.length > 0 &&
+            articleData.map((data: any, i: number) =>
+              i < Math.min(articleData.length, 3) && articlesId[i] != undefined ? (
+                <ArticleCard key={i} data={data} articlesId={articlesId[i]} />
+              ) : (
+                <></>
+              ),
+            )}
           <LimeLightContainer>
             <Swiper
               modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -331,13 +390,12 @@ const Home: NextPage = () => {
               pagination={{ clickable: true }}
               scrollbar={{ draggable: true }}
               onSwiper={(swiper) => console.log(swiper)}
-              onSlideChange={() => console.log("slide change")}
+              // onSlideChange={() => console.log("slide change")}
               loop={true}
               autoplay
             >
               {articleData.map((data: any, i: number) => {
-                if (data.limelight.url) {
-                  console.log("ggg");
+                if (data.limelight?.url) {
                   return (
                     <SwiperSlide>
                       <LimeLightCard
@@ -354,8 +412,7 @@ const Home: NextPage = () => {
                 } else return null;
               })}
               {articleData.map((data: any, i: number) => {
-                console.log(data.limelight.url);
-                if (data.limelight.url) {
+                if (data.limelight?.url) {
                   return (
                     <SwiperSlide>
                       <LimeLightCard
@@ -425,6 +482,15 @@ const Home: NextPage = () => {
             </Swiper>
           </LimeLightContainer>
         </ArticleContainer>
+
+        <ArticleContainerScroll
+          offset={3}
+          articleData={articleData}
+          articlesId={articlesId}
+          hasMore={hasMore}
+          getNext={getNext}
+          id="scrollParent"
+        />
       </div>
     </HomePageLayout>
   );
