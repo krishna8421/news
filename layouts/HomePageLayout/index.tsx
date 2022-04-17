@@ -16,7 +16,10 @@ export default function HomePageLayout({ children }: Props) {
   const closeAuthModal = () => setIsOpen(isOpenInitialState);
   const openAuthModal = (type: IAuthModalType) => setIsOpen({ value: true, type });
   return (
-    <div className="bg-primary-background-900 h-screen w-screen text-gray-300 overflow-x-hidden text-gray-300">
+    <div
+      className="bg-primary-background-900 h-screen w-screen text-gray-300 overflow-x-hidden text-gray-300"
+      id="subScrollParent"
+    >
       <AuthModal
         closeAuthModal={closeAuthModal}
         openAuthModal={openAuthModal}

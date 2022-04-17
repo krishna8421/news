@@ -87,56 +87,53 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
                 style={{ maxHeight: "75vh", overflowY: "scroll", padding: "2vh 3vw" }}
                 className="bg-[#292929] mt-4 rounded-lg text-white flex flex-col items-start p-4"
               >
-                {searchText.length < 3 ? (
-                  <>
-                    {user && (
-                      <>
-                        <div>Hey,</div>
-                        <span className="text-xl font-Righteous">
-                          {user.displayName?.split(" ")[0] as string}
-                        </span>
-                      </>
-                    )}
-                    <div className="w-full mt-4 gap-2 bg-primary-background-900 rounded-lg h-16 flex flex-wrap p-2 px-4 overflow-hidden overflow-y-auto no-scrollbar">
-                      {mockData.tags.map((tag, i) => (
-                        <button key={i} onClick={() => searchAction(tag)}>
-                          <TagBox key={i} tag={tag} />
-                        </button>
-                      ))}
-                    </div>
-                    <div
-                      className="flex flex-wrap justify-between"
-                      style={{ marginTop: "1.5vh", width: "100%" }}
-                    >
-                      <div className="searchMenuCategories">
-                        <span>Hops</span> <button className="searchMenuCatNxtBtn">&gt;</button>
-                      </div>
-                      <div className="searchMenuCategories">
-                        <span>Influencers</span>{" "}
-                        <button className="searchMenuCatNxtBtn">&gt;</button>
-                      </div>
-                      <div className="searchMenuCategories">
-                        <span>Community</span> <button className="searchMenuCatNxtBtn">&gt;</button>
-                      </div>
-                      <div className="searchMenuCategories">
-                        <span>TCL</span> <button className="searchMenuCatNxtBtn">&gt;</button>
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <div className="w-full flex gap-4 py-4">
-                    {searchResults.length <= 0 ? (
-                      <div className="w-full font-Montserrat ">No Search Results</div>
-                    ) : (
-                      searchResults.map((result: any, i) => {
-                        const title = result.data().title;
-                        const imgUrl = result.data().normalImage1.url;
-                        const id = result.id;
-                        return <SearchResultBox title={title} imgUrl={imgUrl} id={id} key={i} />;
-                      })
-                    )}
+                <>
+                  {user && (
+                    <>
+                      <div>Hey,</div>
+                      <span className="text-xl font-Righteous">
+                        {user.displayName?.split(" ")[0] as string}
+                      </span>
+                    </>
+                  )}
+                  <div className="w-full mt-4 gap-2 bg-primary-background-900 rounded-lg h-16 flex flex-wrap p-2 px-4 overflow-hidden overflow-y-auto no-scrollbar">
+                    {mockData.tags.map((tag, i) => (
+                      <button key={i} onClick={() => searchAction(tag)}>
+                        <TagBox key={i} tag={tag} />
+                      </button>
+                    ))}
                   </div>
-                )}
+                  <div
+                    className="flex flex-wrap justify-between"
+                    style={{ marginTop: "1.5vh", width: "100%" }}
+                  >
+                    <div className="searchMenuCategories">
+                      <span>Hops</span> <button className="searchMenuCatNxtBtn">&gt;</button>
+                    </div>
+                    <div className="searchMenuCategories">
+                      <span>Influencers</span> <button className="searchMenuCatNxtBtn">&gt;</button>
+                    </div>
+                    <div className="searchMenuCategories">
+                      <span>Community</span> <button className="searchMenuCatNxtBtn">&gt;</button>
+                    </div>
+                    <div className="searchMenuCategories">
+                      <span>TCL</span> <button className="searchMenuCatNxtBtn">&gt;</button>
+                    </div>
+                  </div>
+                </>
+
+                <div className="w-full flex gap-4 py-4">
+                  {searchResults.length <= 0 ? (
+                    <div className="w-full font-Montserrat ">No Search Results</div>
+                  ) : (
+                    searchResults.map((result: any, i) => {
+                      const title = result.data().title;
+                      const imgUrl = result.data().normalImage1.url;
+                      const id = result.id;
+                      return <SearchResultBox title={title} imgUrl={imgUrl} id={id} key={i} />;
+                    })
+                  )}
+                </div>
               </div>
             </div>
           </Transition.Child>
