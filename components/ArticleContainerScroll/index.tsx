@@ -32,7 +32,7 @@ const ArticleContainerScroll = ({
   const LastText = () => {
     return (
       <div className=" flex justify-center items-center " style={{ width: "100%" }}>
-        <h3>That`&apos;`s the end, folks! </h3>
+        <h3>That&apos;s the end, folks! </h3>
       </div>
     );
   };

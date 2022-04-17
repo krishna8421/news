@@ -183,14 +183,6 @@ const NewPost = () => {
       !city ||
       !tempNormalImage1 ||
       !captionNormalImage1 ||
-      // !tempNormalImage2 ||
-      // !captionNormalImage2 ||
-      // !tempNormalImage3 ||
-      // !captionNormalImage3 ||
-      // !primeTime ||
-      // !captionPrimeTime ||
-      // !limelight ||
-      // !captionLimelight ||
       !title ||
       !subHeading ||
       !articleData ||
@@ -246,54 +238,77 @@ const NewPost = () => {
         authorPhotoURL: user?.photoURL,
         isVerified: false,
       };
+
+      /**
+       * Add new Article to Firebase
+       */
       const articleRef = await addDoc(collection(db, "articles"), article);
+
       const allArticle = data?.articles || [];
       allArticle.push(articleRef.id);
       /**
        * Upload Image after article is created
-       */
-      let normalImageUrl1, normalImageUrl2, normalImageUrl3, primeTimeUrl, limelightUrl;
-      if (tempNormalImage1) {
-        normalImageUrl1 = await uploadImage("normal-image-1", tempNormalImage1, articleRef.id);
-      }
-      if (tempNormalImage2) {
-        normalImageUrl2 = await uploadImage("normal-image-2", tempNormalImage2, articleRef.id);
-      }
-      if (tempNormalImage3) {
-        normalImageUrl3 = await uploadImage("normal-image-3", tempNormalImage3, articleRef.id);
-      }
-      if (tempPrimeTime) {
-        primeTimeUrl = await uploadImage("prime-time", tempPrimeTime, articleRef.id);
-      }
-      if (tempLimelight) {
-        limelightUrl = await uploadImage("lime-light", tempLimelight, articleRef.id);
-      }
-      /**
-       * Update article with image url
+       * Then Update the image URLs
        */
       const newArticleRef = doc(db, "articles", articleRef.id);
-      await updateDoc(newArticleRef, {
-        normalImage1: {
-          url: normalImageUrl1,
-          caption: captionNormalImage1,
-        },
-        normalImage2: {
-          url: normalImageUrl2,
-          caption: captionNormalImage2,
-        },
-        normalImage3: {
-          url: normalImageUrl3,
-          caption: captionNormalImage3,
-        },
-        primeTime: {
-          url: primeTimeUrl,
-          caption: captionPrimeTime,
-        },
-        limelight: {
-          url: limelightUrl,
-          caption: captionLimelight,
-        },
-      });
+      // let normalImageUrl1, normalImageUrl2, normalImageUrl3, primeTimeUrl, limelightUrl;
+      if (tempNormalImage1) {
+        const normalImageUrl1 = await uploadImage(
+          "normal-image-1",
+          tempNormalImage1,
+          articleRef.id,
+        );
+        await updateDoc(newArticleRef, {
+          normalImage1: {
+            url: normalImageUrl1,
+            caption: captionNormalImage1,
+          },
+        });
+      }
+      if (tempNormalImage2) {
+        const normalImageUrl2 = await uploadImage(
+          "normal-image-2",
+          tempNormalImage2,
+          articleRef.id,
+        );
+        await updateDoc(newArticleRef, {
+          normalImage1: {
+            url: normalImageUrl2,
+            caption: captionNormalImage2,
+          },
+        });
+      }
+      if (tempNormalImage3) {
+        const normalImageUrl3 = await uploadImage(
+          "normal-image-3",
+          tempNormalImage3,
+          articleRef.id,
+        );
+        await updateDoc(newArticleRef, {
+          normalImage1: {
+            url: normalImageUrl3,
+            caption: captionNormalImage3,
+          },
+        });
+      }
+      if (tempPrimeTime) {
+        const primeTimeUrl = await uploadImage("prime-time", tempPrimeTime, articleRef.id);
+        await updateDoc(newArticleRef, {
+          primeTime: {
+            url: primeTimeUrl,
+            caption: captionPrimeTime,
+          },
+        });
+      }
+      if (tempLimelight) {
+        const limelightUrl = await uploadImage("lime-light", tempLimelight, articleRef.id);
+        await updateDoc(newArticleRef, {
+          limelight: {
+            url: limelightUrl,
+            caption: captionLimelight,
+          },
+        });
+      }
       /**
        * Add article ID to user's article list
        */
@@ -501,11 +516,17 @@ const NewPost = () => {
           }}
           value={tag}
           onChange={(e: any) => setTag(e.target.value)}
+          onKeyPress={(e: any) => {
+            if (e.code === "Enter" && tag.length > 0) {
+              setTags([...tags, tag]);
+              setTag("");
+            }
+          }}
         />
         <div
           onClick={(e: any) => {
             e.preventDefault();
-            if (tag) {
+            if (tag.length > 0) {
               setTags([...tags, tag]);
               setTag("");
             }

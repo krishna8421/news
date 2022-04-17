@@ -395,7 +395,7 @@ const Home: NextPage = () => {
               autoplay
             >
               {articleData.map((data: any, i: number) => {
-                if (data.limelight?.url) {
+                if (data?.limelight?.url) {
                   return (
                     <SwiperSlide>
                       <LimeLightCard
@@ -412,7 +412,7 @@ const Home: NextPage = () => {
                 } else return null;
               })}
               {articleData.map((data: any, i: number) => {
-                if (data.limelight?.url) {
+                if (data?.limelight?.url) {
                   return (
                     <SwiperSlide>
                       <LimeLightCard
@@ -429,7 +429,7 @@ const Home: NextPage = () => {
                 } else return null;
               })}
               {articleData.map((data: any, i: number) => {
-                if (data.limelight.url) {
+                if (data?.limelight?.url) {
                   return (
                     <SwiperSlide>
                       <LimeLightCard
@@ -446,7 +446,7 @@ const Home: NextPage = () => {
                 } else return null;
               })}
               {articleData.map((data: any, i: number) => {
-                if (data.limelight.url) {
+                if (data?.limelight?.url) {
                   return (
                     <SwiperSlide>
                       <LimeLightCard
@@ -463,7 +463,7 @@ const Home: NextPage = () => {
                 } else return null;
               })}
               {articleData.map((data: any, i: number) => {
-                if (data.limelight.url) {
+                if (data?.limelight?.url) {
                   return (
                     <SwiperSlide>
                       <LimeLightCard
