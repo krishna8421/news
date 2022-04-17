@@ -3,8 +3,8 @@ import {
   EmailShareButton,
   FacebookIcon,
   FacebookShareButton,
-  RedditIcon,
-  RedditShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
   TelegramIcon,
   TelegramShareButton,
   TwitterIcon,
@@ -75,9 +75,9 @@ export default function Share({ isShareBoxOpen, closeShare }: Props) {
                   <FacebookShareButton url={url as string}>
                     <FacebookIcon size={32} round={true} />
                   </FacebookShareButton>
-                  <RedditShareButton url={url as string}>
-                    <RedditIcon size={32} round={true} />
-                  </RedditShareButton>
+                  <WhatsappShareButton url={url as string}>
+                    <WhatsappIcon size={32} round={true} />
+                  </WhatsappShareButton>
                   <TelegramShareButton url={url as string}>
                     <TelegramIcon size={32} round={true} />
                   </TelegramShareButton>

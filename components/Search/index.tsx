@@ -26,16 +26,18 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
     setSearchText(val);
   };
 
-  const search = async (searchTerm: string) => {
+  const search = async (searchTerm: string[]) => {
     const ArticleRef = collection(db, "articles");
-    const q = query(ArticleRef, where("tags", "array-contains", searchTerm));
+    const q = query(ArticleRef, where("tags", "array-contains-any", searchTerm));
     const querySnapshot = await getDocs(q);
     return querySnapshot.docs.map((doc) => doc);
   };
 
   useEffect(() => {
     if (searchText.length > 2) {
-      search(searchText).then((res: any) => {
+      setSearchResults([]);
+      const searchTextArr = searchText.trim().split(" ");
+      search(searchTextArr).then((res: any) => {
         setSearchResults(res);
       });
     }
