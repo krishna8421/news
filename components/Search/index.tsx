@@ -5,9 +5,11 @@ import { useAuth } from "@lib/context/AuthContext";
 import TagBox from "@components/TagBox";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, limit, orderBy, startAfter } from "firebase/firestore";
 import { db } from "@firebase/client";
-import SearchResultBox from "@components/SearchResultBox/SearchResultBox";
+
+// COMPONENTS ============================================
+import SearchScrollContainer from "./SearchScrollContainer";
 
 interface Props {
   isSearchBoxOpen: boolean;
@@ -20,7 +22,11 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
     tags: ["media", "mumbai", "ukraine", "tanmaybhat", "waronukraine", "russia"],
   };
   const [searchText, setSearchText] = React.useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchTextArray, setSearchTextArray] = useState<string[]>([]);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [lastFetched, setLastFetched] = useState<any>();
+  const [hasMore, setHasMore] = useState<boolean>(false);
+  const articleLimit = 6;
 
   const searchAction = (val: any) => {
     setSearchText(val);
@@ -28,20 +34,65 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
 
   const search = async (searchTerm: string[]) => {
     const ArticleRef = collection(db, "articles");
-    const q = query(ArticleRef, where("tags", "array-contains-any", searchTerm));
+    const q = query(
+      ArticleRef,
+      where("tags", "array-contains-any", searchTerm),
+      orderBy("createdAt"),
+      limit(articleLimit),
+    );
     const querySnapshot = await getDocs(q);
+    const last = querySnapshot.docs[querySnapshot.docs.length - 1];
+    setLastFetched(last);
+
+    if (querySnapshot.docs.length < articleLimit) {
+      setHasMore(false);
+    } else setHasMore(true);
+
     return querySnapshot.docs.map((doc) => doc);
   };
 
+  const fetchNext = async () => {
+    const ArticleRef = collection(db, "articles");
+    const q = query(
+      ArticleRef,
+      where("tags", "array-contains-any", searchTextArray),
+      orderBy("createdAt"),
+      startAfter(lastFetched),
+      limit(articleLimit),
+    );
+    const querySnapshot = await getDocs(q);
+
+    const last = querySnapshot.docs[querySnapshot.docs.length - 1];
+    setLastFetched(last);
+
+    if (querySnapshot.docs.length < articleLimit) {
+      setHasMore(false);
+    } else setHasMore(true);
+
+    var data: any[] = [];
+    querySnapshot.forEach((element) => {
+      data.push(element);
+    });
+
+    setSearchResults([...searchResults, ...data]);
+  };
+
   useEffect(() => {
+    setSearchResults([]);
     if (searchText.length > 2) {
-      setSearchResults([]);
       const searchTextArr = searchText.trim().split(" ");
+      setSearchTextArray(searchTextArr);
       search(searchTextArr).then((res: any) => {
         setSearchResults(res);
       });
     }
   }, [searchText]);
+
+  useEffect(() => {
+    setSearchText("");
+    setSearchResults([]);
+  }, [isSearchBoxOpen]);
+
   return (
     <Transition appear show={isSearchBoxOpen} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 overflow-y-auto z-[1000]" onClose={closeSearch}>
@@ -86,8 +137,9 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
                 <FaSearch size={15} onClick={searchAction} />
               </div>
               <div
-                style={{ maxHeight: "75vh", overflowY: "scroll", padding: "2vh 3vw" }}
+                style={{ maxHeight: "75vh", padding: "2vh 3vw" }}
                 className="bg-[#292929] mt-4 rounded-lg text-white flex flex-col items-start p-4"
+                // id="searchScrollParent"
               >
                 <>
                   {user && (
@@ -124,18 +176,18 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
                   </div>
                 </>
 
-                <div className="w-full flex gap-4 py-4">
-                  {searchResults.length <= 0 ? (
-                    <div className="w-full font-Montserrat ">No Search Results</div>
-                  ) : (
-                    searchResults.map((result: any, i) => {
-                      const title = result.data().title;
-                      const imgUrl = result.data().normalImage1.url;
-                      const id = result.id;
-                      return <SearchResultBox title={title} imgUrl={imgUrl} id={id} key={i} />;
-                    })
-                  )}
-                </div>
+                {searchResults.length <= 0 ? (
+                  <div className="w-full font-Montserrat ">No Search Results</div>
+                ) : (
+                  <div className="w-full overflow-y-scroll" id="searchScrollParent">
+                    <SearchScrollContainer
+                      searchResults={searchResults}
+                      getNext={fetchNext}
+                      hasMore={hasMore}
+                      id="searchScrollParent"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </Transition.Child>

@@ -51,7 +51,7 @@ export const getStaticPaths = async () => {
 export async function getStaticProps({ params }: any) {
   let article = null;
   try {
-    article = await getArticle(params.uid);
+    article = JSON.parse(JSON.stringify(await getArticle(params.uid)));
   } catch (e) {
     return {
       notFound: true,
@@ -73,7 +73,7 @@ const Article = ({ article }: any) => {
   const articleLimit = 4;
 
   useEffect(() => {
-    getData();
+    if (article) getData();
   }, []);
 
   if (!article) {
