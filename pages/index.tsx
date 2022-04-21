@@ -41,15 +41,27 @@ const Home: NextPage = () => {
   SwiperCore.use([Autoplay]);
 
   const getData = async (cat1Value: any) => {
+    console.log(country, city, state);
     const articleCollection = collection(db, "articles");
     const articlesRef = cat1Value
       ? query(
           articleCollection,
+          where("country", "==", `${country}`),
+          where("state", "==", `${state}`),
+          where("city", "==", `${city}`),
           where("category", "==", `${cat1Value}`),
+
           orderBy("createdAt"),
           limit(articleLimit),
         )
-      : query(articleCollection, orderBy("createdAt"), limit(articleLimit));
+      : query(
+          articleCollection,
+          where("country", "==", `${country}`),
+          where("state", "==", `${state}`),
+          where("city", "==", `${city}`),
+          orderBy("createdAt"),
+          limit(articleLimit),
+        );
     const articlesData = await getDocs(articlesRef);
 
     const last = articlesData.docs[articlesData.docs.length - 1];
@@ -75,12 +87,18 @@ const Home: NextPage = () => {
       ? query(
           articleCollection,
           where("category", "==", `${cat1}`),
+          where("country", "==", `${country}`),
+          where("state", "==", `${state}`),
+          where("city", "==", `${city}`),
           orderBy("createdAt"),
           startAfter(lastFetched),
           limit(articleLimit),
         )
       : query(
           articleCollection,
+          where("country", "==", `${country}`),
+          where("state", "==", `${state}`),
+          where("city", "==", `${city}`),
           orderBy("createdAt"),
           startAfter(lastFetched),
           limit(articleLimit),
@@ -108,9 +126,6 @@ const Home: NextPage = () => {
       setHasMore(false);
     } else setHasMore(true);
   };
-  useEffect(() => {
-    getData(0).then();
-  }, []);
 
   // function for category 1 filteration
   const cat1Filter = async (cat1Value: any) => {
@@ -184,10 +199,14 @@ const Home: NextPage = () => {
         };
       }),
     );
-    setState("DL");
-    setCity("New Delhi");
+    if (!state) {
+      setState("DL");
+    }
 
-    setState("DL");
+    if (!city) {
+      setCity("New Delhi");
+    }
+
     setAllCities(
       City.getCitiesOfState("IN", "DL").map((city) => {
         return {
@@ -196,8 +215,11 @@ const Home: NextPage = () => {
         };
       }),
     );
-    setCity("New Delhi");
   }, []);
+
+  useEffect(() => {
+    getData(0).then();
+  }, [city]);
 
   return (
     <HomePageLayout>

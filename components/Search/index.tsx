@@ -22,6 +22,7 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
     tags: ["media", "mumbai", "ukraine", "tanmaybhat", "waronukraine", "russia"],
   };
   const [searchText, setSearchText] = React.useState("");
+  const [searchCategory, setCategory] = useState("");
   const [searchTextArray, setSearchTextArray] = useState<string[]>([]);
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [lastFetched, setLastFetched] = useState<any>();
@@ -34,12 +35,24 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
 
   const search = async (searchTerm: string[]) => {
     const ArticleRef = collection(db, "articles");
-    const q = query(
-      ArticleRef,
-      where("tags", "array-contains-any", searchTerm),
-      orderBy("createdAt"),
-      limit(articleLimit),
-    );
+    var q;
+    if (searchCategory) {
+      q = query(
+        ArticleRef,
+        where("tags", "array-contains-any", searchTerm),
+        where("type", "==", `${searchCategory}`),
+        orderBy("createdAt"),
+        limit(articleLimit),
+      );
+    } else {
+      q = query(
+        ArticleRef,
+        where("tags", "array-contains-any", searchTerm),
+        orderBy("createdAt"),
+        limit(articleLimit),
+      );
+    }
+
     const querySnapshot = await getDocs(q);
     const last = querySnapshot.docs[querySnapshot.docs.length - 1];
     setLastFetched(last);
@@ -53,13 +66,25 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
 
   const fetchNext = async () => {
     const ArticleRef = collection(db, "articles");
-    const q = query(
-      ArticleRef,
-      where("tags", "array-contains-any", searchTextArray),
-      orderBy("createdAt"),
-      startAfter(lastFetched),
-      limit(articleLimit),
-    );
+    var q;
+    if (searchCategory) {
+      q = query(
+        ArticleRef,
+        where("tags", "array-contains-any", searchTextArray),
+        where("type", "==", `${searchCategory}`),
+        orderBy("createdAt"),
+        startAfter(lastFetched),
+        limit(articleLimit),
+      );
+    } else {
+      q = query(
+        ArticleRef,
+        where("tags", "array-contains-any", searchTextArray),
+        orderBy("createdAt"),
+        startAfter(lastFetched),
+        limit(articleLimit),
+      );
+    }
     const querySnapshot = await getDocs(q);
 
     const last = querySnapshot.docs[querySnapshot.docs.length - 1];
@@ -86,10 +111,11 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
         setSearchResults(res);
       });
     }
-  }, [searchText]);
+  }, [searchText, searchCategory]);
 
   useEffect(() => {
     setSearchText("");
+    setCategory("");
     setSearchResults([]);
   }, [isSearchBoxOpen]);
 
@@ -162,16 +188,56 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
                     style={{ marginTop: "1.5vh", width: "100%" }}
                   >
                     <div className="searchMenuCategories">
-                      <span>Hops</span> <button className="searchMenuCatNxtBtn">&gt;</button>
+                      <span>Hops</span>
+                      <button
+                        onClick={() => setCategory("hops")}
+                        className={
+                          searchCategory == "hops"
+                            ? "searchMenuSelectedCatNxtBtn"
+                            : "searchMenuCatNxtBtn"
+                        }
+                      >
+                        &gt;
+                      </button>
                     </div>
                     <div className="searchMenuCategories">
-                      <span>Influencers</span> <button className="searchMenuCatNxtBtn">&gt;</button>
+                      <span>Influencers</span>
+                      <button
+                        onClick={() => setCategory("influencers")}
+                        className={
+                          searchCategory == "influencers"
+                            ? "searchMenuSelectedCatNxtBtn"
+                            : "searchMenuCatNxtBtn"
+                        }
+                      >
+                        &gt;
+                      </button>
                     </div>
                     <div className="searchMenuCategories">
-                      <span>Community</span> <button className="searchMenuCatNxtBtn">&gt;</button>
+                      <span>Community</span>
+                      <button
+                        onClick={() => setCategory("community")}
+                        className={
+                          searchCategory == "community"
+                            ? "searchMenuSelectedCatNxtBtn"
+                            : "searchMenuCatNxtBtn"
+                        }
+                      >
+                        &gt;
+                      </button>
                     </div>
                     <div className="searchMenuCategories">
-                      <span>TCL</span> <button className="searchMenuCatNxtBtn">&gt;</button>
+                      <span>TCL</span>
+                      <button
+                        onClick={() => setCategory("tcl")}
+                        className={
+                          searchCategory == "tcl"
+                            ? "searchMenuSelectedCatNxtBtn"
+                            : "searchMenuCatNxtBtn"
+                        }
+                      >
+                        &gt;
+                      </button>
                     </div>
                   </div>
                 </>

@@ -221,6 +221,11 @@ const NewPost = () => {
             .trim()
             .split(" ")
             .map((item) => item.trim().toLowerCase()),
+          country,
+          state,
+          city,
+          type,
+          category,
         ],
         type,
         category,
