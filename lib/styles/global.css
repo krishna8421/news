@@ -373,8 +373,26 @@ body {
     font-size: calc(1.4vw + 1.4vh);
     font-weight: 1000;
     color: red;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    text-align:center;
     border-radius: 50%;
     background-color: #292929;
+    height: calc(2vw + 2vh);
+    width: calc(2vw + 2vh);
+  }
+  
+  .searchMenuSelectedCatNxtBtn{
+    font-size: calc(1.4vw + 1.4vh);
+    font-weight: 1000;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    text-align:center;
+    border-radius: 50%;
+    color: #292929;
     height: calc(2vw + 2vh);
     width: calc(2vw + 2vh);
   }
