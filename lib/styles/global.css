@@ -156,7 +156,7 @@ body {
   }
 
   .proContent {
-    padding: 1vw 3vh;
+    padding: 1vw 0vh;
     width: 50vw;
   }
 
@@ -408,6 +408,7 @@ body {
     width: calc(15vw + 15vh);
     border-radius: calc(1vw + 1vh);
     margin: 1vh 1vw;
+    cursor: pointer;
   }
 
   .proArticleImg {
@@ -524,7 +525,7 @@ Media Query
 
   @media screen and (max-width: 640px) {
     .drawer {
-      width: 10vw;
+      width: 16vw;
     }
 
     .proImg {
@@ -534,11 +535,14 @@ Media Query
     }
 
     .proSecBody {
-      padding: 3vh 0 0 8vw;
+      padding: 2vh 0 0 8vw;
+      width: 84vw;
+      margin-left: 4vw;
     }
 
     .proContent {
-      width: 85vw;
+      width: 84vw;
+      padding: 1vw 3vh;
     }
 
     .proContentHeading {

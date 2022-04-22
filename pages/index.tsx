@@ -393,7 +393,7 @@ const Home: NextPage = () => {
             )}
           <LimeLightContainer>
             <Swiper
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
+              modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
               spaceBetween={0}
               breakpoints={{
                 // when window width is >= 640px
@@ -414,7 +414,10 @@ const Home: NextPage = () => {
               onSwiper={(swiper) => console.log(swiper)}
               // onSlideChange={() => console.log("slide change")}
               loop={true}
-              autoplay
+              autoplay={{
+                delay: 5 * 1000,
+                disableOnInteraction: false,
+              }}
             >
               {articleData.map((data: any, i: number) => {
                 if (data?.limelight?.url) {
