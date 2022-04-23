@@ -13,4 +13,9 @@ export default async function decrementLikeCount(articleID: string, userID: stri
     likedBy: arrayRemove(userID),
   });
   console.log(articleID, userID);
+  const userRef = doc(db, "users", userID);
+  await updateDoc(userRef, {
+    likedArticlesCount: increment(-1),
+    likedArticles: arrayRemove(articleID),
+  });
 }

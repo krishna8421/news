@@ -13,4 +13,9 @@ export default async function incrementLikeCount(articleID: string, userID: stri
     likedBy: arrayUnion(userID),
   });
   console.log(articleID, userID);
+  const userRef = doc(db, "users", userID);
+  await updateDoc(userRef, {
+    likedArticlesCount: increment(1),
+    likedArticles: arrayUnion(articleID),
+  });
 }
