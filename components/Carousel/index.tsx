@@ -11,27 +11,47 @@ import { db } from "@firebase/client";
 import ViewsTime from "@components/ViewsTime";
 import LinkShare from "@components/LinkShare";
 import Link from "next/link";
+import { useAuth } from "@lib/context/AuthContext";
 
 interface Props {}
 
 export default function Carousel({}: Props) {
   const [articleData, setArticleData] = useState<any>([]);
   const [articlesId, setArticlesId] = useState<any>([]);
+  const [likedArticles, setlikedArticles] = useState<any>([]);
+  const { uid } = useAuth();
+
   useEffect(() => {
     const getData = async () => {
       const articlesRef = collection(db, "articles");
       const articlesData = await getDocs(articlesRef);
+      const liked: any[] = [];
       const data: any[] = [];
       const articlesId: any[] = [];
       articlesData.forEach((element) => {
         data.push(element.data());
+        if (element.data().likedBy.includes(uid)) {
+          liked.push(element.ref.id);
+        }
         articlesId.push(element.ref.id);
       });
       setArticleData(data);
       setArticlesId(articlesId);
+      setlikedArticles(liked);
     };
     getData().then();
   }, []);
+
+  const setLiked = (value: boolean, id: any) => {
+    if (value) {
+      likedArticles.push(id);
+    } else {
+      const index = likedArticles.indexOf(id);
+      const temp = likedArticles;
+      temp.splice(index, 1);
+      setlikedArticles(temp);
+    }
+  };
 
   return (
     <div className="w-full h-full relative">
@@ -105,7 +125,13 @@ export default function Carousel({}: Props) {
                           {article.title}
                         </div>
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
-                          <LinkShare liked theme="light" articleId={articlesId[index]} />
+                          <LinkShare
+                            liked={likedArticles.includes(articlesId[index])}
+                            theme="light"
+                            setLiked={setLiked}
+                            articleId={articlesId[index]}
+                            uid={uid}
+                          />
                           <div
                             style={{ fontFamily: "Righteous", fontWeight: "400", color: "#fff" }}
                             className="flex items-center text-[calc(1.3vw+1.3vh)] sm:text-[calc(0.6vw+0.6vh)]"

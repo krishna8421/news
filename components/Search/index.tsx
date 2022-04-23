@@ -7,7 +7,7 @@ import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { collection, query, where, getDocs, limit, orderBy, startAfter } from "firebase/firestore";
 import { db } from "@firebase/client";
-
+import { ARTICLE_LIMIT } from "@lib/constants";
 // COMPONENTS ============================================
 import SearchScrollContainer from "./SearchScrollContainer";
 
@@ -27,7 +27,6 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [lastFetched, setLastFetched] = useState<any>();
   const [hasMore, setHasMore] = useState<boolean>(false);
-  const articleLimit = 6;
 
   const searchAction = (val: any) => {
     setSearchText(val);
@@ -42,14 +41,14 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
         where("tags", "array-contains-any", searchTerm),
         where("type", "==", `${searchCategory}`),
         orderBy("createdAt"),
-        limit(articleLimit),
+        limit(ARTICLE_LIMIT),
       );
     } else {
       q = query(
         ArticleRef,
         where("tags", "array-contains-any", searchTerm),
         orderBy("createdAt"),
-        limit(articleLimit),
+        limit(ARTICLE_LIMIT),
       );
     }
 
@@ -57,7 +56,7 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
     const last = querySnapshot.docs[querySnapshot.docs.length - 1];
     setLastFetched(last);
 
-    if (querySnapshot.docs.length < articleLimit) {
+    if (querySnapshot.docs.length < ARTICLE_LIMIT) {
       setHasMore(false);
     } else setHasMore(true);
 
@@ -74,7 +73,7 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
         where("type", "==", `${searchCategory}`),
         orderBy("createdAt"),
         startAfter(lastFetched),
-        limit(articleLimit),
+        limit(ARTICLE_LIMIT),
       );
     } else {
       q = query(
@@ -82,7 +81,7 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
         where("tags", "array-contains-any", searchTextArray),
         orderBy("createdAt"),
         startAfter(lastFetched),
-        limit(articleLimit),
+        limit(ARTICLE_LIMIT),
       );
     }
     const querySnapshot = await getDocs(q);
@@ -90,7 +89,7 @@ export default function Search({ isSearchBoxOpen, closeSearch }: Props) {
     const last = querySnapshot.docs[querySnapshot.docs.length - 1];
     setLastFetched(last);
 
-    if (querySnapshot.docs.length < articleLimit) {
+    if (querySnapshot.docs.length < ARTICLE_LIMIT) {
       setHasMore(false);
     } else setHasMore(true);
 

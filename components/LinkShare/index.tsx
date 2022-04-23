@@ -1,11 +1,15 @@
 import { AiOutlineHeart, AiFillHeart, AiOutlineShareAlt } from "react-icons/ai";
 import { useState } from "react";
 import Share from "@components/Share";
+import incrementLikeCount from "@utils/incrementLikeCount";
+import decrementLikeCount from "@utils/decrementLikeCount";
 interface Props {
   liked?: boolean;
   theme?: "light" | "dark";
   classNameProp?: string;
   articleId: string;
+  uid: string | null;
+  setLiked: any;
 }
 
 export default function LinkShare({
@@ -13,6 +17,8 @@ export default function LinkShare({
   theme = "dark",
   classNameProp,
   articleId,
+  uid,
+  setLiked,
 }: Props) {
   const [isShareBoxOpen, setIsShareBoxOpen] = useState(false);
   const closeShare = () => setIsShareBoxOpen(false);
@@ -31,9 +37,23 @@ export default function LinkShare({
         <AiFillHeart
           color="#E3323B"
           className="flex-1 text-[calc(2vw+2vh)] sm:text-[calc(1vw+1vh)] cursor-pointer"
+          onClick={() => {
+            if (uid) {
+              decrementLikeCount(articleId, uid);
+            }
+            setLiked(false, articleId);
+          }}
         />
       ) : (
-        <AiOutlineHeart className="flex-1 text-[calc(2vw+2vh)] sm:text-[calc(1vw+1vh)]" />
+        <AiOutlineHeart
+          className="flex-1 text-[calc(2vw+2vh)] sm:text-[calc(1vw+1vh)]"
+          onClick={() => {
+            if (uid) {
+              incrementLikeCount(articleId, uid);
+            }
+            setLiked(true, articleId);
+          }}
+        />
       )}
       <span style={{ color: "#fff", marginTop: "-.4vh" }} className="text-gray-400 flex-none">
         <p className={`${theme === "light" ? "!text-black" : ""}`}>|</p>

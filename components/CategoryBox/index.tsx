@@ -6,9 +6,17 @@ interface Props {
   hoverColor: string;
   isActive: boolean;
   cat1Filter: any;
+  setCategory: any;
 }
 
-export default function CategoryBox({ name, icon, hoverColor, isActive, cat1Filter }: Props) {
+export default function CategoryBox({
+  name,
+  icon,
+  hoverColor,
+  isActive,
+  cat1Filter,
+  setCategory,
+}: Props) {
   return (
     <div
       style={{
@@ -18,7 +26,10 @@ export default function CategoryBox({ name, icon, hoverColor, isActive, cat1Filt
         cursor: "pointer",
       }}
       className="flex items-center bg-white/10 rounded-xl mx-2 shadow-lg shadow-slate-900/40 group"
-      onClick={() => cat1Filter(name.toLowerCase())}
+      onClick={() => {
+        cat1Filter(name.toLowerCase());
+        setCategory(name.toLowerCase());
+      }}
     >
       <div
         style={{ padding: "calc(.3vw + .3vh)" }}

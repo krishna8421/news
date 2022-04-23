@@ -25,8 +25,12 @@ const ProfileSection = () => {
   // const [newProfileImage, setNewProfileImage] = useState("");
   const [articleData, setArticleData] = useState<any>([]);
   const [articlesId, setArticlesId] = useState<any>([]);
+  const [totalArticleLikeCount, setTotalArticleLikeCount] = useState<any>(0);
+  const [totalArticleViewCount, setTotalArticleViewCount] = useState<any>(0);
   useEffect(() => {
     const getData = async () => {
+      var likeCount = 0,
+        viewCount = 0;
       const articlesRef = collection(db, "articles");
       const q = query(articlesRef, where("authorUID", "==", `${uid}`));
       const articlesData = await getDocs(q);
@@ -34,10 +38,14 @@ const ProfileSection = () => {
       const articlesId: any[] = [];
       articlesData.forEach((element) => {
         data.push(element.data());
+        likeCount = likeCount + element.data().likes;
+        viewCount = viewCount + element.data().viewedBy;
         articlesId.push(element.ref.id);
       });
       setArticleData(data);
       setArticlesId(articlesId);
+      setTotalArticleLikeCount(likeCount);
+      setTotalArticleViewCount(viewCount);
     };
     getData().then();
   }, [uid]);
@@ -178,13 +186,13 @@ const ProfileSection = () => {
               <div className="likeNViewIcon">
                 <Image src={LikeIcon} alt="Like Icon" objectFit="cover" />
               </div>{" "}
-              242
+              {totalArticleLikeCount}
             </div>
             <div className="likeNView">
               <div className="likeNViewIcon">
                 <Image src={ViewIcon} alt="View Icon" objectFit="cover" />
               </div>{" "}
-              745
+              {totalArticleViewCount}
             </div>
           </div>
           <div
@@ -242,7 +250,9 @@ const ProfileSection = () => {
           </div>
           <div className="proArticleSec">
             {articleData.map((article: any, index: number) => {
-              return <ProfileArticleCard key={index} article={article} articlesId={articlesId} />;
+              return (
+                <ProfileArticleCard key={index} article={article} articlesId={articlesId[index]} />
+              );
             })}
           </div>
         </div>

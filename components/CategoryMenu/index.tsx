@@ -53,7 +53,7 @@ export default function CategoryMenu({ cat1Filter }: Props) {
       icon: <BsGraphUp style={{ fontSize: "calc(1vw + 1vh)" }} />,
     },
   ];
-  const { category } = useCategory();
+  const { category, setCategory } = useCategory();
 
   return (
     <div
@@ -68,6 +68,7 @@ export default function CategoryMenu({ cat1Filter }: Props) {
           icon={data.icon}
           isActive={data.name.toLowerCase() === category}
           cat1Filter={cat1Filter}
+          setCategory={setCategory}
         />
       ))}
     </div>

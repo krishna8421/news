@@ -14,7 +14,9 @@ import {
   getDoc,
   query,
 } from "firebase/firestore";
-
+import { ARTICLE_LIMIT } from "@lib/constants";
+import { useAuth } from "@lib/context/AuthContext";
+import incrementViewCount from "@utils/incrementViewCount";
 // COMPONENTS =========================================================
 import ArticleContainerScroll from "@components/ArticleContainerScroll";
 import ArticleCarousel from "@components/ArticleCarousel";
@@ -50,6 +52,7 @@ export const getStaticPaths = async () => {
 
 export async function getStaticProps({ params }: any) {
   let article = null;
+  const articleId = params.uid;
   try {
     article = JSON.parse(JSON.stringify(await getArticle(params.uid)));
   } catch (e) {
@@ -59,20 +62,25 @@ export async function getStaticProps({ params }: any) {
   }
   return {
     props: {
+      articleId,
       article,
     },
     revalidate: 10,
   };
 }
 
-const Article = ({ article }: any) => {
+const Article = ({ article, articleId }: any) => {
   const [moreArticleData, setArticleData] = useState<any>([]);
   const [articlesId, setArticlesId] = useState<any>([]);
   const [hasMore, setHasMore] = useState<boolean>(false);
   const [lastFetched, setLastFetched] = useState<any>();
-  const articleLimit = 4;
+  const { uid } = useAuth();
 
   useEffect(() => {
+    if (uid) {
+      incrementViewCount(articleId, uid);
+    }
+
     if (article) getData();
   }, []);
 
@@ -112,7 +120,7 @@ const Article = ({ article }: any) => {
 
   const getData = async () => {
     const articleCollection = collection(db, "articles");
-    const articlesRef = query(articleCollection, orderBy("createdAt"), limit(articleLimit));
+    const articlesRef = query(articleCollection, orderBy("createdAt"), limit(ARTICLE_LIMIT));
     const articlesData = await getDocs(articlesRef);
 
     const last = articlesData.docs[articlesData.docs.length - 1];
@@ -127,7 +135,7 @@ const Article = ({ article }: any) => {
 
     setArticleData(data);
     setArticlesId(articlesIdTemp);
-    if (articlesData.docs.length < articleLimit) {
+    if (articlesData.docs.length < ARTICLE_LIMIT) {
       setHasMore(false);
     } else setHasMore(true);
   };
@@ -138,7 +146,7 @@ const Article = ({ article }: any) => {
       articleCollection,
       orderBy("createdAt"),
       startAfter(lastFetched),
-      limit(articleLimit),
+      limit(ARTICLE_LIMIT),
     );
 
     const articlesData = await getDocs(articlesRef);
@@ -157,7 +165,7 @@ const Article = ({ article }: any) => {
 
     setArticleData(data);
     setArticlesId(articlesIdTemp);
-    if (articlesData.docs.length < articleLimit) {
+    if (articlesData.docs.length < ARTICLE_LIMIT) {
       setHasMore(false);
     } else setHasMore(true);
   };

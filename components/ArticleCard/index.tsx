@@ -6,12 +6,22 @@ import ViewsTime from "@components/ViewsTime";
 import Link from "next/link";
 import { Avatar } from "@mantine/core";
 
+import { useAuth } from "@lib/context/AuthContext";
+import { useEffect, useState } from "react";
 interface Props {
   data: any;
   articlesId: string;
 }
 
 export default function ArticleCard({ data, articlesId }: Props) {
+  const { uid } = useAuth();
+
+  const [liked, setLiked] = useState<boolean>(false);
+  useEffect(() => {
+    if (data.likedBy.includes(uid)) {
+      setLiked(true);
+    }
+  }, []);
   return (
     <div
       className="homeArticlesCard bg-primary-background-700 rounded-xl relative"
@@ -91,7 +101,7 @@ export default function ArticleCard({ data, articlesId }: Props) {
         <ViewsTime viewCount={data.viewedBy} publishTime={data.createdAt} />
       </div>
       <div className={"w-full mt-5 sm:mt-2.5 px-7 sm:px-3 flex justify-between items-center"}>
-        <LinkShare liked articleId={articlesId} />
+        <LinkShare liked={liked} uid={uid} setLiked={setLiked} articleId={articlesId} />
         <div
           style={{
             fontFamily: "Righteous",

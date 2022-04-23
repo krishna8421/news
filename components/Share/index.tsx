@@ -55,15 +55,15 @@ export default function Share({ isShareBoxOpen, closeShare, articleId }: Props) 
             leaveTo="opacity-0 scale-95"
           >
             <div
-              style={{ width: "30vw" }}
-              className="transition-all  rounded-lg mt-[10vh] transform  inline-block overflow-hidden w-[10rem]"
+              style={{ width: "90vw" }}
+              className="transition-all  rounded-lg mt-[10vh] transform  inline-block overflow-hidden w-[21rem]"
             >
               <div
-                className="bg-primary-background-900 rounded-2xl border-slate-800 border flex flex-col justify-center shadow-2xl py-[2rem] gap-2 px-[4rem] w-[20rem] mx-auto"
+                className="bg-primary-background-900 rounded-2xl border-slate-800 border flex flex-col justify-center shadow-2xl py-[2rem] gap-4 px-[4rem] w-[30rem] mx-auto"
                 style={{ color: "white" }}
               >
                 <p className="font-Righteous text-lg ">Share</p>
-                <div className="flex gap-2 items-center">
+                <div className="flex gap-6 items-center">
                   <Input
                     variant="filled"
                     placeholder="URL"

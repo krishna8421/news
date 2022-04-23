@@ -17,7 +17,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
-
+import { ARTICLE_LIMIT } from "@lib/constants";
 // COMPONENTS =====================================================
 import ArticleCard from "@components/ArticleCard";
 import LimeLightCard from "@components/LimeLightCard";
@@ -49,8 +49,6 @@ const Home: NextPage = ({ countryFromReq, stateFromReq, cityFromReq }: any) => {
   const [city, setCity] = useState<string | null>(cityFromReq);
   const [allCities, setAllCities] = useState<any>([]);
 
-  const articleLimit = 3;
-
   const getData = async (cat1Value: any) => {
     const articleCollection = collection(db, "articles");
     const articlesRef = cat1Value
@@ -62,7 +60,7 @@ const Home: NextPage = ({ countryFromReq, stateFromReq, cityFromReq }: any) => {
           where("category", "==", `${cat1Value}`),
 
           orderBy("createdAt"),
-          limit(articleLimit),
+          limit(ARTICLE_LIMIT),
         )
       : query(
           articleCollection,
@@ -70,7 +68,7 @@ const Home: NextPage = ({ countryFromReq, stateFromReq, cityFromReq }: any) => {
           where("state", "==", `${state}`),
           where("city", "==", `${city}`),
           orderBy("createdAt"),
-          limit(articleLimit),
+          limit(ARTICLE_LIMIT),
         );
     const articlesData = await getDocs(articlesRef);
 
@@ -86,7 +84,7 @@ const Home: NextPage = ({ countryFromReq, stateFromReq, cityFromReq }: any) => {
 
     setArticleData(data);
     setArticlesId(articlesIdTemp);
-    if (articlesData.docs.length < articleLimit) {
+    if (articlesData.docs.length < ARTICLE_LIMIT) {
       setHasMore(false);
     } else setHasMore(true);
   };
@@ -102,7 +100,7 @@ const Home: NextPage = ({ countryFromReq, stateFromReq, cityFromReq }: any) => {
           where("city", "==", `${city}`),
           orderBy("createdAt"),
           startAfter(lastFetched),
-          limit(articleLimit),
+          limit(ARTICLE_LIMIT),
         )
       : query(
           articleCollection,
@@ -111,7 +109,7 @@ const Home: NextPage = ({ countryFromReq, stateFromReq, cityFromReq }: any) => {
           where("city", "==", `${city}`),
           orderBy("createdAt"),
           startAfter(lastFetched),
-          limit(articleLimit),
+          limit(ARTICLE_LIMIT),
         );
 
     const articlesData = await getDocs(articlesRef);
@@ -131,7 +129,7 @@ const Home: NextPage = ({ countryFromReq, stateFromReq, cityFromReq }: any) => {
 
     setArticleData(data);
     setArticlesId(articlesIdTemp);
-    if (articlesData.docs.length < articleLimit) {
+    if (articlesData.docs.length < ARTICLE_LIMIT) {
       setHasMore(false);
     } else setHasMore(true);
   };
