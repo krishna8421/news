@@ -105,7 +105,7 @@ export default function Carousel({}: Props) {
                           {article.title}
                         </div>
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
-                          <LinkShare liked theme="light" />
+                          <LinkShare liked theme="light" articleId={articlesId[index]} />
                           <div
                             style={{ fontFamily: "Righteous", fontWeight: "400", color: "#fff" }}
                             className="flex items-center text-[calc(1.3vw+1.3vh)] sm:text-[calc(0.6vw+0.6vh)]"

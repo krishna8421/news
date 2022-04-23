@@ -91,7 +91,7 @@ export default function ArticleCard({ data, articlesId }: Props) {
         <ViewsTime viewCount={data.viewedBy} publishTime={data.createdAt} />
       </div>
       <div className={"w-full mt-5 sm:mt-2.5 px-7 sm:px-3 flex justify-between items-center"}>
-        <LinkShare liked />
+        <LinkShare liked articleId={articlesId} />
         <div
           style={{
             fontFamily: "Righteous",

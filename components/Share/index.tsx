@@ -12,21 +12,24 @@ import {
 } from "react-share";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { Input } from "@mantine/core";
 import { useState, useEffect } from "react";
+import { MdContentCopy } from "react-icons/md";
 
 interface Props {
   isShareBoxOpen: boolean;
   closeShare: () => void;
+  articleId: string;
 }
 
-export default function Share({ isShareBoxOpen, closeShare }: Props) {
-  const [url, setUrl] = useState(process.env.BASE_URL);
-  const router = useRouter();
+export default function Share({ isShareBoxOpen, closeShare, articleId }: Props) {
+  const [url, setUrl] = useState("");
+
   useEffect(() => {
-    setUrl(process.env.BASE_URL + router.asPath);
-  }, [router.asPath]);
+    setUrl(`${process.env.BASE_URL}/article/${articleId}`);
+  }, [articleId]);
+
   return (
     <Transition appear show={isShareBoxOpen} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 overflow-y-auto z-[1000]" onClose={closeShare}>
@@ -60,13 +63,24 @@ export default function Share({ isShareBoxOpen, closeShare }: Props) {
                 style={{ color: "white" }}
               >
                 <p className="font-Righteous text-lg ">Share</p>
-                <Input
-                  variant="filled"
-                  placeholder="URL"
-                  value={url}
-                  onChange={(e: any) => setUrl(e.target.value)}
-                />
-
+                <div className="flex gap-2 items-center">
+                  <Input
+                    variant="filled"
+                    placeholder="URL"
+                    value={url}
+                    onChange={(e: any) => setUrl(e.target.value)}
+                  />
+                  {/* </><div className="rounded bg-gray-200">
+                </div> */}
+                  <div
+                    className="rounded-full cursor-pointer p-2 hover:animate-pulse hover:bg-zinc-800 "
+                    onClick={() => {
+                      navigator.clipboard.writeText(url);
+                    }}
+                  >
+                    <MdContentCopy />
+                  </div>
+                </div>
                 <div className="flex gap-2 justify-around w-full mt-4">
                   <EmailShareButton url={url as string}>
                     <EmailIcon size={32} round={true} />

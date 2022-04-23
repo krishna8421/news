@@ -5,9 +5,15 @@ interface Props {
   liked?: boolean;
   theme?: "light" | "dark";
   classNameProp?: string;
+  articleId: string;
 }
 
-export default function LinkShare({ liked = false, theme = "dark", classNameProp }: Props) {
+export default function LinkShare({
+  liked = false,
+  theme = "dark",
+  classNameProp,
+  articleId,
+}: Props) {
   const [isShareBoxOpen, setIsShareBoxOpen] = useState(false);
   const closeShare = () => setIsShareBoxOpen(false);
   const openShare = () => setIsShareBoxOpen(true);
@@ -37,7 +43,7 @@ export default function LinkShare({ liked = false, theme = "dark", classNameProp
         color={`${theme === "light" ? "black" : "white"}`}
         onClick={openShare}
       />
-      <Share isShareBoxOpen={isShareBoxOpen} closeShare={closeShare} />
+      <Share isShareBoxOpen={isShareBoxOpen} closeShare={closeShare} articleId={articleId} />
     </div>
   );
 }
