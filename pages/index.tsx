@@ -10,7 +10,7 @@ import { FaSearch } from "react-icons/fa";
 import { MdModeEditOutline } from "react-icons/md";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Autoplay } from "swiper";
+import { Autoplay } from "swiper";
 import { query, where } from "firebase/firestore";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -37,8 +37,6 @@ const Home: NextPage = () => {
   const [cat1, setCat1] = useState<any>();
 
   const articleLimit = 3;
-
-  SwiperCore.use([Autoplay]);
 
   const getData = async (cat1Value: any) => {
     console.log(country, city, state);

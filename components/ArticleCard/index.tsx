@@ -6,7 +6,12 @@ import ViewsTime from "@components/ViewsTime";
 import Link from "next/link";
 import { Avatar } from "@mantine/core";
 
-export default function ArticleCard({ data, articlesId }: { data: any; articlesId: string }) {
+interface Props {
+  data: any;
+  articlesId: string;
+}
+
+export default function ArticleCard({ data, articlesId }: Props) {
   return (
     <div
       className="homeArticlesCard bg-primary-background-700 rounded-xl relative"
@@ -20,7 +25,7 @@ export default function ArticleCard({ data, articlesId }: { data: any; articlesI
           {data.type ? data.type[0]?.toUpperCase() + data.type?.slice(1) : <></>}
         </div>
       </div>
-      <Link href={`articles/${articlesId}`} passHref>
+      <Link href={`${process.env.BASE_URL}/articles/${articlesId}`} passHref>
         <div className="homeArticleMainImg cursor-pointer">
           <Image
             src={data.normalImage1?.url}
@@ -66,12 +71,12 @@ export default function ArticleCard({ data, articlesId }: { data: any; articlesI
           </div>
         </div>
       </div>
-      <Link href={`articles/${articlesId}`} passHref>
+      <Link href={`${process.env.BASE_URL}/articles/${articlesId}`} passHref>
         <div className="homeArticleTitle overflow-scroll no-scrollbar text-white pb-0 cursor-pointer">
           {data.title}
         </div>
       </Link>
-      <Link href={`articles/${articlesId}`} passHref>
+      <Link href={`${process.env.BASE_URL}/articles/${articlesId}`} passHref>
         <div className="homeArticleDesc cursor-pointer overflow-scroll no-scrollbar">
           {data.subHeading}
         </div>

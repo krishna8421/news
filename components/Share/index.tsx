@@ -23,7 +23,6 @@ interface Props {
 
 export default function Share({ isShareBoxOpen, closeShare }: Props) {
   const [url, setUrl] = useState(process.env.BASE_URL);
-  console.log(url);
   const router = useRouter();
   useEffect(() => {
     setUrl(process.env.BASE_URL + router.asPath);
