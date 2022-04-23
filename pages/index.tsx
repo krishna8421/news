@@ -28,18 +28,30 @@ import HomePageLayout from "@layouts/HomePageLayout";
 import Carousel from "@components/Carousel";
 import CategoryMenu from "@components/CategoryMenu";
 
-const Home: NextPage = () => {
+export const getServerSideProps = ({ query }: any) => ({
+  props: query,
+});
+
+const Home: NextPage = ({ countryFromReq, stateFromReq, cityFromReq }: any) => {
   const [searchLocation, setSearchLocation] = useState(false);
   const [articleData, setArticleData] = useState<any>([]);
   const [articlesId, setArticlesId] = useState<any>([]);
   const [hasMore, setHasMore] = useState<boolean>(false);
   const [lastFetched, setLastFetched] = useState<any>();
   const [cat1, setCat1] = useState<any>();
+  /**
+   * Location
+   */
+  const [country, setCountry] = useState<string | null>(countryFromReq);
+  const [allCountries, setAllCountries] = useState<any>([]);
+  const [state, setState] = useState<string | null>(stateFromReq);
+  const [allStates, setAllStates] = useState<any>([]);
+  const [city, setCity] = useState<string | null>(cityFromReq);
+  const [allCities, setAllCities] = useState<any>([]);
 
   const articleLimit = 3;
 
   const getData = async (cat1Value: any) => {
-    console.log(country, city, state);
     const articleCollection = collection(db, "articles");
     const articlesRef = cat1Value
       ? query(
@@ -105,7 +117,6 @@ const Home: NextPage = () => {
     const articlesData = await getDocs(articlesRef);
 
     const last = articlesData.docs[articlesData.docs.length - 1];
-    console.log("last", last);
     setLastFetched(last);
 
     var data: any[] = [];
@@ -130,16 +141,6 @@ const Home: NextPage = () => {
     setCat1(cat1Value);
     getData(cat1Value);
   };
-
-  /**
-   * Location
-   */
-  const [country, setCountry] = useState<string | null>("IN");
-  const [allCountries, setAllCountries] = useState<any>([]);
-  const [state, setState] = useState<string | null>("DL");
-  const [allStates, setAllStates] = useState<any>([]);
-  const [city, setCity] = useState<string | null>("New Delhi");
-  const [allCities, setAllCities] = useState<any>([]);
 
   useEffect(() => {
     setAllCountries(
@@ -190,7 +191,7 @@ const Home: NextPage = () => {
     );
 
     setAllStates(
-      State.getStatesOfCountry("IN").map((state) => {
+      State.getStatesOfCountry(countryFromReq).map((state) => {
         return {
           value: state.isoCode,
           label: state.name,
@@ -198,15 +199,15 @@ const Home: NextPage = () => {
       }),
     );
     if (!state) {
-      setState("DL");
+      setState(stateFromReq);
     }
 
     if (!city) {
-      setCity("New Delhi");
+      setCity(cityFromReq);
     }
 
     setAllCities(
-      City.getCitiesOfState("IN", "DL").map((city) => {
+      City.getCitiesOfState(countryFromReq, stateFromReq).map((city) => {
         return {
           value: city.name,
           label: city.name,
@@ -409,8 +410,6 @@ const Home: NextPage = () => {
               navigation
               pagination={{ clickable: true }}
               scrollbar={{ draggable: true }}
-              onSwiper={(swiper) => console.log(swiper)}
-              // onSlideChange={() => console.log("slide change")}
               loop={true}
               autoplay={{
                 delay: 5 * 1000,
