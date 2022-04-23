@@ -1,7 +1,6 @@
 import { db } from "@firebase/client";
 import HomePageLayout from "@layouts/HomePageLayout";
 import RichTextEditor from "@components/RichTextEditor";
-import Carousel from "@components/Carousel";
 import Image from "next/image";
 import { Avatar } from "@mantine/core";
 import { useEffect, useState } from "react";
@@ -18,6 +17,7 @@ import {
 
 // COMPONENTS =========================================================
 import ArticleContainerScroll from "@components/ArticleContainerScroll";
+import ArticleCarousel from "@components/ArticleCarousel";
 
 const getArticle = async (articleID: string) => {
   let articleData = null;
@@ -85,11 +85,11 @@ const Article = ({ article }: any) => {
     // category,
     // city,
     // country,
-    // limelight,
-    // primeTime,
-    // normalImage1,
-    // normalImage2,
-    // normalImage3,
+    limelight,
+    primeTime,
+    normalImage1,
+    normalImage2,
+    normalImage3,
     // state,
     // subHeading,
     // tags,
@@ -100,11 +100,15 @@ const Article = ({ article }: any) => {
     authorName,
   } = article;
 
-  // const imgUrlsWithNull =
-  //   normalImage1 || normalImage2 || normalImage3
-  //     ? [normalImage1.url, article.normalImage2.url, article.normalImage3.url]
-  //     : [limelight.url, primeTime.url];
-  // const imgUrls: string[] = imgUrlsWithNull.filter(Boolean);
+  const getImgUrls = (): string[] => {
+    const imgUrls = [];
+    if (normalImage1) imgUrls.push(normalImage1.url);
+    if (normalImage2) imgUrls.push(normalImage2.url);
+    if (normalImage3) imgUrls.push(normalImage3.url);
+    if (limelight) imgUrls.push(limelight.url);
+    if (primeTime) imgUrls.push(primeTime.url);
+    return imgUrls;
+  };
 
   const getData = async () => {
     const articleCollection = collection(db, "articles");
@@ -162,7 +166,7 @@ const Article = ({ article }: any) => {
     <HomePageLayout>
       <div className="lg:w-5/12 xl:w-1/3 w-full">
         <div className="lg:fixed lg:w-5/12 xl:w-1/3 w-full">
-          <Carousel />
+          <ArticleCarousel imgUrls={getImgUrls()} />
         </div>
       </div>
       <div className="lg:w-7/12 xl:w-2/3 w-full lg:pt-20 lg:px-16 px-4 pt-12 text-white font-Montserrat">
